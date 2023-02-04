@@ -15,5 +15,14 @@ class HomeScreenViewModel @Inject constructor(
     override val authors =
         authorsCore
             .authors
-            .map { author -> author.authorsCoreDtoToViewDto() }
+            .map { author ->
+                author
+                    .authorsCoreDtoToViewDto()
+                    .sortedWith(
+                        compareBy(
+                            {authorViewDto -> authorViewDto.name},
+                            {authorViewDto -> authorViewDto.name},
+                        )
+                    )
+            }
 }

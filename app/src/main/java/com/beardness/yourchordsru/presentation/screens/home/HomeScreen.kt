@@ -8,7 +8,8 @@ import com.beardness.yourchordsru.ui.widgets.AuthorWidget
 
 @Composable
 fun HomeScreen(
-    viewModel: HomeScreenViewModel
+    viewModel: IHomeScreenViewModel,
+    navigateToAuthor: (authorId: Int) -> Unit,
 ) {
     val authors by
         viewModel
@@ -18,7 +19,10 @@ fun HomeScreen(
     LazyColumn {
         items(count = authors.size) { index ->
             val author = authors[index]
-            AuthorWidget(authorViewDto = author)
+            AuthorWidget(
+                authorViewDto = author,
+                onClick = { authorId -> navigateToAuthor(authorId) },
+            )
         }
     }
 }

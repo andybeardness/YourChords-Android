@@ -10,7 +10,7 @@ class AuthorsCsvReader @Inject constructor(
 ): CsvReaderBase(context = context), IAuthorsCsvReader {
 
     companion object {
-        private const val FILENAME = "__authors.csv"
+        private const val FILENAME = "data_authors.csv"
         private const val SEPARATOR = ','
     }
 
