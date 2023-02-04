@@ -1,43 +1,45 @@
-package com.beardness.your_chords_ru
+package com.beardness.yourchordsru.activity
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.beardness.your_chords_ru.ui.theme.YourchordsruTheme
+import com.beardness.yourchordsru.presentation.screens.home.HomeScreen
+import com.beardness.yourchordsru.presentation.screens.home.HomeScreenViewModel
+import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    private val viewModel: MainActivityViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        load()
+        compose()
+    }
+
+    private fun load() {
+        viewModel.load()
+    }
+
+    private fun compose() {
         setContent {
-            YourchordsruTheme {
+            YourChordsRuTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting("Android")
+                    val vm: HomeScreenViewModel by viewModels()
+                    HomeScreen(viewModel = vm)
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    YourchordsruTheme {
-        Greeting("Android")
     }
 }

@@ -1,4 +1,4 @@
-package com.beardness.your_chords_ru.ui.theme
+package com.beardness.yourchordsru.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

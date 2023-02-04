@@ -1,4 +1,4 @@
-package com.beardness.your_chords_ru
+package com.beardness.yourchordsru
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

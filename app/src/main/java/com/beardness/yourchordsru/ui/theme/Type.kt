@@ -1,4 +1,4 @@
-package com.beardness.your_chords_ru.ui.theme
+package com.beardness.yourchordsru.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

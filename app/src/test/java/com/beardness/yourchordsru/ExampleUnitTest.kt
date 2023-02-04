@@ -1,4 +1,4 @@
-package com.beardness.your_chords_ru
+package com.beardness.yourchordsru
 
 import org.junit.Test
 
