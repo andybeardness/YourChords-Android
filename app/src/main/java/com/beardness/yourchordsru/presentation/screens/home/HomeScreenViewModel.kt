@@ -18,11 +18,6 @@ class HomeScreenViewModel @Inject constructor(
             .map { author ->
                 author
                     .authorsCoreDtoToViewDto()
-                    .sortedWith(
-                        compareBy(
-                            {authorViewDto -> authorViewDto.name},
-                            {authorViewDto -> authorViewDto.name},
-                        )
-                    )
+                    .sortedBy { authorViewDto -> authorViewDto.name }
             }
 }
