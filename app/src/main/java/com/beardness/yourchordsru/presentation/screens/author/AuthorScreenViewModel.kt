@@ -2,6 +2,7 @@ package com.beardness.yourchordsru.presentation.screens.author
 
 import androidx.lifecycle.ViewModel
 import com.beardness.yourchordsru.di.qualifiers.IoCoroutineScope
+import com.beardness.yourchordsru.navigation.navigator.INavigator
 import com.beardness.yourchordsru.presentation.core.songs.ISongsCore
 import com.beardness.yourchordsru.presentation.screens.dto.SongViewDto
 import com.beardness.yourchordsru.presentation.screens.dto.songsCoreDtoToViewDto
@@ -15,6 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AuthorScreenViewModel @Inject constructor(
     private val songsCore: ISongsCore,
+    private val navigator: INavigator,
     @IoCoroutineScope private val ioCoroutineScope: CoroutineScope,
 ): ViewModel(), IAuthorScreenViewModel {
 
@@ -32,5 +34,9 @@ class AuthorScreenViewModel @Inject constructor(
 
             _songs.emit(value = songs)
         }
+    }
+
+    override fun navigateToSong(authorId: Int, songId: Int) {
+        navigator.song(authorId = authorId, songId = songId)
     }
 }

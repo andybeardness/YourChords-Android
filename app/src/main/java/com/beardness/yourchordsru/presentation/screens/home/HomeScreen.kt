@@ -4,12 +4,11 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import com.beardness.yourchordsru.ui.widgets.AuthorWidget
+import com.beardness.yourchordsru.ui.widgets.author.AuthorWidget
 
 @Composable
 fun HomeScreen(
     viewModel: IHomeScreenViewModel,
-    navigateToAuthor: (authorId: Int) -> Unit,
 ) {
     val authors by
         viewModel
@@ -21,7 +20,7 @@ fun HomeScreen(
             val author = authors[index]
             AuthorWidget(
                 authorViewDto = author,
-                onClick = { authorId -> navigateToAuthor(authorId) },
+                onClick = { authorId -> viewModel.navigateToAuthor(authorId = authorId) },
             )
         }
     }

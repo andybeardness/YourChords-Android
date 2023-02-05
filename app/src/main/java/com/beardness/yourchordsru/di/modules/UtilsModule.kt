@@ -5,6 +5,8 @@ import com.beardness.yourchordsru.utils.csvreader.authors.AuthorsCsvReader
 import com.beardness.yourchordsru.utils.csvreader.authors.IAuthorsCsvReader
 import com.beardness.yourchordsru.utils.csvreader.songs.ISongsCsvReader
 import com.beardness.yourchordsru.utils.csvreader.songs.SongsCsvReader
+import com.beardness.yourchordsru.utils.html.HtmlBuilder
+import com.beardness.yourchordsru.utils.html.IHtmlBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,7 +16,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object DataSourceUtilsModule {
+object UtilsModule {
 
     @Provides
     @Singleton
@@ -33,4 +35,9 @@ object DataSourceUtilsModule {
         SongsCsvReader(
             context = context,
         )
+
+    @Provides
+    @Singleton
+    fun provideHtmlBuilder(): IHtmlBuilder =
+        HtmlBuilder()
 }

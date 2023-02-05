@@ -1,7 +1,11 @@
 package com.beardness.yourchordsru.navigation
 
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -13,18 +17,15 @@ import com.beardness.yourchordsru.presentation.screens.home.HomeScreen
 import com.beardness.yourchordsru.presentation.screens.home.HomeScreenViewModel
 import com.beardness.yourchordsru.presentation.screens.song.SongScreen
 import com.beardness.yourchordsru.presentation.screens.song.SongScreenViewModel
+import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
 
 @Composable
-fun Navigation() {
+fun Navigation(
+    paddings: PaddingValues,
+    setupNavController: (NavHostController) -> Unit
+) {
     val navController = rememberNavController()
-
-    val navigateToAuthor: (authorId: Int) -> Unit = { authorId ->
-        navController.navigate(route = "author/$authorId")
-    }
-
-    val navigateToSong: (authorId: Int, songId: Int) -> Unit = {authorId, songId ->
-        navController.navigate(route = "song/$authorId/$songId")
-    }
+    setupNavController(navController)
 
     val argumentAuthorId = navArgument(
         name = "authorId",
@@ -37,6 +38,8 @@ fun Navigation() {
     )
 
     NavHost(
+        modifier = Modifier
+            .padding(paddingValues = paddings),
         navController = navController,
         startDestination = "home",
     ) {
@@ -45,7 +48,6 @@ fun Navigation() {
 
             HomeScreen(
                 viewModel = viewModel,
-                navigateToAuthor = navigateToAuthor,
             )
         }
 
@@ -64,7 +66,6 @@ fun Navigation() {
 
             AuthorScreen(
                 viewModel = viewModel,
-                navigateToSong = navigateToSong,
             )
         }
 
@@ -84,9 +85,14 @@ fun Navigation() {
                     .arguments
                     ?.getInt(argumentSongId.name)
 
+            val backgroundColor = YourChordsRuTheme.colors.background
+            val textColor = YourChordsRuTheme.colors.text
+
             viewModel.load(
                 authorId = authorId,
                 songId = songId,
+                backgroundColor = backgroundColor,
+                textColor = textColor,
             )
 
             SongScreen(

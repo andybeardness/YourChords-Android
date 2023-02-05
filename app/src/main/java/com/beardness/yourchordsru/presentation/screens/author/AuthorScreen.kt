@@ -4,12 +4,11 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import com.beardness.yourchordsru.ui.widgets.SongWidget
+import com.beardness.yourchordsru.ui.widgets.song.SongWidget
 
 @Composable
 fun AuthorScreen(
     viewModel: IAuthorScreenViewModel,
-    navigateToSong: (authorId: Int, songId: Int) -> Unit,
 ) {
     val songs by viewModel.songs.collectAsState()
 
@@ -17,9 +16,12 @@ fun AuthorScreen(
         items(count = songs.size) { index ->
             val songViewDto = songs[index]
 
+            val authorId = songViewDto.authorId
+            val songId = songViewDto.id
+
             SongWidget(
                 songViewDto = songViewDto,
-                onClick = navigateToSong,
+                onClick = { viewModel.navigateToSong(authorId = authorId, songId = songId) },
             )
         }
     }

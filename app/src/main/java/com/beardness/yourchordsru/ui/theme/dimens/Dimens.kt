@@ -15,6 +15,7 @@ data class AppDimens(
     val dp32: Dp,
     val dp64: Dp,
     val dp128: Dp,
+    val dp256: Dp,
 )
 
 val dimens = AppDimens(
@@ -26,6 +27,7 @@ val dimens = AppDimens(
     dp32 = 32.dp,
     dp64 = 64.dp,
     dp128 = 128.dp,
+    dp256 = 256.dp,
 )
 
 val LocalExtendedDimens = staticCompositionLocalOf {
@@ -38,5 +40,6 @@ val LocalExtendedDimens = staticCompositionLocalOf {
         dp32 = dimens.dp32,
         dp64 = dimens.dp64,
         dp128 = dimens.dp128,
+        dp256 = dimens.dp256,
     )
 }

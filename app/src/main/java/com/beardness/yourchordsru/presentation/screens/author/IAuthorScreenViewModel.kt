@@ -6,4 +6,5 @@ import kotlinx.coroutines.flow.StateFlow
 interface IAuthorScreenViewModel {
     val songs: StateFlow<List<SongViewDto>>
     fun load(authorId: Int?)
+    fun navigateToSong(authorId: Int, songId: Int)
 }

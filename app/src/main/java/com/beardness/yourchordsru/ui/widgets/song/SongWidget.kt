@@ -1,4 +1,4 @@
-package com.beardness.yourchordsru.ui.widgets
+package com.beardness.yourchordsru.ui.widgets.song
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -18,11 +18,8 @@ import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
 @Composable
 fun SongWidget(
     songViewDto: SongViewDto,
-    onClick: (authorId: Int, songId: Int) -> Unit,
+    onClick: () -> Unit,
 ) {
-    val authorId = songViewDto.authorId
-    val songId = songViewDto.id
-
     val shape = RoundedCornerShape(size = YourChordsRuTheme.dimens.dp8)
 
     val rating =
@@ -37,7 +34,7 @@ fun SongWidget(
             .background(color = YourChordsRuTheme.colors.background)
             .padding(all = YourChordsRuTheme.dimens.dp4)
             .clip(shape = shape)
-            .clickable { onClick(authorId, songId) }
+            .clickable { onClick() }
             .background(
                 color = YourChordsRuTheme.colors.card,
                 shape = shape,
@@ -54,8 +51,6 @@ fun SongWidget(
             verticalArrangement = Arrangement.Center,
         ) {
             Text(
-                modifier = Modifier
-                    .clickable { onClick(authorId, songId) },
                 text = songViewDto.title,
                 style = YourChordsRuTheme.typography.songNameAtSongCard,
                 color = YourChordsRuTheme.colors.text,
@@ -100,7 +95,7 @@ fun Preview_SongWidget_0() {
             rating = 999,
             authorId = 0,
         ),
-        onClick = {_, _ -> }
+        onClick = {}
     )
 }
 
@@ -115,6 +110,6 @@ fun Preview_SongWidget_1() {
             rating = 999,
             authorId = 0,
         ),
-        onClick = {_, _ -> }
+        onClick = {}
     )
 }

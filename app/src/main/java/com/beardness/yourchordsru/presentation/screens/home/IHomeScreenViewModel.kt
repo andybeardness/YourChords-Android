@@ -5,4 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface IHomeScreenViewModel {
     val authors: Flow<List<AuthorViewDto>>
+    fun navigateToAuthor(authorId: Int)
 }

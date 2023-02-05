@@ -1,4 +1,4 @@
-package com.beardness.yourchordsru.ui.widgets
+package com.beardness.yourchordsru.ui.widgets.author
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
