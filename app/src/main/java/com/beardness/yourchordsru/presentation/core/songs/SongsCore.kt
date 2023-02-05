@@ -12,12 +12,6 @@ class SongsCore @Inject constructor(
     override suspend fun songs(authorId: Int): List<SongCoreDto> {
         return songsRepo
             .songs(authorId = authorId)
-            .sortedWith(
-                compareBy(
-                    { songViewDto -> songViewDto.title },
-                    { songViewDto -> -songViewDto.rating }
-                )
-            )
             .songsRepoDtoToCoreDto()
     }
 

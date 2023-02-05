@@ -8,9 +8,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.ChevronLeft
-import androidx.compose.material.icons.rounded.Search
-import androidx.compose.material.icons.rounded.StarBorder
+import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -24,14 +22,15 @@ import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
 import com.beardness.yourchordsru.ui.widgets.song.SongCollectionWidget
 import com.beardness.yourchordsru.ui.widgets.toolbar.AnimatedToolbarWidget
 import com.beardness.yourchordsru.ui.widgets.toolbar.ToolbarIconWidget
+import com.beardness.yourchordsru.utils.sorttype.SortType
 
 @Composable
 fun AuthorScreen(
     viewModel: IAuthorScreenViewModel,
 ) {
     val authorName by viewModel.authorName.collectAsState()
-
     val songs by viewModel.songs.collectAsState()
+    val sortType by viewModel.sortType.collectAsState()
     val scrollUp by viewModel.scrollUp.collectAsState()
 
     val lazyListState = rememberLazyListState()
@@ -45,6 +44,12 @@ fun AuthorScreen(
         }
 
     val toolbarVisibility = scrollUp ?: true
+
+    val sortTypeIcon =
+        when (sortType) {
+            SortType.BY_NAME -> Icons.Rounded.SortByAlpha
+            SortType.BY_RATING -> Icons.Rounded.TrendingUp
+        }
 
     Column {
         AnimatedToolbarWidget(
@@ -65,10 +70,10 @@ fun AuthorScreen(
             },
             icons = listOf {
                 ToolbarIconWidget(
-                    icon = Icons.Rounded.StarBorder,
+                    icon = sortTypeIcon,
                     iconDescription = "",
                     iconColor = YourChordsRuTheme.colors.text,
-                    onClick = {},
+                    onClick = { viewModel.switchSortType() },
                 )
 
                 ToolbarIconWidget(

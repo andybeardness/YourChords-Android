@@ -8,6 +8,7 @@ import com.beardness.yourchordsru.presentation.core.songs.ISongsCore
 import com.beardness.yourchordsru.presentation.screens.dto.SongViewDto
 import com.beardness.yourchordsru.presentation.screens.dto.songsCoreDtoToViewDto
 import com.beardness.yourchordsru.presentation.screens.dto.viewDto
+import com.beardness.yourchordsru.utils.sorttype.SortType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,6 +29,9 @@ class AuthorScreenViewModel @Inject constructor(
 
     private val _songs = MutableStateFlow<List<SongViewDto>>(value = emptyList())
     override val songs = _songs.asStateFlow()
+
+    private val _sortType = MutableStateFlow<SortType>(value = SortType.BY_NAME)
+    override val sortType = _sortType.asStateFlow()
 
     private var _lastScrollPosition: Int = 0
     private val _scrollUp = MutableStateFlow<Boolean?>(value = null)
@@ -50,6 +54,7 @@ class AuthorScreenViewModel @Inject constructor(
                 songsCore
                     .songs(authorId = authorId)
                     .songsCoreDtoToViewDto()
+                    .sort(type = _sortType.value)
 
             _songs.emit(value = songs)
         }
@@ -75,4 +80,42 @@ class AuthorScreenViewModel @Inject constructor(
             _lastScrollPosition = firstVisibleItemIndex
         }
     }
+
+    override fun switchSortType() {
+        ioCoroutineScope.launch {
+            val newSortType =
+                when (_sortType.value) {
+                    SortType.BY_NAME -> SortType.BY_RATING
+                    SortType.BY_RATING -> SortType.BY_NAME
+                }
+
+            _sortType.emit(value = newSortType)
+
+            val sortedSongs =
+                _songs.value
+                    .sort(type = newSortType)
+
+            _songs.emit(value = sortedSongs)
+        }
+    }
+
+    private fun List<SongViewDto>.sort(type: SortType): List<SongViewDto> =
+        when (type) {
+            SortType.BY_NAME -> {
+                this.sortedWith(
+                    compareBy(
+                        { songViewDto -> songViewDto.title },
+                        { songViewDto -> -songViewDto.rating },
+                    )
+                )
+            }
+            SortType.BY_RATING -> {
+                this.sortedWith(
+                    compareBy(
+                        { songViewDto -> -songViewDto.rating },
+                        { songViewDto -> songViewDto.title },
+                    )
+                )
+            }
+        }
 }
