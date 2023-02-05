@@ -40,6 +40,6 @@ $contentFixed
 
     private fun String.fixContent(): String =
         this.trim()
-            .replace(oldValue = "#", newValue = "%23")
             .replace(oldValue = "%", newValue = "%25")
+            .replace(oldValue = "#", newValue = "%23")
 }
