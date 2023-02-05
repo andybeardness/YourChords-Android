@@ -21,6 +21,10 @@ class Navigator @Inject constructor(): INavigator {
         _openDrawer?.invoke()
     }
 
+    override fun back() {
+        _navHostController?.popBackStack()
+    }
+
     override fun home() {
         _navHostController?.navigate(route = "home") {
             popUpTo(id = 0)

@@ -31,8 +31,11 @@ fun SongWidget(
         modifier = Modifier
             .fillMaxWidth()
             .height(height = YourChordsRuTheme.dimens.dp64)
-            .background(color = YourChordsRuTheme.colors.background)
-            .padding(all = YourChordsRuTheme.dimens.dp4)
+            .padding(
+                top = YourChordsRuTheme.dimens.dp8,
+                start = YourChordsRuTheme.dimens.dp4,
+                end = YourChordsRuTheme.dimens.dp4,
+            )
             .clip(shape = shape)
             .clickable { onClick() }
             .background(

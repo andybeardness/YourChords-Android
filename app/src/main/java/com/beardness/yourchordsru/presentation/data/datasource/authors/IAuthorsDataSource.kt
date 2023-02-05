@@ -5,5 +5,5 @@ import com.beardness.yourchordsru.presentation.data.datasource.dto.AuthorSourceD
 interface IAuthorsDataSource {
     fun load()
     fun authors(): List<AuthorSourceDto>
-    fun author(id: Int): AuthorSourceDto
+    fun author(id: Int): AuthorSourceDto?
 }

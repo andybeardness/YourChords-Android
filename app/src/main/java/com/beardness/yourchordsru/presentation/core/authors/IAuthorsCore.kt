@@ -6,4 +6,5 @@ import kotlinx.coroutines.flow.StateFlow
 interface IAuthorsCore {
     val authors: StateFlow<List<AuthorCoreDto>>
     suspend fun load()
+    suspend fun author(authorId: Int): AuthorCoreDto?
 }

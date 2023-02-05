@@ -17,8 +17,10 @@ class AuthorsDataSource @Inject constructor(
         return authorsCsvReader.read()
     }
 
-    override fun author(id: Int): AuthorSourceDto {
-        TODO("Not yet implemented")
+    override fun author(id: Int): AuthorSourceDto? {
+        return authorsCsvReader
+            .read()
+            .firstOrNull { authorSourceDto -> authorSourceDto.id == id }
     }
 
     private fun setup(authors: List<AuthorSourceDto>) {
