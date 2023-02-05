@@ -2,6 +2,7 @@ package com.beardness.yourchordsru.ui.widgets.chords
 
 import android.view.ViewGroup
 import android.webkit.WebView
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -20,6 +21,7 @@ fun ChordsWidget(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(color = YourChordsRuTheme.colors.background)
             .verticalScroll(state = rememberScrollState())
             .padding(all = YourChordsRuTheme.dimens.dp16)
     ) {

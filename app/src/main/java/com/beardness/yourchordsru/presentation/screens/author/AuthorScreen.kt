@@ -8,7 +8,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.ChevronLeft
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material.icons.rounded.StarBorder
 import androidx.compose.runtime.Composable
@@ -58,7 +58,7 @@ fun AuthorScreen(
                         .clickable { viewModel.navigateBack() }
                         .padding(all = YourChordsRuTheme.dimens.dp8)
                         .size(size = YourChordsRuTheme.dimens.dp32),
-                    imageVector = Icons.Rounded.ArrowBack,
+                    imageVector = Icons.Rounded.ChevronLeft,
                     contentDescription = "",
                     tint = YourChordsRuTheme.colors.text,
                 )
