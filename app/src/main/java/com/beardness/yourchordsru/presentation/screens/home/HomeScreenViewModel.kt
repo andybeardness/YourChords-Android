@@ -23,6 +23,10 @@ class HomeScreenViewModel @Inject constructor(
                     .sortedBy { authorViewDto -> authorViewDto.name }
             }
 
+    override fun openDrawer() {
+        navigator.openDrawer()
+    }
+
     override fun navigateToAuthor(authorId: Int) {
         navigator.author(authorId = authorId)
     }

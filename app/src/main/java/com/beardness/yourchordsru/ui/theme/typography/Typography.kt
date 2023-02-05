@@ -14,6 +14,7 @@ data class AppTypography(
     val chordsAtSongCard: TextStyle,
     val ratingAtSongCard: TextStyle,
     val navigationAtDrawer: TextStyle,
+    val titleAtToolbar: TextStyle,
 )
 
 val typography = AppTypography(
@@ -38,6 +39,10 @@ val typography = AppTypography(
         fontSize = 18.sp,
         fontWeight = FontWeight.Light,
     ),
+    titleAtToolbar = TextStyle(
+        fontSize = 22.sp,
+        fontWeight = FontWeight.Light,
+    )
 )
 
 val LocalExtendedTypography = staticCompositionLocalOf {
@@ -47,5 +52,6 @@ val LocalExtendedTypography = staticCompositionLocalOf {
         chordsAtSongCard = typography.chordsAtSongCard,
         ratingAtSongCard = typography.ratingAtSongCard,
         navigationAtDrawer = typography.navigationAtDrawer,
+        titleAtToolbar = typography.titleAtToolbar,
     )
 }

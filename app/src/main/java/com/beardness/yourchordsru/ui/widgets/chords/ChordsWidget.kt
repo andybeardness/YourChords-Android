@@ -4,12 +4,14 @@ import android.view.ViewGroup
 import android.webkit.WebView
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.viewinterop.AndroidView
+import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
 
 @Composable
 fun ChordsWidget(
@@ -19,6 +21,7 @@ fun ChordsWidget(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(state = rememberScrollState())
+            .padding(all = YourChordsRuTheme.dimens.dp16)
     ) {
         AndroidView(
             factory = { context ->

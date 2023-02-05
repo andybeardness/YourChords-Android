@@ -10,8 +10,12 @@ import javax.inject.Inject
 class MainScaffoldViewModel @Inject constructor(
     private val navigator: INavigator,
 ): ViewModel(), IMainScaffoldViewModel {
-    override fun setupNavigator(navHostController: NavHostController) {
-        navigator.setup(controller = navHostController)
+    override fun setupNavigator(
+        navHostController: NavHostController,
+        openDrawer: () -> Unit,
+    ) {
+        navigator.setupNavController(controller = navHostController)
+        navigator.setupDrawerController(openDrawer = openDrawer)
     }
 
     override fun navigateHome() {

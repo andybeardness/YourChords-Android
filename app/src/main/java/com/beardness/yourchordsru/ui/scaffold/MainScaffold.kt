@@ -35,7 +35,14 @@ fun MainScaffold(viewModel: IMainScaffoldViewModel) {
         Navigation(
             paddings = paddings,
             setupNavController = { navHostController ->
-                viewModel.setupNavigator(navHostController = navHostController)
+                viewModel.setupNavigator(
+                    navHostController = navHostController,
+                    openDrawer = {
+                        coroutineScope.launch {
+                            scaffoldState.drawerState.open()
+                        }
+                    }
+                )
             }
         )
     }

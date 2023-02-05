@@ -26,9 +26,22 @@ class HtmlBuilder @Inject constructor(): IHtmlBuilder {
     </head>
     <body>
         <style type="text/css" scoped>
+            * {
+                margin: 0;
+                padding: 0;
+            }
+            
             body {
                 background-color: rgb($backgroundRed $backgroundGreen $backgroundBlue);
+                width: auto;
+            }
+            
+            pre {
                 color: rgb($textRed $textGreen $textBlue);
+                font-family: monospace;
+                line-height: 1.4;
+                font-size: 12px;
+                font-weight: 100;
             }
         </style>
         <pre>
