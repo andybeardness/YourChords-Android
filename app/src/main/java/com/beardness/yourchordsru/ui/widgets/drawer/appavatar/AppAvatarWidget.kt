@@ -33,7 +33,8 @@ fun AppAvatarWidget() {
     ) {
         Icon(
             modifier = Modifier
-                .size(size = YourChordsRuTheme.dimens.dp128),
+                .size(size = YourChordsRuTheme.dimens.dp128)
+                .padding(all = YourChordsRuTheme.dimens.dp16),
             imageVector = Icons.Rounded.MusicNote,
             contentDescription = "",
             tint = YourChordsRuTheme.colors.card,

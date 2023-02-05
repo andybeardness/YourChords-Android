@@ -30,6 +30,7 @@ fun MainScaffold(viewModel: IMainScaffoldViewModel) {
                 navigateAbout = {},
             )
         },
+        drawerElevation = YourChordsRuTheme.dimens.dp4
     ) { paddings ->
         Navigation(
             paddings = paddings,
