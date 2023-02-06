@@ -21,8 +21,14 @@ fun SearchCollection(
     ) {
         items(count = founded.size) { index ->
             when (val item = founded[index]) {
-                is SearchResultAuthor -> SearchAuthorWidget(item = item)
-                is SearchResultSong -> SearchSongWidget(item = item)
+                is SearchResultAuthor -> SearchAuthorWidget(
+                    item = item,
+                    onClick = { onClick(item) },
+                )
+                is SearchResultSong -> SearchSongWidget(
+                    item = item,
+                    onClick = { onClick(item) },
+                )
             }
         }
     }

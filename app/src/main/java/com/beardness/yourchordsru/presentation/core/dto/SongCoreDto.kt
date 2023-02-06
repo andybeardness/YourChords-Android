@@ -8,6 +8,7 @@ data class SongCoreDto(
     val chords: String,
     val rating: Int,
     val authorId: Int,
+    val authorName: String,
 )
 
 fun SongRepoDto.coreDto(): SongCoreDto =
@@ -17,6 +18,7 @@ fun SongRepoDto.coreDto(): SongCoreDto =
         chords = this.chords,
         rating = this.rating,
         authorId = this.authorId,
+        authorName = this.authorName,
     )
 
 fun List<SongRepoDto>.songsRepoDtoToCoreDto(): List<SongCoreDto> =

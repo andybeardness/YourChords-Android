@@ -10,7 +10,8 @@ import androidx.compose.ui.unit.sp
 @Immutable
 data class AppTypography(
     val authorNameAtAuthorCard: TextStyle,
-    val songNameAtSongCard: TextStyle,
+    val songTitleAtSongCard: TextStyle,
+    val authorNameAtSongCard: TextStyle,
     val chordsAtSongCard: TextStyle,
     val ratingAtSongCard: TextStyle,
     val navigationAtDrawer: TextStyle,
@@ -21,12 +22,16 @@ data class AppTypography(
 
 val typography = AppTypography(
     authorNameAtAuthorCard = TextStyle(
-        fontSize = 18.sp,
+        fontSize = 20.sp,
         fontWeight = FontWeight.Light,
     ),
-    songNameAtSongCard = TextStyle(
+    songTitleAtSongCard = TextStyle(
         fontSize = 16.sp,
         fontWeight = FontWeight.Light,
+    ),
+    authorNameAtSongCard = TextStyle(
+        fontSize = 16.sp,
+        fontWeight = FontWeight.ExtraLight,
     ),
     chordsAtSongCard = TextStyle(
         fontSize = 14.sp,
@@ -42,7 +47,7 @@ val typography = AppTypography(
         fontWeight = FontWeight.Light,
     ),
     titleAtToolbar = TextStyle(
-        fontSize = 22.sp,
+        fontSize = 24.sp,
         fontWeight = FontWeight.Light,
     ),
     patternAtSearch = TextStyle(
@@ -58,7 +63,8 @@ val typography = AppTypography(
 val LocalExtendedTypography = staticCompositionLocalOf {
     AppTypography(
         authorNameAtAuthorCard = typography.authorNameAtAuthorCard,
-        songNameAtSongCard = typography.songNameAtSongCard,
+        songTitleAtSongCard = typography.songTitleAtSongCard,
+        authorNameAtSongCard = typography.authorNameAtSongCard,
         chordsAtSongCard = typography.chordsAtSongCard,
         ratingAtSongCard = typography.ratingAtSongCard,
         navigationAtDrawer = typography.navigationAtDrawer,

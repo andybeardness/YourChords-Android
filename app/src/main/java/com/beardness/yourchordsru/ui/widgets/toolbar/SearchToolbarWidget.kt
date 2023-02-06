@@ -38,6 +38,7 @@ fun SearchToolbarWidget(
                 modifier = Modifier
                     .weight(weight = 1f),
                 input = input,
+                isSearch = isSearch,
                 onUpdate = { update -> input = update },
                 onClickSearch = { onClickSearch(input) }
             )

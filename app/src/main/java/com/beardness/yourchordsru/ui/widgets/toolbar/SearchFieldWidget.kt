@@ -20,6 +20,7 @@ import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
 fun SearchFieldWidget(
     modifier: Modifier,
     input: String,
+    isSearch: Boolean,
     onUpdate: (update: String) -> Unit,
     onClickSearch: () -> Unit,
 ) {
@@ -40,6 +41,7 @@ fun SearchFieldWidget(
                 .fillMaxWidth(),
             value = input,
             onValueChange = onUpdate,
+            enabled = !isSearch,
             singleLine = true,
             textStyle = YourChordsRuTheme.typography.patternAtSearch
                 .copy(color = YourChordsRuTheme.colors.text),
@@ -60,7 +62,7 @@ fun SearchFieldWidget(
 
                     innerTextField()
                 }
-            }
+            },
         )
     }
 }

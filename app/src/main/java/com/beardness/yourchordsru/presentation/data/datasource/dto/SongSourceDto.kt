@@ -6,4 +6,5 @@ data class SongSourceDto(
     val chords: String,
     val rating: Int,
     val authorId: Int,
+    val authorName: String,
 )

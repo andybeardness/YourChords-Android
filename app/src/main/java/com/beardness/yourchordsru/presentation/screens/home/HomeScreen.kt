@@ -31,13 +31,11 @@ import com.beardness.yourchordsru.ui.widgets.toolbar.ToolbarIconWidget
 fun HomeScreen(
     viewModel: IHomeScreenViewModel,
 ) {
-    val authors by
-    viewModel
+    val authors by viewModel
         .authors
         .collectAsState(initial = emptyList())
 
-    val scrollUp by
-    viewModel
+    val scrollUp by viewModel
         .scrollUp
         .collectAsState()
 

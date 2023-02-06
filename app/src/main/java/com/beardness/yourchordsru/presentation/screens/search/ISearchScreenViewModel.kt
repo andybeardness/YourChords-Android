@@ -6,6 +6,8 @@ import kotlinx.coroutines.flow.StateFlow
 interface ISearchScreenViewModel {
     val searchResult: StateFlow<List<SearchResult>>
     val isSearch: StateFlow<Boolean>
+    val scrollUp: StateFlow<Boolean?>
     fun search(pattern: String)
     fun navigateBySearchResult(searchResult: SearchResult)
+    fun updateScrollPosition(firstVisibleItemIndex: Int)
 }

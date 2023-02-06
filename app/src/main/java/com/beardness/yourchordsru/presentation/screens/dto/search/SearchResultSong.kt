@@ -4,17 +4,19 @@ import com.beardness.yourchordsru.presentation.core.dto.SongCoreDto
 
 data class SearchResultSong(
     val authorId: Int,
+    val authorName: String,
     val songId: Int,
     val songTitle: String,
-    val songs_rating: Int,
+    val songRating: Int,
 ) : SearchResult()
 
 fun SongCoreDto.searchResultSong(): SearchResultSong =
     SearchResultSong(
         authorId = this.authorId,
+        authorName = this.authorName,
         songId = this.id,
         songTitle = this.title,
-        songs_rating = this.rating,
+        songRating = this.rating,
     )
 
 fun List<SongCoreDto>.songsCoreDtoToSearchResultSong(): List<SearchResultSong> =

@@ -9,6 +9,8 @@ import com.beardness.yourchordsru.presentation.screens.dto.search.SearchResultAu
 import com.beardness.yourchordsru.presentation.screens.dto.search.SearchResultSong
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,6 +23,10 @@ class SearchScreenViewModel @Inject constructor(
 
     override val searchResult = searchCore.founded
     override val isSearch = searchCore.isSearching
+
+    private var _lastScrollPosition: Int = 0
+    private val _scrollUp = MutableStateFlow<Boolean?>(value = null)
+    override val scrollUp = _scrollUp.asStateFlow()
 
     override fun search(pattern: String) {
         ioCoroutineScope.launch {
@@ -40,8 +46,21 @@ class SearchScreenViewModel @Inject constructor(
             )
             is SearchResultSong -> navigator.song(
                 authorId = searchResult.authorId,
-                songId = searchResult.authorId,
+                songId = searchResult.songId,
             )
+        }
+    }
+
+    override fun updateScrollPosition(firstVisibleItemIndex: Int) {
+        if (firstVisibleItemIndex == _lastScrollPosition) {
+            return
+        }
+
+        val newScrollUpValue = firstVisibleItemIndex <= _lastScrollPosition
+
+        ioCoroutineScope.launch {
+            _scrollUp.emit(value = newScrollUpValue)
+            _lastScrollPosition = firstVisibleItemIndex
         }
     }
 }

@@ -37,6 +37,7 @@ class SongsCsvReader @Inject constructor(
                     chords = chords.trim(),
                     rating = rating.trim().toInt(),
                     authorId = aid.trim().toInt(),
+                    authorName = name.trim(),
                 )
             }.toList()
     }

@@ -11,6 +11,7 @@ import androidx.compose.material.icons.rounded.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import com.beardness.yourchordsru.presentation.screens.dto.SongViewDto
 import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
@@ -19,6 +20,7 @@ import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
 fun SongWidget(
     songViewDto: SongViewDto,
     onClick: () -> Unit,
+    doesShowAuthor: Boolean = false,
 ) {
     val shape = RoundedCornerShape(size = YourChordsRuTheme.dimens.dp8)
 
@@ -55,10 +57,20 @@ fun SongWidget(
         ) {
             Text(
                 text = songViewDto.title,
-                style = YourChordsRuTheme.typography.songNameAtSongCard,
+                style = YourChordsRuTheme.typography.songTitleAtSongCard,
                 color = YourChordsRuTheme.colors.text,
                 maxLines = 2,
             )
+
+            if (doesShowAuthor) {
+                Text(
+                    text = songViewDto.authorName,
+                    style = YourChordsRuTheme.typography.songTitleAtSongCard,
+                    color = YourChordsRuTheme.colors.text.copy(alpha = .2f),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+            }
         }
 
         Column(
@@ -97,6 +109,7 @@ fun Preview_SongWidget_0() {
             chords = "Я помню наш последний вечер, наш последний разговор",
             rating = 999,
             authorId = 0,
+            authorName = "Author name",
         ),
         onClick = {}
     )
@@ -112,6 +125,7 @@ fun Preview_SongWidget_1() {
             chords = "Я помню наш последний вечер, наш последний разговор, по телу твоему скользит последний мой взор",
             rating = 999,
             authorId = 0,
+            authorName = "Author name",
         ),
         onClick = {}
     )
