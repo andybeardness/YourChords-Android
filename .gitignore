@@ -16,6 +16,7 @@
 local.properties
 
 # SELF
-data_authors.csv
+data_authors.authors
 data_songs/
+data_chords/
 .idea

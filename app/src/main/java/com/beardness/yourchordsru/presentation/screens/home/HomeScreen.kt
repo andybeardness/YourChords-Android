@@ -87,7 +87,7 @@ fun HomeScreen(
                     icon = Icons.Rounded.Search,
                     iconDescription = "",
                     iconColor = YourChordsRuTheme.colors.text,
-                    onClick = {},
+                    onClick = { viewModel.navigateToSearch() },
                 )
             }
         )

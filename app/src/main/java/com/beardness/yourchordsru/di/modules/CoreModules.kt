@@ -2,6 +2,8 @@ package com.beardness.yourchordsru.di.modules
 
 import com.beardness.yourchordsru.presentation.core.authors.AuthorsCore
 import com.beardness.yourchordsru.presentation.core.authors.IAuthorsCore
+import com.beardness.yourchordsru.presentation.core.search.ISearchCore
+import com.beardness.yourchordsru.presentation.core.search.SearchCore
 import com.beardness.yourchordsru.presentation.core.songs.ISongsCore
 import com.beardness.yourchordsru.presentation.core.songs.SongsCore
 import com.beardness.yourchordsru.presentation.data.repo.authors.IAuthorsRepo
@@ -31,6 +33,17 @@ object CoreModules {
         songsRepo: ISongsRepo
     ): ISongsCore =
         SongsCore(
+            songsRepo = songsRepo,
+        )
+
+    @Provides
+    @Singleton
+    fun provideSearchCore(
+        authorsRepo: IAuthorsRepo,
+        songsRepo: ISongsRepo,
+    ): ISearchCore =
+        SearchCore(
+            authorsRepo = authorsRepo,
             songsRepo = songsRepo,
         )
 }

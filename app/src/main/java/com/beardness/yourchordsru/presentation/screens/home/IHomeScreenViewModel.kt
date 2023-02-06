@@ -9,5 +9,6 @@ interface IHomeScreenViewModel {
     val scrollUp: StateFlow<Boolean?>
     fun openDrawer()
     fun navigateToAuthor(authorId: Int)
+    fun navigateToSearch()
     fun updateScrollPosition(firstVisibleItemIndex: Int)
 }
