@@ -7,12 +7,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import com.beardness.yourchordsru.ui.widgets.song.SongCollectionWidget
+import com.beardness.yourchordsru.ui.widgets.search.SearchCollection
 import com.beardness.yourchordsru.ui.widgets.toolbar.SearchToolbarWidget
 
 @Composable
 fun SearchScreen(viewModel: ISearchScreenViewModel) {
-    val foundedSongs by viewModel.foundSongs.collectAsState()
+    val searchResult by viewModel.searchResult.collectAsState()
+    val isSearch by viewModel.isSearch.collectAsState()
 
     val lazyListState = rememberLazyListState()
 
@@ -21,20 +22,16 @@ fun SearchScreen(viewModel: ISearchScreenViewModel) {
             .fillMaxSize(),
     ) {
         SearchToolbarWidget(
-            onClickSearch = { input -> viewModel.search(pattern = input) }
+            onClickSearch = { input -> viewModel.search(pattern = input) },
+            isSearch = isSearch,
         )
 
-        SongCollectionWidget(
+        SearchCollection(
             modifier = Modifier
                 .weight(weight = 1f),
             lazyListState = lazyListState,
-            songs = foundedSongs,
-            onCLick = { authorId, songId ->
-                viewModel.navigateToSong(
-                    authorId = authorId,
-                    songId = songId
-                )
-            },
+            founded = searchResult,
+            onClick = { item -> viewModel.navigateBySearchResult(searchResult = item) },
         )
     }
 }

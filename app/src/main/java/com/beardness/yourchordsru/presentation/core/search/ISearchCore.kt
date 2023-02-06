@@ -1,7 +1,11 @@
 package com.beardness.yourchordsru.presentation.core.search
 
-import com.beardness.yourchordsru.presentation.core.dto.SongCoreDto
+import com.beardness.yourchordsru.presentation.screens.dto.search.SearchResult
+import kotlinx.coroutines.flow.StateFlow
 
 interface ISearchCore {
-    suspend fun searchSongs(pattern: String): List<SongCoreDto>
+    val founded: StateFlow<List<SearchResult>>
+    val isSearching: StateFlow<Boolean>
+
+    suspend fun search(pattern: String)
 }

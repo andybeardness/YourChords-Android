@@ -1,10 +1,11 @@
 package com.beardness.yourchordsru.presentation.screens.search
 
-import com.beardness.yourchordsru.presentation.screens.dto.SongViewDto
+import com.beardness.yourchordsru.presentation.screens.dto.search.SearchResult
 import kotlinx.coroutines.flow.StateFlow
 
 interface ISearchScreenViewModel {
-    val foundSongs: StateFlow<List<SongViewDto>>
+    val searchResult: StateFlow<List<SearchResult>>
+    val isSearch: StateFlow<Boolean>
     fun search(pattern: String)
-    fun navigateToSong(authorId: Int, songId: Int)
+    fun navigateBySearchResult(searchResult: SearchResult)
 }

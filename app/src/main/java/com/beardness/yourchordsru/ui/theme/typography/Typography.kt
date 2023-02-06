@@ -15,6 +15,8 @@ data class AppTypography(
     val ratingAtSongCard: TextStyle,
     val navigationAtDrawer: TextStyle,
     val titleAtToolbar: TextStyle,
+    val patternAtSearch: TextStyle,
+    val placeholderAtSearch: TextStyle,
 )
 
 val typography = AppTypography(
@@ -42,6 +44,14 @@ val typography = AppTypography(
     titleAtToolbar = TextStyle(
         fontSize = 22.sp,
         fontWeight = FontWeight.Light,
+    ),
+    patternAtSearch = TextStyle(
+        fontSize = 18.sp,
+        fontWeight = FontWeight.Light,
+    ),
+    placeholderAtSearch = TextStyle(
+        fontSize = 18.sp,
+        fontWeight = FontWeight.ExtraLight,
     )
 )
 
@@ -53,5 +63,7 @@ val LocalExtendedTypography = staticCompositionLocalOf {
         ratingAtSongCard = typography.ratingAtSongCard,
         navigationAtDrawer = typography.navigationAtDrawer,
         titleAtToolbar = typography.titleAtToolbar,
+        patternAtSearch = typography.patternAtSearch,
+        placeholderAtSearch = typography.placeholderAtSearch,
     )
 }

@@ -19,12 +19,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        load()
         compose()
-    }
-
-    private fun load() {
-        viewModel.load()
     }
 
     private fun compose() {

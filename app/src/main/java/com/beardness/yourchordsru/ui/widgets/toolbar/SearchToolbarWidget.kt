@@ -2,9 +2,9 @@ package com.beardness.yourchordsru.ui.widgets.toolbar
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Search
+import androidx.compose.material.icons.rounded.Sync
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -14,6 +14,7 @@ import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
 @Composable
 fun SearchToolbarWidget(
     onClickSearch: (String) -> Unit,
+    isSearch: Boolean,
 ) {
     var input by remember { mutableStateOf(value = "") }
 
@@ -28,24 +29,34 @@ fun SearchToolbarWidget(
                 .fillMaxWidth()
                 .weight(weight = 1f)
                 .padding(
-                    horizontal = YourChordsRuTheme.dimens.dp16,
-                    vertical = YourChordsRuTheme.dimens.dp8,
+                    horizontal = YourChordsRuTheme.dimens.dp8,
+                    vertical = YourChordsRuTheme.dimens.dp4,
                 ),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            TextField(
+            SearchFieldWidget(
                 modifier = Modifier
                     .weight(weight = 1f),
-                value = input,
-                onValueChange = { update -> input = update },
+                input = input,
+                onUpdate = { update -> input = update },
+                onClickSearch = { onClickSearch(input) }
             )
 
-            ToolbarIconWidget(
-                icon = Icons.Rounded.Search,
-                iconDescription = "",
-                iconColor = YourChordsRuTheme.colors.text,
-                onClick = { onClickSearch(input) }
-            )
+            if (isSearch) {
+                ToolbarIconWidget(
+                    icon = Icons.Rounded.Sync,
+                    iconDescription = "",
+                    iconColor = YourChordsRuTheme.colors.text.copy(alpha = .2f),
+                    onClick = { }
+                )
+            } else {
+                ToolbarIconWidget(
+                    icon = Icons.Rounded.Search,
+                    iconDescription = "",
+                    iconColor = YourChordsRuTheme.colors.text,
+                    onClick = { onClickSearch(input) }
+                )
+            }
         }
 
         Row(
@@ -67,6 +78,7 @@ fun SearchToolbarWidget(
 @Preview
 fun Preview_SearchToolbarWidget_0() {
     SearchToolbarWidget(
-        onClickSearch = { }
+        onClickSearch = { },
+        isSearch = false,
     )
 }
