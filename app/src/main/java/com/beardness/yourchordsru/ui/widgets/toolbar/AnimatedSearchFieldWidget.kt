@@ -7,7 +7,10 @@ import androidx.compose.runtime.Composable
 @Composable
 fun AnimatedSearchFieldWidget(
     visibility: Boolean,
+    input: String,
+    onUpdateInput: (String) -> Unit,
     onClickSearch: (String) -> Unit,
+    onClickNavigation: () -> Unit,
     isSearch: Boolean,
 ) {
     AnimatedVisibility(
@@ -18,7 +21,10 @@ fun AnimatedSearchFieldWidget(
                 + shrinkVertically(animationSpec = tween(durationMillis = 500)),
     ) {
         SearchToolbarWidget(
+            input = input,
+            onUpdateInput = onUpdateInput,
             onClickSearch = onClickSearch,
+            onClickNavigation = onClickNavigation,
             isSearch = isSearch
         )
     }

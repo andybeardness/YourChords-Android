@@ -21,6 +21,9 @@ class SearchScreenViewModel @Inject constructor(
     @IoCoroutineScope private val ioCoroutineScope: CoroutineScope,
 ) : ViewModel(), ISearchScreenViewModel {
 
+    private val _input = MutableStateFlow<String>(value = "")
+    override val input = _input.asStateFlow()
+
     override val searchResult = searchCore.founded
     override val isSearch = searchCore.isSearching
 
@@ -28,12 +31,22 @@ class SearchScreenViewModel @Inject constructor(
     private val _scrollUp = MutableStateFlow<Boolean?>(value = null)
     override val scrollUp = _scrollUp.asStateFlow()
 
+    override fun updateInput(update: String) {
+        ioCoroutineScope.launch {
+            _input.emit(value = update)
+        }
+    }
+
     override fun search(pattern: String) {
         ioCoroutineScope.launch {
             val prettyPattern =
                 pattern
                     .trim()
                     .lowercase()
+
+            if (prettyPattern.isEmpty()) {
+                return@launch
+            }
 
             searchCore.search(pattern = prettyPattern)
         }
@@ -49,6 +62,10 @@ class SearchScreenViewModel @Inject constructor(
                 songId = searchResult.songId,
             )
         }
+    }
+
+    override fun navigateBack() {
+        navigator.back()
     }
 
     override fun updateScrollPosition(firstVisibleItemIndex: Int) {

@@ -3,6 +3,7 @@ package com.beardness.yourchordsru.ui.widgets.toolbar
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.ChevronLeft
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material.icons.rounded.Sync
 import androidx.compose.runtime.*
@@ -13,11 +14,12 @@ import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
 
 @Composable
 fun SearchToolbarWidget(
+    input: String,
+    onUpdateInput: (String) -> Unit,
     onClickSearch: (String) -> Unit,
+    onClickNavigation: () -> Unit,
     isSearch: Boolean,
 ) {
-    var input by remember { mutableStateOf(value = "") }
-
     Column(
         modifier = Modifier
             .height(height = YourChordsRuTheme.dimens.dp128)
@@ -34,12 +36,20 @@ fun SearchToolbarWidget(
                 ),
             verticalAlignment = Alignment.CenterVertically,
         ) {
+            ToolbarIconWidget(
+                icon = Icons.Rounded.ChevronLeft,
+                iconDescription = "",
+                iconColor = YourChordsRuTheme.colors.text,
+                onClick = onClickNavigation,
+            )
+
             SearchFieldWidget(
                 modifier = Modifier
-                    .weight(weight = 1f),
+                    .weight(weight = 1f)
+                    .padding(horizontal = YourChordsRuTheme.dimens.dp8),
                 input = input,
                 isSearch = isSearch,
-                onUpdate = { update -> input = update },
+                onUpdate = onUpdateInput,
                 onClickSearch = { onClickSearch(input) }
             )
 
@@ -79,7 +89,10 @@ fun SearchToolbarWidget(
 @Preview
 fun Preview_SearchToolbarWidget_0() {
     SearchToolbarWidget(
+        input = "",
+        onUpdateInput = { },
         onClickSearch = { },
+        onClickNavigation = { },
         isSearch = false,
     )
 }
