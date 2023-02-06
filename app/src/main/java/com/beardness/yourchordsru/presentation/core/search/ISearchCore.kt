@@ -7,5 +7,11 @@ interface ISearchCore {
     val founded: StateFlow<List<SearchResult>>
     val isSearching: StateFlow<Boolean>
 
-    suspend fun search(pattern: String)
+    suspend fun search(
+        pattern: String,
+        isAuthorsEnabled: Boolean,
+        isSongsEnabled: Boolean,
+    )
+
+    suspend fun clear()
 }

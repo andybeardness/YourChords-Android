@@ -9,7 +9,12 @@ fun AnimatedSearchFieldWidget(
     visibility: Boolean,
     input: String,
     onUpdateInput: (String) -> Unit,
+    isSearchByAuthorsSelected: Boolean,
+    onClickSearchByAuthorsTag: () -> Unit,
+    isSearchBySongsSelected: Boolean,
+    onClickSearchBySongsTag: () -> Unit,
     onClickSearch: (String) -> Unit,
+    onClickClear: () -> Unit,
     onClickNavigation: () -> Unit,
     isSearch: Boolean,
 ) {
@@ -23,7 +28,12 @@ fun AnimatedSearchFieldWidget(
         SearchToolbarWidget(
             input = input,
             onUpdateInput = onUpdateInput,
+            isSearchByAuthorsSelected = isSearchByAuthorsSelected,
+            onClickSearchByAuthorsTag = onClickSearchByAuthorsTag,
+            isSearchBySongsSelected = isSearchBySongsSelected,
+            onClickSearchBySongsTag = onClickSearchBySongsTag,
             onClickSearch = onClickSearch,
+            onClickClear = onClickClear,
             onClickNavigation = onClickNavigation,
             isSearch = isSearch
         )

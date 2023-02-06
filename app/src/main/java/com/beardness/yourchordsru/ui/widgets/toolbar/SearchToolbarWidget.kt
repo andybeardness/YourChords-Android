@@ -3,6 +3,7 @@ package com.beardness.yourchordsru.ui.widgets.toolbar
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Cancel
 import androidx.compose.material.icons.rounded.ChevronLeft
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material.icons.rounded.Sync
@@ -11,12 +12,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
+import com.beardness.yourchordsru.ui.widgets.searchtag.SearchTagWidget
 
 @Composable
 fun SearchToolbarWidget(
     input: String,
     onUpdateInput: (String) -> Unit,
+    isSearchByAuthorsSelected: Boolean,
+    onClickSearchByAuthorsTag: () -> Unit,
+    isSearchBySongsSelected: Boolean,
+    onClickSearchBySongsTag: () -> Unit,
     onClickSearch: (String) -> Unit,
+    onClickClear: () -> Unit,
     onClickNavigation: () -> Unit,
     isSearch: Boolean,
 ) {
@@ -55,12 +62,26 @@ fun SearchToolbarWidget(
 
             if (isSearch) {
                 ToolbarIconWidget(
+                    icon = Icons.Rounded.Cancel,
+                    iconDescription = "",
+                    iconColor = YourChordsRuTheme.colors.text.copy(alpha = .2f),
+                    onClick = { }
+                )
+
+                ToolbarIconWidget(
                     icon = Icons.Rounded.Sync,
                     iconDescription = "",
                     iconColor = YourChordsRuTheme.colors.text.copy(alpha = .2f),
                     onClick = { }
                 )
             } else {
+                ToolbarIconWidget(
+                    icon = Icons.Rounded.Cancel,
+                    iconDescription = "",
+                    iconColor = YourChordsRuTheme.colors.red,
+                    onClick = { onClickClear() }
+                )
+
                 ToolbarIconWidget(
                     icon = Icons.Rounded.Search,
                     iconDescription = "",
@@ -79,8 +100,20 @@ fun SearchToolbarWidget(
                     vertical = YourChordsRuTheme.dimens.dp8,
                 ),
             verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceEvenly,
         ) {
-
+            SearchTagWidget(
+                title = "By authors",
+                color = YourChordsRuTheme.colors.purple,
+                isSelected = isSearchByAuthorsSelected,
+                onClick = onClickSearchByAuthorsTag,
+            )
+            SearchTagWidget(
+                title = "By songs",
+                color = YourChordsRuTheme.colors.orange,
+                isSelected = isSearchBySongsSelected,
+                onClick = onClickSearchBySongsTag,
+            )
         }
     }
 }
@@ -91,7 +124,12 @@ fun Preview_SearchToolbarWidget_0() {
     SearchToolbarWidget(
         input = "",
         onUpdateInput = { },
+        isSearchByAuthorsSelected = true,
+        onClickSearchByAuthorsTag = { },
+        isSearchBySongsSelected = true,
+        onClickSearchBySongsTag = { },
         onClickSearch = { },
+        onClickClear = { },
         onClickNavigation = { },
         isSearch = false,
     )

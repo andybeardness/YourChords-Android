@@ -18,6 +18,7 @@ data class AppTypography(
     val titleAtToolbar: TextStyle,
     val patternAtSearch: TextStyle,
     val placeholderAtSearch: TextStyle,
+    val tagTitleAtSearchToolbar: TextStyle,
 )
 
 val typography = AppTypography(
@@ -57,6 +58,10 @@ val typography = AppTypography(
     placeholderAtSearch = TextStyle(
         fontSize = 18.sp,
         fontWeight = FontWeight.ExtraLight,
+    ),
+    tagTitleAtSearchToolbar = TextStyle(
+        fontSize = 14.sp,
+        fontWeight = FontWeight.ExtraLight,
     )
 )
 
@@ -71,5 +76,6 @@ val LocalExtendedTypography = staticCompositionLocalOf {
         titleAtToolbar = typography.titleAtToolbar,
         patternAtSearch = typography.patternAtSearch,
         placeholderAtSearch = typography.placeholderAtSearch,
+        tagTitleAtSearchToolbar = typography.tagTitleAtSearchToolbar,
     )
 }

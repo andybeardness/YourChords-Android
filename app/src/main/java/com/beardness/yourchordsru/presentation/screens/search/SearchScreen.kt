@@ -17,6 +17,8 @@ import com.beardness.yourchordsru.ui.widgets.toolbar.AnimatedSearchFieldWidget
 @Composable
 fun SearchScreen(viewModel: ISearchScreenViewModel) {
     val input by viewModel.input.collectAsState()
+    val isSearchByAuthorsSelected by viewModel.isSearchByAuthorsSelected.collectAsState()
+    val isSearchBySongsSelected by viewModel.isSearchBySongsSelected.collectAsState()
     val searchResult by viewModel.searchResult.collectAsState()
     val isSearch by viewModel.isSearch.collectAsState()
     val scrollUp by viewModel.scrollUp.collectAsState()
@@ -42,7 +44,12 @@ fun SearchScreen(viewModel: ISearchScreenViewModel) {
             visibility = toolbarVisibility,
             input = input,
             onUpdateInput = { update -> viewModel.updateInput(update = update) },
+            isSearchByAuthorsSelected = isSearchByAuthorsSelected,
+            onClickSearchByAuthorsTag = { viewModel.clickOnSearchByAuthorsTag() },
+            isSearchBySongsSelected = isSearchBySongsSelected,
+            onClickSearchBySongsTag = { viewModel.clickOnSearchBySongsTag() },
             onClickSearch = { input -> viewModel.search(pattern = input) },
+            onClickClear = { viewModel.clear() },
             onClickNavigation = { viewModel.navigateBack() },
             isSearch = isSearch,
         )

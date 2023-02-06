@@ -7,6 +7,7 @@ import com.beardness.yourchordsru.presentation.core.search.ISearchCore
 import com.beardness.yourchordsru.presentation.screens.dto.search.SearchResult
 import com.beardness.yourchordsru.presentation.screens.dto.search.SearchResultAuthor
 import com.beardness.yourchordsru.presentation.screens.dto.search.SearchResultSong
+import com.beardness.yourchordsru.utils.common.invert
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,6 +25,12 @@ class SearchScreenViewModel @Inject constructor(
     private val _input = MutableStateFlow<String>(value = "")
     override val input = _input.asStateFlow()
 
+    private val _isSearchByAuthorsSelected = MutableStateFlow<Boolean>(value = true)
+    override val isSearchByAuthorsSelected = _isSearchByAuthorsSelected.asStateFlow()
+
+    private val _isSearchBySongsSelected = MutableStateFlow<Boolean>(value = true)
+    override val isSearchBySongsSelected = _isSearchBySongsSelected.asStateFlow()
+
     override val searchResult = searchCore.founded
     override val isSearch = searchCore.isSearching
 
@@ -34,6 +41,28 @@ class SearchScreenViewModel @Inject constructor(
     override fun updateInput(update: String) {
         ioCoroutineScope.launch {
             _input.emit(value = update)
+        }
+    }
+
+    override fun clickOnSearchByAuthorsTag() {
+        ioCoroutineScope.launch {
+            val newValue =
+                _isSearchByAuthorsSelected
+                    .value
+                    .invert()
+
+            _isSearchByAuthorsSelected.emit(value = newValue)
+        }
+    }
+
+    override fun clickOnSearchBySongsTag() {
+        ioCoroutineScope.launch {
+            val newValue =
+                _isSearchBySongsSelected
+                    .value
+                    .invert()
+
+            _isSearchBySongsSelected.emit(value = newValue)
         }
     }
 
@@ -48,7 +77,18 @@ class SearchScreenViewModel @Inject constructor(
                 return@launch
             }
 
-            searchCore.search(pattern = prettyPattern)
+            searchCore.search(
+                pattern = prettyPattern,
+                isAuthorsEnabled = _isSearchByAuthorsSelected.value,
+                isSongsEnabled = _isSearchBySongsSelected.value,
+            )
+        }
+    }
+
+    override fun clear() {
+        ioCoroutineScope.launch {
+            _input.emit(value = "")
+            searchCore.clear()
         }
     }
 
