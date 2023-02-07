@@ -7,7 +7,7 @@ import com.beardness.yourchordsru.presentation.core.search.ISearchCore
 import com.beardness.yourchordsru.presentation.screens.dto.search.SearchResult
 import com.beardness.yourchordsru.presentation.screens.dto.search.SearchResultAuthor
 import com.beardness.yourchordsru.presentation.screens.dto.search.SearchResultSong
-import com.beardness.yourchordsru.utils.common.invert
+import com.beardness.yourchordsru.utils.extensions.invert
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow

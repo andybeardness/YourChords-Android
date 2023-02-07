@@ -8,6 +8,7 @@ class HtmlBuilder @Inject constructor(): IHtmlBuilder {
         content: String,
         backgroundColor: Color,
         textColor: Color,
+        textSizePx: Int,
     ): String {
         val contentFixed = content.fixContent()
 
@@ -42,7 +43,7 @@ class HtmlBuilder @Inject constructor(): IHtmlBuilder {
                 color: rgb($textRed $textGreen $textBlue);
                 font-family: monospace;
                 line-height: 1.5;
-                font-size: 16px;
+                font-size: ${textSizePx}px;
                 font-weight: 100;
             }
         </style>

@@ -6,8 +6,12 @@ import kotlinx.coroutines.flow.StateFlow
 interface ISongScreenViewModel {
     val authorName: StateFlow<String>
     val songTitle: StateFlow<String>
+    val backgroundColor: StateFlow<Color>
+    val textColor: StateFlow<Color>
+    val chordsRaw: StateFlow<String>
     val chords: StateFlow<String>
     val isToolbarExpanded: StateFlow<Boolean>
+    val textSize: StateFlow<Int>
     fun load(
         authorId: Int?,
         songId: Int?,
@@ -16,4 +20,6 @@ interface ISongScreenViewModel {
     )
     fun navigateBack()
     fun expandToolbar()
+    fun textIncrease()
+    fun textDecrease()
 }

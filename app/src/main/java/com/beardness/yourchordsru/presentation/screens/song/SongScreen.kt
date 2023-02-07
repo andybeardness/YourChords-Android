@@ -13,10 +13,13 @@ import com.beardness.yourchordsru.ui.widgets.toolbar.chords.ChordsToolbarWidget
 fun SongScreen(
     viewModel: ISongScreenViewModel,
 ) {
-    val authorName by viewModel.authorName.collectAsState()
     val songTitle by viewModel.songTitle.collectAsState()
     val chords by viewModel.chords.collectAsState()
     val isToolbarExpanded by viewModel.isToolbarExpanded.collectAsState()
+    val textSize by viewModel.textSize.collectAsState()
+
+    val isIncreaseButtonActive = textSize != SongScreenViewModel.MAX_FONT_SIZE_PX
+    val isDecreaseButtonActive = textSize != SongScreenViewModel.MIN_FONT_SIZE_PX
 
     Column(
         modifier = Modifier
@@ -27,6 +30,10 @@ fun SongScreen(
             onClickNavigation = { viewModel.navigateBack() },
             isExpanded = isToolbarExpanded,
             onClickExpand = { viewModel.expandToolbar() },
+            onClickTextIncrease = { viewModel.textIncrease() },
+            isIncreaseButtonActive = isIncreaseButtonActive,
+            onClickTextDecrease = { viewModel.textDecrease() },
+            isDecreaseButtonActive = isDecreaseButtonActive,
         )
 
         ChordsWidget(

@@ -6,10 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.ChevronLeft
-import androidx.compose.material.icons.rounded.ExpandLess
-import androidx.compose.material.icons.rounded.ExpandMore
-import androidx.compose.material.icons.rounded.Favorite
+import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -23,6 +20,10 @@ fun ChordsToolbarWidget(
     onClickNavigation: () -> Unit,
     isExpanded: Boolean,
     onClickExpand: () -> Unit,
+    onClickTextIncrease: () -> Unit,
+    isIncreaseButtonActive: Boolean,
+    onClickTextDecrease: () -> Unit,
+    isDecreaseButtonActive: Boolean,
 ) {
     val height by animateDpAsState(
         targetValue = if (isExpanded)
@@ -33,6 +34,20 @@ fun ChordsToolbarWidget(
             durationMillis = 300,
         ),
     )
+
+    val increaseButtonColor =
+        if (isIncreaseButtonActive) {
+            YourChordsRuTheme.colors.text
+        } else {
+            YourChordsRuTheme.colors.text.copy(alpha = .2f)
+        }
+
+    val decreaseButtonColor =
+        if (isDecreaseButtonActive) {
+            YourChordsRuTheme.colors.text
+        } else {
+            YourChordsRuTheme.colors.text.copy(alpha = .2f)
+        }
 
     Column(
         modifier = Modifier
@@ -94,18 +109,6 @@ fun ChordsToolbarWidget(
                 ToolbarIconWidget(
                     icon = Icons.Rounded.Favorite,
                     iconDescription = "",
-                    iconColor = YourChordsRuTheme.colors.red,
-                    onClick = { },
-                )
-                ToolbarIconWidget(
-                    icon = Icons.Rounded.Favorite,
-                    iconDescription = "",
-                    iconColor = YourChordsRuTheme.colors.orange,
-                    onClick = { },
-                )
-                ToolbarIconWidget(
-                    icon = Icons.Rounded.Favorite,
-                    iconDescription = "",
                     iconColor = YourChordsRuTheme.colors.yellow,
                     onClick = { },
                 )
@@ -128,16 +131,16 @@ fun ChordsToolbarWidget(
                     onClick = { },
                 )
                 ToolbarIconWidget(
-                    icon = Icons.Rounded.Favorite,
+                    icon = Icons.Rounded.TextIncrease,
                     iconDescription = "",
-                    iconColor = YourChordsRuTheme.colors.purple,
-                    onClick = { },
+                    iconColor = increaseButtonColor,
+                    onClick = onClickTextIncrease,
                 )
                 ToolbarIconWidget(
-                    icon = Icons.Rounded.Favorite,
+                    icon = Icons.Rounded.TextDecrease,
                     iconDescription = "",
-                    iconColor = YourChordsRuTheme.colors.pink,
-                    onClick = { },
+                    iconColor = decreaseButtonColor,
+                    onClick = onClickTextDecrease,
                 )
             }
         }

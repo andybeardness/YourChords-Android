@@ -7,5 +7,6 @@ interface IHtmlBuilder {
         content: String,
         backgroundColor: Color,
         textColor: Color,
+        textSizePx: Int,
     ): String
 }
