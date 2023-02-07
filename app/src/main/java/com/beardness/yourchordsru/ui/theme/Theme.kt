@@ -19,23 +19,16 @@ fun YourChordsRuTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit,
 ) {
-    val systemUiController = rememberSystemUiController()
-
-    val statusBarColor =
-        if (darkTheme) {
-            darkColors.background
-        } else {
-            lightColors.background
-        }
-
-    systemUiController.setSystemBarsColor(color = statusBarColor)
-
     val colors =
         if (darkTheme) {
             darkColors
         } else {
             lightColors
         }
+    
+    val systemUiController = rememberSystemUiController()
+
+    systemUiController.setSystemBarsColor(color = colors.card)
 
     CompositionLocalProvider(
         LocalExtendedColors provides colors,

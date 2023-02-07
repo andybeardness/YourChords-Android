@@ -61,7 +61,7 @@ val typography = AppTypography(
     ),
     tagTitleAtSearchToolbar = TextStyle(
         fontSize = 14.sp,
-        fontWeight = FontWeight.ExtraLight,
+        fontWeight = FontWeight.Light,
     )
 )
 

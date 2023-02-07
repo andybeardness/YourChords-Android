@@ -1,4 +1,4 @@
-package com.beardness.yourchordsru.ui.widgets.toolbar
+package com.beardness.yourchordsru.ui.widgets.toolbar.search
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

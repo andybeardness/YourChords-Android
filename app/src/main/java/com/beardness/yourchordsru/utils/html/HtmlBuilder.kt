@@ -34,13 +34,15 @@ class HtmlBuilder @Inject constructor(): IHtmlBuilder {
             body {
                 background-color: rgb($backgroundRed $backgroundGreen $backgroundBlue);
                 width: auto;
+                padding: 10px;
             }
             
             pre {
+                white-space: pre-wrap;
                 color: rgb($textRed $textGreen $textBlue);
                 font-family: monospace;
-                line-height: 1.4;
-                font-size: 12px;
+                line-height: 1.5;
+                font-size: 16px;
                 font-weight: 100;
             }
         </style>

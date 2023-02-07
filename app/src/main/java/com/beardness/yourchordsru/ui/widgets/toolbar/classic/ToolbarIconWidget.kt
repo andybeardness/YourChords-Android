@@ -1,4 +1,4 @@
-package com.beardness.yourchordsru.ui.widgets.toolbar
+package com.beardness.yourchordsru.ui.widgets.toolbar.classic
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding

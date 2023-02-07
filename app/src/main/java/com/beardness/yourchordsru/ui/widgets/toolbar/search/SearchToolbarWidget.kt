@@ -1,18 +1,16 @@
-package com.beardness.yourchordsru.ui.widgets.toolbar
+package com.beardness.yourchordsru.ui.widgets.toolbar.search
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Cancel
-import androidx.compose.material.icons.rounded.ChevronLeft
-import androidx.compose.material.icons.rounded.Search
-import androidx.compose.material.icons.rounded.Sync
+import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
 import com.beardness.yourchordsru.ui.widgets.searchtag.SearchTagWidget
+import com.beardness.yourchordsru.ui.widgets.toolbar.classic.ToolbarIconWidget
 
 @Composable
 fun SearchToolbarWidget(
@@ -62,7 +60,7 @@ fun SearchToolbarWidget(
 
             if (isSearch) {
                 ToolbarIconWidget(
-                    icon = Icons.Rounded.Cancel,
+                    icon = Icons.Rounded.Close,
                     iconDescription = "",
                     iconColor = YourChordsRuTheme.colors.text.copy(alpha = .2f),
                     onClick = { }

@@ -24,8 +24,8 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
 import com.beardness.yourchordsru.ui.widgets.author.AuthorCollectionWidget
-import com.beardness.yourchordsru.ui.widgets.toolbar.AnimatedToolbarWidget
-import com.beardness.yourchordsru.ui.widgets.toolbar.ToolbarIconWidget
+import com.beardness.yourchordsru.ui.widgets.toolbar.classic.AnimatedToolbarWidget
+import com.beardness.yourchordsru.ui.widgets.toolbar.classic.ToolbarIconWidget
 
 @Composable
 fun HomeScreen(

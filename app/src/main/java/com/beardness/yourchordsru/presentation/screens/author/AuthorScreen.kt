@@ -1,27 +1,24 @@
 package com.beardness.yourchordsru.presentation.screens.author
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.*
+import androidx.compose.material.icons.rounded.Search
+import androidx.compose.material.icons.rounded.SortByAlpha
+import androidx.compose.material.icons.rounded.TrendingUp
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
+import com.beardness.yourchordsru.ui.widgets.navigation.ArrowBackWidget
 import com.beardness.yourchordsru.ui.widgets.song.SongCollectionWidget
-import com.beardness.yourchordsru.ui.widgets.toolbar.AnimatedToolbarWidget
-import com.beardness.yourchordsru.ui.widgets.toolbar.ToolbarIconWidget
+import com.beardness.yourchordsru.ui.widgets.toolbar.classic.AnimatedToolbarWidget
+import com.beardness.yourchordsru.ui.widgets.toolbar.classic.ToolbarIconWidget
 import com.beardness.yourchordsru.utils.sorttype.SortType
 
 @Composable
@@ -56,16 +53,8 @@ fun AuthorScreen(
             title = authorName,
             visibility = toolbarVisibility,
             navigationContent = {
-                Icon(
-                    modifier = Modifier
-                        .padding(all = YourChordsRuTheme.dimens.dp8)
-                        .clip(shape = RoundedCornerShape(percent = 50))
-                        .clickable { viewModel.navigateBack() }
-                        .padding(all = YourChordsRuTheme.dimens.dp8)
-                        .size(size = YourChordsRuTheme.dimens.dp32),
-                    imageVector = Icons.Rounded.ChevronLeft,
-                    contentDescription = "",
-                    tint = YourChordsRuTheme.colors.text,
+                ArrowBackWidget(
+                    onClick = { viewModel.navigateBack() }
                 )
             },
             icons = listOf {

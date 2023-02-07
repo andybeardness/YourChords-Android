@@ -27,7 +27,17 @@ fun SearchTagWidget(
             Color.Transparent
         }
 
+    val alwaysWhiteColor = Color.White
+
+    val textColor =
+        if (isSelected) {
+            alwaysWhiteColor
+        } else {
+            YourChordsRuTheme.colors.text
+        }
+
     val shape = RoundedCornerShape(size = YourChordsRuTheme.dimens.dp8)
+
 
     Box(
         modifier = Modifier
@@ -44,7 +54,7 @@ fun SearchTagWidget(
     ) {
         Text(
             text = title,
-            color = YourChordsRuTheme.colors.text,
+            color = textColor,
             style = YourChordsRuTheme.typography.tagTitleAtSearchToolbar,
         )
     }

@@ -12,7 +12,7 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import com.beardness.yourchordsru.ui.widgets.search.SearchCollection
-import com.beardness.yourchordsru.ui.widgets.toolbar.AnimatedSearchFieldWidget
+import com.beardness.yourchordsru.ui.widgets.toolbar.search.AnimatedSearchFieldWidget
 
 @Composable
 fun SearchScreen(viewModel: ISearchScreenViewModel) {
