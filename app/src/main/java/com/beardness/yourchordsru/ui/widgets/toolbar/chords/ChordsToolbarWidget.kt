@@ -27,7 +27,7 @@ fun ChordsToolbarWidget(
 ) {
     val height by animateDpAsState(
         targetValue = if (isExpanded)
-            YourChordsRuTheme.dimens.dp128
+            YourChordsRuTheme.dimens.dp64x2
         else
             YourChordsRuTheme.dimens.dp64,
         animationSpec = tween(

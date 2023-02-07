@@ -27,7 +27,7 @@ fun SearchToolbarWidget(
 ) {
     Column(
         modifier = Modifier
-            .height(height = YourChordsRuTheme.dimens.dp128)
+            .height(height = YourChordsRuTheme.dimens.dp64x2)
             .fillMaxWidth()
             .background(color = YourChordsRuTheme.colors.card),
     ) {

@@ -19,7 +19,7 @@ fun AppAvatarWidget() {
     Box(
         modifier = Modifier
             .padding(all = YourChordsRuTheme.dimens.dp32)
-            .size(size = YourChordsRuTheme.dimens.dp128)
+            .size(size = YourChordsRuTheme.dimens.dp64x2)
             .background(
                 brush = Brush.verticalGradient(
                     colors = listOf(
@@ -33,7 +33,7 @@ fun AppAvatarWidget() {
     ) {
         Icon(
             modifier = Modifier
-                .size(size = YourChordsRuTheme.dimens.dp128)
+                .size(size = YourChordsRuTheme.dimens.dp64x2)
                 .padding(all = YourChordsRuTheme.dimens.dp16),
             imageVector = Icons.Rounded.MusicNote,
             contentDescription = "",

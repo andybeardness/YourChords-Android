@@ -1,4 +1,4 @@
-package com.beardness.yourchordsru.ui.scaffold.drawer
+package com.beardness.yourchordsru.presentation.screens.home.scaffold.drawer
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column

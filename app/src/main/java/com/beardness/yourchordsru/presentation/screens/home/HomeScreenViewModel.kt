@@ -31,8 +31,8 @@ class HomeScreenViewModel @Inject constructor(
         load()
     }
 
-    override fun openDrawer() {
-        navigator.openDrawer()
+    override fun navigateToHome() {
+        navigator.home()
     }
 
     override fun navigateToAuthor(authorId: Int) {

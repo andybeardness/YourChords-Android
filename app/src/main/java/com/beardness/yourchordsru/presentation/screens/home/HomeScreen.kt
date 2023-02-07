@@ -12,20 +12,20 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Menu
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material.icons.rounded.StarBorder
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
+import androidx.compose.material.rememberScaffoldState
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import com.beardness.yourchordsru.presentation.screens.home.scaffold.HomeScreenScaffold
 import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
 import com.beardness.yourchordsru.ui.widgets.author.AuthorCollectionWidget
 import com.beardness.yourchordsru.ui.widgets.toolbar.classic.AnimatedToolbarWidget
 import com.beardness.yourchordsru.ui.widgets.toolbar.classic.ToolbarIconWidget
+import kotlinx.coroutines.launch
 
 @Composable
 fun HomeScreen(
@@ -38,6 +38,16 @@ fun HomeScreen(
     val scrollUp by viewModel
         .scrollUp
         .collectAsState()
+
+    val coroutineScope = rememberCoroutineScope()
+
+    val scaffoldState = rememberScaffoldState()
+
+    val openDrawer = {
+        coroutineScope.launch {
+            scaffoldState.drawerState.open()
+        }
+    }
 
     val toolbarVisibility =
         scrollUp ?: true
@@ -53,50 +63,56 @@ fun HomeScreen(
         }
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-    ) {
-        AnimatedToolbarWidget(
-            title = "Home",
-            visibility = toolbarVisibility,
-            navigationContent = {
-                Icon(
-                    modifier = Modifier
-                        .padding(all = YourChordsRuTheme.dimens.dp8)
-                        .clip(shape = RoundedCornerShape(percent = 50))
-                        .clickable { viewModel.openDrawer() }
-                        .padding(all = YourChordsRuTheme.dimens.dp8)
-                        .size(size = YourChordsRuTheme.dimens.dp32),
-                    imageVector = Icons.Rounded.Menu,
-                    contentDescription = "",
-                    tint = YourChordsRuTheme.colors.text,
-                )
-            },
-            icons = listOf {
-                ToolbarIconWidget(
-                    icon = Icons.Rounded.StarBorder,
-                    iconDescription = "",
-                    iconColor = YourChordsRuTheme.colors.text,
-                    onClick = {},
-                )
-
-                ToolbarIconWidget(
-                    icon = Icons.Rounded.Search,
-                    iconDescription = "",
-                    iconColor = YourChordsRuTheme.colors.text,
-                    onClick = { viewModel.navigateToSearch() },
-                )
-            }
-        )
-
-        AuthorCollectionWidget(
+    HomeScreenScaffold(
+        onClickNavigateHome = { viewModel.navigateToHome() },
+        scaffoldState = scaffoldState,
+    ) { paddingValues ->
+        Column(
             modifier = Modifier
-                .weight(weight = 1f)
-                .nestedScroll(connection = nestedScrollConnection),
-            lazyListState = lazyListState,
-            authors = authors,
-            onCLick = { authorId -> viewModel.navigateToAuthor(authorId = authorId) },
-        )
+                .fillMaxSize()
+                .padding(paddingValues = paddingValues),
+        ) {
+            AnimatedToolbarWidget(
+                title = "Home",
+                visibility = toolbarVisibility,
+                navigationContent = {
+                    Icon(
+                        modifier = Modifier
+                            .padding(all = YourChordsRuTheme.dimens.dp8)
+                            .clip(shape = RoundedCornerShape(percent = 50))
+                            .clickable { openDrawer() }
+                            .padding(all = YourChordsRuTheme.dimens.dp8)
+                            .size(size = YourChordsRuTheme.dimens.dp32),
+                        imageVector = Icons.Rounded.Menu,
+                        contentDescription = "",
+                        tint = YourChordsRuTheme.colors.text,
+                    )
+                },
+                icons = listOf {
+                    ToolbarIconWidget(
+                        icon = Icons.Rounded.StarBorder,
+                        iconDescription = "",
+                        iconColor = YourChordsRuTheme.colors.text,
+                        onClick = {},
+                    )
+
+                    ToolbarIconWidget(
+                        icon = Icons.Rounded.Search,
+                        iconDescription = "",
+                        iconColor = YourChordsRuTheme.colors.text,
+                        onClick = { viewModel.navigateToSearch() },
+                    )
+                }
+            )
+
+            AuthorCollectionWidget(
+                modifier = Modifier
+                    .weight(weight = 1f)
+                    .nestedScroll(connection = nestedScrollConnection),
+                lazyListState = lazyListState,
+                authors = authors,
+                onCLick = { authorId -> viewModel.navigateToAuthor(authorId = authorId) },
+            )
+        }
     }
 }

@@ -7,8 +7,7 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
-import com.beardness.yourchordsru.ui.scaffold.MainScaffold
-import com.beardness.yourchordsru.ui.scaffold.MainScaffoldViewModel
+import com.beardness.yourchordsru.activity.scaffold.AdBottomBarScaffold
 import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,8 +22,6 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun compose() {
-        val mainScaffoldViewModel: MainScaffoldViewModel by viewModels()
-
         setContent {
             YourChordsRuTheme {
                 // A surface container using the 'background' color from the theme
@@ -32,8 +29,12 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = YourChordsRuTheme.colors.background
                 ) {
-                    MainScaffold(
-                        viewModel = mainScaffoldViewModel,
+                    AdBottomBarScaffold(
+                        setupNavController = { navHostController ->
+                            viewModel.setupNavController(
+                                navHostController = navHostController,
+                            )
+                        }
                     )
                 }
             }

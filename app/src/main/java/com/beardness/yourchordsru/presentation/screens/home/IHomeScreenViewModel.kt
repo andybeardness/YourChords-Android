@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.StateFlow
 interface IHomeScreenViewModel {
     val authors: Flow<List<AuthorViewDto>>
     val scrollUp: StateFlow<Boolean?>
-    fun openDrawer()
+    fun navigateToHome()
     fun navigateToAuthor(authorId: Int)
     fun navigateToSearch()
     fun updateScrollPosition(firstVisibleItemIndex: Int)

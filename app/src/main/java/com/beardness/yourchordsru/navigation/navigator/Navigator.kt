@@ -7,18 +7,9 @@ import javax.inject.Inject
 class Navigator @Inject constructor(): INavigator {
 
     private var _navHostController: NavController? = null
-    private var _openDrawer: (() -> Unit)? = null
 
     override fun setupNavController(controller: NavHostController) {
         _navHostController = controller
-    }
-
-    override fun setupDrawerController(openDrawer: () -> Unit) {
-        _openDrawer = openDrawer
-    }
-
-    override fun openDrawer() {
-        _openDrawer?.invoke()
     }
 
     override fun back() {
