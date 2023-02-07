@@ -89,12 +89,14 @@ fun Navigation(
 
             val backgroundColor = YourChordsRuTheme.colors.background
             val textColor = YourChordsRuTheme.colors.text
+            val chordsColor = YourChordsRuTheme.colors.blue
 
             viewModel.load(
                 authorId = authorId,
                 songId = songId,
                 backgroundColor = backgroundColor,
                 textColor = textColor,
+                chordsColor = chordsColor,
             )
 
             SongScreen(

@@ -36,6 +36,9 @@ class SongScreenViewModel @Inject constructor(
     private val _textColor = MutableStateFlow<Color>(value = Color.Transparent)
     override val textColor = _textColor.asStateFlow()
 
+    private val _chordsColor = MutableStateFlow<Color>(value = Color.Transparent)
+    override val chordsColor = _chordsColor.asStateFlow()
+
     private val _chordsRaw = MutableStateFlow<String>(value = "")
     override val chordsRaw = _chordsRaw.asStateFlow()
 
@@ -45,10 +48,11 @@ class SongScreenViewModel @Inject constructor(
     private val _isToolbarExpanded = MutableStateFlow<Boolean>(value = false)
     override val isToolbarExpanded = _isToolbarExpanded.asStateFlow()
 
-    private val _textSize = MutableStateFlow<Int>(value = 16)
+    private val _textSize = MutableStateFlow<Int>(value = DEFAULT_FONT_SIZE_PX)
     override val textSize = _textSize.asStateFlow()
 
     companion object {
+        const val DEFAULT_FONT_SIZE_PX = 12
         const val MAX_FONT_SIZE_PX = 24
         const val MIN_FONT_SIZE_PX = 8
     }
@@ -58,6 +62,7 @@ class SongScreenViewModel @Inject constructor(
         songId: Int?,
         backgroundColor: Color,
         textColor: Color,
+        chordsColor: Color,
     ) {
         authorId ?: return
         songId ?: return
@@ -76,6 +81,7 @@ class SongScreenViewModel @Inject constructor(
             _songTitle.emit(value = song.title)
             _backgroundColor.emit(value = backgroundColor)
             _textColor.emit(value = textColor)
+            _chordsColor.emit(value = chordsColor)
 
             val chords =
                 song.chords
@@ -89,6 +95,7 @@ class SongScreenViewModel @Inject constructor(
                 backgroundColor = backgroundColor,
                 textColor = textColor,
                 textSizePx = textSizePx,
+                chordsColor = chordsColor,
             )
 
             _chords.emit(value = htmlChords)
@@ -123,6 +130,7 @@ class SongScreenViewModel @Inject constructor(
             val chords = _chordsRaw.value
             val backgroundColor = _backgroundColor.value
             val textColor = _textColor.value
+            val chordsColor = _chordsColor.value
             val textSizePx = _textSize.value
 
             val htmlChords = htmlBuilder.html(
@@ -130,6 +138,7 @@ class SongScreenViewModel @Inject constructor(
                 backgroundColor = backgroundColor,
                 textColor = textColor,
                 textSizePx = textSizePx,
+                chordsColor = chordsColor,
             )
 
             _chords.emit(value = htmlChords)

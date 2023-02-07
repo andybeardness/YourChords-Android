@@ -7,6 +7,7 @@ interface IHtmlBuilder {
         content: String,
         backgroundColor: Color,
         textColor: Color,
+        chordsColor: Color,
         textSizePx: Int,
     ): String
 }

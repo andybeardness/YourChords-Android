@@ -8,6 +8,7 @@ interface ISongScreenViewModel {
     val songTitle: StateFlow<String>
     val backgroundColor: StateFlow<Color>
     val textColor: StateFlow<Color>
+    val chordsColor: StateFlow<Color>
     val chordsRaw: StateFlow<String>
     val chords: StateFlow<String>
     val isToolbarExpanded: StateFlow<Boolean>
@@ -17,6 +18,7 @@ interface ISongScreenViewModel {
         songId: Int?,
         backgroundColor: Color,
         textColor: Color,
+        chordsColor: Color,
     )
     fun navigateBack()
     fun expandToolbar()

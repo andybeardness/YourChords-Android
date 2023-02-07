@@ -1,6 +1,7 @@
 package com.beardness.yourchordsru.utils.html
 
 import androidx.compose.ui.graphics.Color
+import com.beardness.yourchordsru.utils.extensions.*
 import javax.inject.Inject
 
 class HtmlBuilder @Inject constructor(): IHtmlBuilder {
@@ -8,17 +9,10 @@ class HtmlBuilder @Inject constructor(): IHtmlBuilder {
         content: String,
         backgroundColor: Color,
         textColor: Color,
+        chordsColor: Color,
         textSizePx: Int,
     ): String {
         val contentFixed = content.fixContent()
-
-        val backgroundRed = (backgroundColor.red * 255).toInt()
-        val backgroundGreen = (backgroundColor.green * 255).toInt()
-        val backgroundBlue = (backgroundColor.blue * 255).toInt()
-
-        val textRed = (textColor.red * 255).toInt()
-        val textGreen = (textColor.green * 255).toInt()
-        val textBlue = (textColor.blue * 255).toInt()
 
         return """<!DOCTYPE html>
     <html lang="en">
@@ -33,17 +27,22 @@ class HtmlBuilder @Inject constructor(): IHtmlBuilder {
             }
             
             body {
-                background-color: rgb($backgroundRed $backgroundGreen $backgroundBlue);
+                background-color: ${backgroundColor.htmlStyle};
                 width: auto;
                 padding: 10px;
             }
             
             pre {
                 white-space: pre-wrap;
-                color: rgb($textRed $textGreen $textBlue);
+                color: ${textColor.htmlStyle};
                 font-family: monospace;
                 line-height: 1.5;
-                font-size: ${textSizePx}px;
+                font-size: ${textSizePx.fontSizePxHtmlStyle};
+                font-weight: 100;
+            }
+            
+            b {
+                color: ${chordsColor.htmlStyle};
                 font-weight: 100;
             }
         </style>
