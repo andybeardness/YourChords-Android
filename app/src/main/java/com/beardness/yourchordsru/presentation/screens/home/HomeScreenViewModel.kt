@@ -6,6 +6,7 @@ import com.beardness.yourchordsru.navigation.navigator.INavigator
 import com.beardness.yourchordsru.presentation.core.authors.IAuthorsCore
 import com.beardness.yourchordsru.presentation.screens.dto.AuthorViewDto
 import com.beardness.yourchordsru.presentation.screens.dto.authorsCoreDtoToViewDto
+import com.beardness.yourchordsru.presentation.screens.dto.types.AuthorsSortType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,6 +20,10 @@ class HomeScreenViewModel @Inject constructor(
     private val navigator: INavigator,
     @IoCoroutineScope private val ioCoroutineScope: CoroutineScope,
 ) : ViewModel(), IHomeScreenViewModel {
+
+    private val _authorsSortType =
+        MutableStateFlow<AuthorsSortType>(value = AuthorsSortType.DEFAULT)
+    override val authorsSortType = _authorsSortType.asStateFlow()
 
     private val _authors = MutableStateFlow<List<AuthorViewDto>>(value = emptyList())
     override val authors = _authors.asStateFlow()
@@ -53,6 +58,18 @@ class HomeScreenViewModel @Inject constructor(
         ioCoroutineScope.launch {
             _scrollUp.emit(value = newScrollUpValue)
             _lastScrollPosition = firstVisibleItemIndex
+        }
+    }
+
+    override fun changeAuthorsSortType() {
+        ioCoroutineScope.launch {
+            val newValue =
+                when (_authorsSortType.value) {
+                    AuthorsSortType.DEFAULT -> AuthorsSortType.FAVORITE_FIRST
+                    AuthorsSortType.FAVORITE_FIRST -> AuthorsSortType.DEFAULT
+                }
+
+            _authorsSortType.emit(value = newValue)
         }
     }
 

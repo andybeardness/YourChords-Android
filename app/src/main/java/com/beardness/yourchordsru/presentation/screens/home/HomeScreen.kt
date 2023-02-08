@@ -11,6 +11,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Menu
 import androidx.compose.material.icons.rounded.Search
+import androidx.compose.material.icons.rounded.Star
 import androidx.compose.material.icons.rounded.StarBorder
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.*
@@ -20,6 +21,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import com.beardness.yourchordsru.presentation.screens.dto.types.AuthorsSortType
 import com.beardness.yourchordsru.presentation.screens.home.scaffold.HomeScreenScaffold
 import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
 import com.beardness.yourchordsru.ui.widgets.author.AuthorCollectionWidget
@@ -31,6 +33,10 @@ import kotlinx.coroutines.launch
 fun HomeScreen(
     viewModel: IHomeScreenViewModel,
 ) {
+    val authorsSortType by viewModel
+        .authorsSortType
+        .collectAsState()
+
     val authors by viewModel
         .authors
         .collectAsState(initial = emptyList())
@@ -89,12 +95,24 @@ fun HomeScreen(
                     )
                 },
                 icons = listOf {
-                    ToolbarIconWidget(
-                        icon = Icons.Rounded.StarBorder,
-                        iconDescription = "",
-                        iconColor = YourChordsRuTheme.colors.yellow,
-                        onClick = {},
-                    )
+                    when (authorsSortType) {
+                        AuthorsSortType.DEFAULT -> {
+                            ToolbarIconWidget(
+                                icon = Icons.Rounded.StarBorder,
+                                iconDescription = "",
+                                iconColor = YourChordsRuTheme.colors.text,
+                                onClick = { viewModel.changeAuthorsSortType() },
+                            )
+                        }
+                        AuthorsSortType.FAVORITE_FIRST -> {
+                            ToolbarIconWidget(
+                                icon = Icons.Rounded.Star,
+                                iconDescription = "",
+                                iconColor = YourChordsRuTheme.colors.yellow,
+                                onClick = { viewModel.changeAuthorsSortType() },
+                            )
+                        }
+                    }
 
                     ToolbarIconWidget(
                         icon = Icons.Rounded.Search,
