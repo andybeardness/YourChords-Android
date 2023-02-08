@@ -19,6 +19,7 @@ fun SongScreen(
     val textSize by viewModel.textSize.collectAsState()
 
     val isIncreaseButtonActive = textSize != SongScreenViewModel.MAX_FONT_SIZE_PX
+    val isResetButtonActive = textSize != SongScreenViewModel.DEFAULT_FONT_SIZE_PX
     val isDecreaseButtonActive = textSize != SongScreenViewModel.MIN_FONT_SIZE_PX
 
     Column(
@@ -32,8 +33,11 @@ fun SongScreen(
             onClickExpand = { viewModel.expandToolbar() },
             onClickTextIncrease = { viewModel.textIncrease() },
             isIncreaseButtonActive = isIncreaseButtonActive,
+            onClickResetFontSize = { viewModel.textReset() },
+            isResetFontSizeButtonActive = isResetButtonActive,
             onClickTextDecrease = { viewModel.textDecrease() },
             isDecreaseButtonActive = isDecreaseButtonActive,
+            onClickChords = { viewModel.navigateChords() }
         )
 
         ChordsWidget(

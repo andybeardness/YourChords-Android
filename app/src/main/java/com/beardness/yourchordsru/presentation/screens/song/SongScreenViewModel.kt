@@ -24,6 +24,9 @@ class SongScreenViewModel @Inject constructor(
     @IoCoroutineScope private val ioCoroutineScope: CoroutineScope,
 ): ViewModel(), ISongScreenViewModel {
 
+    private val _authorId = MutableStateFlow<Int>(value = -1)
+    private val _songId = MutableStateFlow<Int>(value = -1)
+
     private val _authorName = MutableStateFlow<String>(value = "")
     override val authorName = _authorName.asStateFlow()
 
@@ -40,7 +43,6 @@ class SongScreenViewModel @Inject constructor(
     override val chordsColor = _chordsColor.asStateFlow()
 
     private val _chordsRaw = MutableStateFlow<String>(value = "")
-    override val chordsRaw = _chordsRaw.asStateFlow()
 
     private val _chords = MutableStateFlow<String>(value = "")
     override val chords = _chords.asStateFlow()
@@ -77,8 +79,12 @@ class SongScreenViewModel @Inject constructor(
                     ?.viewDto()
                     ?: return@launch
 
+            _authorId.emit(value = authorId)
+            _songId.emit(value = songId)
+
             _authorName.emit(value = song.authorName)
             _songTitle.emit(value = song.title)
+
             _backgroundColor.emit(value = backgroundColor)
             _textColor.emit(value = textColor)
             _chordsColor.emit(value = chordsColor)
@@ -106,6 +112,12 @@ class SongScreenViewModel @Inject constructor(
         navigator.back()
     }
 
+    override fun navigateChords() {
+        val authorId = _authorId.value
+        val songId = _songId.value
+        navigator.chords(authorId = authorId, songId = songId)
+    }
+
     override fun expandToolbar() {
         ioCoroutineScope.launch {
             val newValue =
@@ -123,6 +135,13 @@ class SongScreenViewModel @Inject constructor(
 
     override fun textDecrease() {
         textSizePxUpdate(difference = -2)
+    }
+
+    override fun textReset() {
+        ioCoroutineScope.launch {
+            _textSize.emit(value = DEFAULT_FONT_SIZE_PX)
+            reload()
+        }
     }
 
     private fun reload() {

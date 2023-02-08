@@ -5,6 +5,13 @@ import androidx.compose.ui.graphics.Color
 val Color.htmlStyle: String
     get() = "rgb(${this.r} ${this.g} ${this.b})"
 
+fun Color.buttonColorByCondition(condition: Boolean): Color =
+    if (condition) {
+        this
+    } else {
+        this.copy(alpha = .2f)
+    }
+
 private val Color.r: Int
     get() = (this.red * 255).toInt()
 

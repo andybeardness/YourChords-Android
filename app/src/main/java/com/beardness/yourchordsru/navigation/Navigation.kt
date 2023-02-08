@@ -13,6 +13,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.beardness.yourchordsru.presentation.screens.author.AuthorScreen
 import com.beardness.yourchordsru.presentation.screens.author.AuthorScreenViewModel
+import com.beardness.yourchordsru.presentation.screens.chords.ChordsScreen
+import com.beardness.yourchordsru.presentation.screens.chords.ChordsScreenViewModel
 import com.beardness.yourchordsru.presentation.screens.home.HomeScreen
 import com.beardness.yourchordsru.presentation.screens.home.HomeScreenViewModel
 import com.beardness.yourchordsru.presentation.screens.search.SearchScreen
@@ -55,7 +57,7 @@ fun Navigation(
 
         composable(
             route = "author/{${argumentAuthorId.name}}",
-            arguments = listOf(argumentAuthorId)
+            arguments = listOf(argumentAuthorId),
         ) { navBackStackEntry ->
             val viewModel = hiltViewModel<AuthorScreenViewModel>()
 
@@ -73,7 +75,7 @@ fun Navigation(
 
         composable(
             route = "song/{${argumentAuthorId.name}}/{${argumentSongId.name}}",
-            arguments = listOf(argumentAuthorId, argumentSongId)
+            arguments = listOf(argumentAuthorId, argumentSongId),
         ) { navBackStackEntry ->
             val viewModel = hiltViewModel<SongScreenViewModel>()
 
@@ -105,11 +107,32 @@ fun Navigation(
         }
         
         composable(
-            route = "search"
+            route = "search",
         ) {
             val viewModel = hiltViewModel<SearchScreenViewModel>()
             
             SearchScreen(viewModel = viewModel)
+        }
+
+        composable(
+            route = "chords/{${argumentAuthorId.name}}/{${argumentSongId.name}}",
+            arguments = listOf(argumentAuthorId, argumentSongId),
+        ) { navBackStackEntry ->
+            val viewModel = hiltViewModel<ChordsScreenViewModel>()
+
+            val authorId =
+                navBackStackEntry
+                    .arguments
+                    ?.getInt(argumentAuthorId.name)
+
+            val songId =
+                navBackStackEntry
+                    .arguments
+                    ?.getInt(argumentSongId.name)
+
+            viewModel.load(authorId = authorId, songId = songId)
+
+            ChordsScreen(viewModel = viewModel)
         }
     }
 }

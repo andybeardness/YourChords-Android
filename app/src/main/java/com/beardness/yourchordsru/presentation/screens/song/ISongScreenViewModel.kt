@@ -9,7 +9,6 @@ interface ISongScreenViewModel {
     val backgroundColor: StateFlow<Color>
     val textColor: StateFlow<Color>
     val chordsColor: StateFlow<Color>
-    val chordsRaw: StateFlow<String>
     val chords: StateFlow<String>
     val isToolbarExpanded: StateFlow<Boolean>
     val textSize: StateFlow<Int>
@@ -21,7 +20,9 @@ interface ISongScreenViewModel {
         chordsColor: Color,
     )
     fun navigateBack()
+    fun navigateChords()
     fun expandToolbar()
     fun textIncrease()
     fun textDecrease()
+    fun textReset()
 }

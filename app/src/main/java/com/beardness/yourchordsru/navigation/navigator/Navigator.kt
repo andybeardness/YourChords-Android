@@ -30,6 +30,10 @@ class Navigator @Inject constructor(): INavigator {
         _navHostController?.navigate(route = "song/$authorId/$songId")
     }
 
+    override fun chords(authorId: Int, songId: Int) {
+        _navHostController?.navigate(route = "chords/$authorId/$songId")
+    }
+
     override fun search() {
         _navHostController?.navigate(route = "search")
     }

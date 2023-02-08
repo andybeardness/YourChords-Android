@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
 import com.beardness.yourchordsru.ui.widgets.toolbar.classic.ToolbarIconWidget
+import com.beardness.yourchordsru.utils.extensions.buttonColorByCondition
 
 @Composable
 fun ChordsToolbarWidget(
@@ -22,8 +23,11 @@ fun ChordsToolbarWidget(
     onClickExpand: () -> Unit,
     onClickTextIncrease: () -> Unit,
     isIncreaseButtonActive: Boolean,
+    onClickResetFontSize: () -> Unit,
+    isResetFontSizeButtonActive: Boolean,
     onClickTextDecrease: () -> Unit,
     isDecreaseButtonActive: Boolean,
+    onClickChords: () -> Unit,
 ) {
     val height by animateDpAsState(
         targetValue = if (isExpanded)
@@ -36,18 +40,16 @@ fun ChordsToolbarWidget(
     )
 
     val increaseButtonColor =
-        if (isIncreaseButtonActive) {
-            YourChordsRuTheme.colors.text
-        } else {
-            YourChordsRuTheme.colors.text.copy(alpha = .2f)
-        }
+        YourChordsRuTheme.colors.text
+            .buttonColorByCondition(condition = isIncreaseButtonActive)
+
+    val resetButtonColor =
+        YourChordsRuTheme.colors.text
+            .buttonColorByCondition(condition = isResetFontSizeButtonActive)
 
     val decreaseButtonColor =
-        if (isDecreaseButtonActive) {
-            YourChordsRuTheme.colors.text
-        } else {
-            YourChordsRuTheme.colors.text.copy(alpha = .2f)
-        }
+        YourChordsRuTheme.colors.text
+            .buttonColorByCondition(condition = isDecreaseButtonActive)
 
     Column(
         modifier = Modifier
@@ -107,34 +109,22 @@ fun ChordsToolbarWidget(
                 horizontalArrangement = Arrangement.SpaceAround,
             ) {
                 ToolbarIconWidget(
-                    icon = Icons.Rounded.Favorite,
+                    icon = Icons.Rounded.Tag,
                     iconDescription = "",
-                    iconColor = YourChordsRuTheme.colors.yellow,
-                    onClick = { },
-                )
-                ToolbarIconWidget(
-                    icon = Icons.Rounded.Favorite,
-                    iconDescription = "",
-                    iconColor = YourChordsRuTheme.colors.green,
-                    onClick = { },
-                )
-                ToolbarIconWidget(
-                    icon = Icons.Rounded.Favorite,
-                    iconDescription = "",
-                    iconColor = YourChordsRuTheme.colors.cyan,
-                    onClick = { },
-                )
-                ToolbarIconWidget(
-                    icon = Icons.Rounded.Favorite,
-                    iconDescription = "",
-                    iconColor = YourChordsRuTheme.colors.blue,
-                    onClick = { },
+                    iconColor = YourChordsRuTheme.colors.text,
+                    onClick = onClickChords,
                 )
                 ToolbarIconWidget(
                     icon = Icons.Rounded.TextIncrease,
                     iconDescription = "",
                     iconColor = increaseButtonColor,
                     onClick = onClickTextIncrease,
+                )
+                ToolbarIconWidget(
+                    icon = Icons.Rounded.Spellcheck,
+                    iconDescription = "",
+                    iconColor = resetButtonColor,
+                    onClick = onClickResetFontSize,
                 )
                 ToolbarIconWidget(
                     icon = Icons.Rounded.TextDecrease,
