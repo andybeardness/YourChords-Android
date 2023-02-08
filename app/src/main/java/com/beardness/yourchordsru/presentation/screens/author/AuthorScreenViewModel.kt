@@ -64,6 +64,10 @@ class AuthorScreenViewModel @Inject constructor(
         navigator.song(authorId = authorId, songId = songId)
     }
 
+    override fun navigateToSearch() {
+        navigator.search()
+    }
+
     override fun navigateBack() {
         navigator.back()
     }

@@ -61,15 +61,15 @@ fun AuthorScreen(
                 ToolbarIconWidget(
                     icon = sortTypeIcon,
                     iconDescription = "",
-                    iconColor = YourChordsRuTheme.colors.text,
+                    iconColor = YourChordsRuTheme.colors.cyan,
                     onClick = { viewModel.switchSortType() },
                 )
 
                 ToolbarIconWidget(
                     icon = Icons.Rounded.Search,
                     iconDescription = "",
-                    iconColor = YourChordsRuTheme.colors.text,
-                    onClick = {},
+                    iconColor = YourChordsRuTheme.colors.blue,
+                    onClick = { viewModel.navigateToSearch() },
                 )
             }
         )

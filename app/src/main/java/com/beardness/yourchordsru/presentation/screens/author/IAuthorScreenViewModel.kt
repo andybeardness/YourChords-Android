@@ -11,6 +11,7 @@ interface IAuthorScreenViewModel {
     val scrollUp: StateFlow<Boolean?>
     fun load(authorId: Int?)
     fun navigateToSong(authorId: Int, songId: Int)
+    fun navigateToSearch()
     fun navigateBack()
     fun updateScrollPosition(firstVisibleItemIndex: Int)
     fun switchSortType()

@@ -85,21 +85,21 @@ fun HomeScreen(
                             .size(size = YourChordsRuTheme.dimens.dp32),
                         imageVector = Icons.Rounded.Menu,
                         contentDescription = "",
-                        tint = YourChordsRuTheme.colors.text,
+                        tint = YourChordsRuTheme.colors.orange,
                     )
                 },
                 icons = listOf {
                     ToolbarIconWidget(
                         icon = Icons.Rounded.StarBorder,
                         iconDescription = "",
-                        iconColor = YourChordsRuTheme.colors.text,
+                        iconColor = YourChordsRuTheme.colors.yellow,
                         onClick = {},
                     )
 
                     ToolbarIconWidget(
                         icon = Icons.Rounded.Search,
                         iconDescription = "",
-                        iconColor = YourChordsRuTheme.colors.text,
+                        iconColor = YourChordsRuTheme.colors.blue,
                         onClick = { viewModel.navigateToSearch() },
                     )
                 }

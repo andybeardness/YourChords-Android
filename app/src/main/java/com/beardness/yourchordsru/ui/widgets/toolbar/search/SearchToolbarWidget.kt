@@ -2,6 +2,7 @@ package com.beardness.yourchordsru.ui.widgets.toolbar.search
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.*
@@ -83,7 +84,7 @@ fun SearchToolbarWidget(
                 ToolbarIconWidget(
                     icon = Icons.Rounded.Search,
                     iconDescription = "",
-                    iconColor = YourChordsRuTheme.colors.text,
+                    iconColor = YourChordsRuTheme.colors.blue,
                     onClick = { onClickSearch(input) }
                 )
             }
@@ -100,15 +101,20 @@ fun SearchToolbarWidget(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceEvenly,
         ) {
+            Text(
+                text = "Search by : ",
+                color = YourChordsRuTheme.colors.text,
+            )
+
             SearchTagWidget(
-                title = "By authors",
-                color = YourChordsRuTheme.colors.purple,
+                title = "Authors",
+                color = YourChordsRuTheme.colors.green,
                 isSelected = isSearchByAuthorsSelected,
                 onClick = onClickSearchByAuthorsTag,
             )
             SearchTagWidget(
-                title = "By songs",
-                color = YourChordsRuTheme.colors.orange,
+                title = "Songs",
+                color = YourChordsRuTheme.colors.green,
                 isSelected = isSearchBySongsSelected,
                 onClick = onClickSearchBySongsTag,
             )
