@@ -37,7 +37,6 @@ fun SongScreen(
             isResetFontSizeButtonActive = isResetButtonActive,
             onClickTextDecrease = { viewModel.textDecrease() },
             isDecreaseButtonActive = isDecreaseButtonActive,
-            onClickChords = { viewModel.navigateChords() }
         )
 
         ChordsWidget(

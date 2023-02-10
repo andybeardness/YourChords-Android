@@ -112,12 +112,6 @@ class SongScreenViewModel @Inject constructor(
         navigator.back()
     }
 
-    override fun navigateChords() {
-        val authorId = _authorId.value
-        val songId = _songId.value
-        navigator.chords(authorId = authorId, songId = songId)
-    }
-
     override fun expandToolbar() {
         ioCoroutineScope.launch {
             val newValue =

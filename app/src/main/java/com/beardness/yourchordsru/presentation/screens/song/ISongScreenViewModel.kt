@@ -20,7 +20,6 @@ interface ISongScreenViewModel {
         chordsColor: Color,
     )
     fun navigateBack()
-    fun navigateChords()
     fun expandToolbar()
     fun textIncrease()
     fun textDecrease()

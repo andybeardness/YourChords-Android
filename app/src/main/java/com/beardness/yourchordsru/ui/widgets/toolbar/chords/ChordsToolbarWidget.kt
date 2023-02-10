@@ -27,7 +27,6 @@ fun ChordsToolbarWidget(
     isResetFontSizeButtonActive: Boolean,
     onClickTextDecrease: () -> Unit,
     isDecreaseButtonActive: Boolean,
-    onClickChords: () -> Unit,
 ) {
     val height by animateDpAsState(
         targetValue = if (isExpanded)
@@ -108,12 +107,6 @@ fun ChordsToolbarWidget(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceAround,
             ) {
-                ToolbarIconWidget(
-                    icon = Icons.Rounded.Tag,
-                    iconDescription = "",
-                    iconColor = YourChordsRuTheme.colors.text,
-                    onClick = onClickChords,
-                )
                 ToolbarIconWidget(
                     icon = Icons.Rounded.TextIncrease,
                     iconDescription = "",
