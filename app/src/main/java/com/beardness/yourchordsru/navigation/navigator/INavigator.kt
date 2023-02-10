@@ -9,4 +9,5 @@ interface INavigator {
     fun author(authorId: Int)
     fun song(authorId: Int, songId: Int)
     fun search()
+    fun settings()
 }

@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 fun HomeScreenScaffold(
     scaffoldState: ScaffoldState,
     onClickNavigateHome: () -> Unit,
+    onClickNavigateSettings: () -> Unit,
     content: @Composable (PaddingValues) -> Unit,
 ) {
     val coroutineScope = rememberCoroutineScope()
@@ -33,7 +34,10 @@ fun HomeScreenScaffold(
                     closeDrawer()
                 },
                 navigateFavorite = {},
-                navigateSettings = {},
+                navigateSettings = {
+                    onClickNavigateSettings()
+                    closeDrawer()
+                },
                 navigateAbout = {},
             )
         },

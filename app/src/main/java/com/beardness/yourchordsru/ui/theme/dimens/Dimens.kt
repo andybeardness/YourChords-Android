@@ -7,6 +7,7 @@ import androidx.compose.ui.unit.dp
 
 @Immutable
 data class AppDimens(
+    val dp0: Dp,
     val dp1: Dp,
     val dp2: Dp,
     val dp4: Dp,
@@ -14,6 +15,7 @@ data class AppDimens(
     val dp16: Dp,
     val dp32: Dp,
     val dp64: Dp,
+    val dp80: Dp,
     val dp64x2: Dp,
     val dp64x3: Dp,
     val dp64x4: Dp,
@@ -21,6 +23,7 @@ data class AppDimens(
 )
 
 val dimens = AppDimens(
+    dp0 = 0.dp,
     dp1 = 1.dp,
     dp2 = 2.dp,
     dp4 = 4.dp,
@@ -28,6 +31,7 @@ val dimens = AppDimens(
     dp16 = 16.dp,
     dp32 = 32.dp,
     dp64 = 64.dp,
+    dp80 = 80.dp,
     dp64x2 = 128.dp,
     dp64x3 = 192.dp,
     dp64x4 = 256.dp,
@@ -36,6 +40,7 @@ val dimens = AppDimens(
 
 val LocalExtendedDimens = staticCompositionLocalOf {
     AppDimens(
+        dp0 = dimens.dp0,
         dp1 = dimens.dp1,
         dp2 = dimens.dp2,
         dp4 = dimens.dp4,
@@ -43,6 +48,7 @@ val LocalExtendedDimens = staticCompositionLocalOf {
         dp16 = dimens.dp16,
         dp32 = dimens.dp32,
         dp64 = dimens.dp64,
+        dp80 = dimens.dp80,
         dp64x2 = dimens.dp64x2,
         dp64x3 = dimens.dp64x3,
         dp64x4 = dimens.dp64x4,

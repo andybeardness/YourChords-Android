@@ -48,6 +48,10 @@ class HomeScreenViewModel @Inject constructor(
         navigator.search()
     }
 
+    override fun navigateToSettings() {
+        navigator.settings()
+    }
+
     override fun updateScrollPosition(firstVisibleItemIndex: Int) {
         if (firstVisibleItemIndex == _lastScrollPosition) {
             return

@@ -17,6 +17,8 @@ import com.beardness.yourchordsru.presentation.screens.home.HomeScreen
 import com.beardness.yourchordsru.presentation.screens.home.HomeScreenViewModel
 import com.beardness.yourchordsru.presentation.screens.search.SearchScreen
 import com.beardness.yourchordsru.presentation.screens.search.SearchScreenViewModel
+import com.beardness.yourchordsru.presentation.screens.settings.SettingsScreen
+import com.beardness.yourchordsru.presentation.screens.settings.SettingsScreenViewModel
 import com.beardness.yourchordsru.presentation.screens.song.SongScreen
 import com.beardness.yourchordsru.presentation.screens.song.SongScreenViewModel
 import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
@@ -110,6 +112,16 @@ fun Navigation(
             val viewModel = hiltViewModel<SearchScreenViewModel>()
             
             SearchScreen(viewModel = viewModel)
+        }
+
+        composable(
+            route = "settings",
+        ) {
+            val viewModel = hiltViewModel<SettingsScreenViewModel>()
+
+            SettingsScreen(
+                viewModel = viewModel,
+            )
         }
     }
 }

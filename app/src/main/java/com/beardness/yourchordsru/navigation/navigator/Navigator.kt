@@ -33,4 +33,8 @@ class Navigator @Inject constructor(): INavigator {
     override fun search() {
         _navHostController?.navigate(route = "search")
     }
+
+    override fun settings() {
+        _navHostController?.navigate(route = "settings")
+    }
 }

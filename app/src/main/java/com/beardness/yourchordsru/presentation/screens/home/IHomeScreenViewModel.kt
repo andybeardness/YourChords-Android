@@ -12,6 +12,7 @@ interface IHomeScreenViewModel {
     fun navigateToHome()
     fun navigateToAuthor(authorId: Int)
     fun navigateToSearch()
+    fun navigateToSettings()
     fun updateScrollPosition(firstVisibleItemIndex: Int)
     fun changeAuthorsSortType()
 }

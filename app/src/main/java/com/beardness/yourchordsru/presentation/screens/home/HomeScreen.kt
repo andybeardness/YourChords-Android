@@ -27,6 +27,7 @@ import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
 import com.beardness.yourchordsru.ui.widgets.author.AuthorCollectionWidget
 import com.beardness.yourchordsru.ui.widgets.toolbar.classic.AnimatedToolbarWidget
 import com.beardness.yourchordsru.ui.widgets.toolbar.classic.ToolbarIconWidget
+import com.beardness.yourchordsru.utils.extensions.clickableHaptic
 import kotlinx.coroutines.launch
 
 @Composable
@@ -71,6 +72,7 @@ fun HomeScreen(
 
     HomeScreenScaffold(
         onClickNavigateHome = { viewModel.navigateToHome() },
+        onClickNavigateSettings = { viewModel.navigateToSettings() },
         scaffoldState = scaffoldState,
     ) { paddingValues ->
         Column(
@@ -86,7 +88,7 @@ fun HomeScreen(
                         modifier = Modifier
                             .padding(all = YourChordsRuTheme.dimens.dp8)
                             .clip(shape = RoundedCornerShape(percent = 50))
-                            .clickable { openDrawer() }
+                            .clickableHaptic { openDrawer() }
                             .padding(all = YourChordsRuTheme.dimens.dp8)
                             .size(size = YourChordsRuTheme.dimens.dp32),
                         imageVector = Icons.Rounded.Menu,
