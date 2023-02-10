@@ -112,6 +112,7 @@ fun SearchToolbarWidget(
                 isSelected = isSearchByAuthorsSelected,
                 onClick = onClickSearchByAuthorsTag,
             )
+
             SearchTagWidget(
                 title = "Songs",
                 color = YourChordsRuTheme.colors.green,

@@ -1,7 +1,6 @@
 package com.beardness.yourchordsru.ui.widgets.song
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
@@ -15,6 +14,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import com.beardness.yourchordsru.presentation.screens.dto.SongViewDto
 import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
+import com.beardness.yourchordsru.utils.extensions.clickableHaptic
 
 @Composable
 fun SongWidget(
@@ -39,7 +39,7 @@ fun SongWidget(
                 end = YourChordsRuTheme.dimens.dp4,
             )
             .clip(shape = shape)
-            .clickable { onClick() }
+            .clickableHaptic { onClick() }
             .background(
                 color = YourChordsRuTheme.colors.card,
                 shape = shape,

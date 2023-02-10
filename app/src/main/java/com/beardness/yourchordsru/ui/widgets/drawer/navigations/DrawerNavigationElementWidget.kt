@@ -1,6 +1,5 @@
 package com.beardness.yourchordsru.ui.widgets.drawer.navigations
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -14,6 +13,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
+import com.beardness.yourchordsru.utils.extensions.clickableHaptic
 
 @Composable
 fun DrawerNavigationElementWidget(
@@ -27,7 +27,7 @@ fun DrawerNavigationElementWidget(
         modifier = Modifier
             .height(height = YourChordsRuTheme.dimens.dp64)
             .fillMaxWidth()
-            .clickable { onClick() }
+            .clickableHaptic { onClick() }
             .padding(
                 horizontal = YourChordsRuTheme.dimens.dp16,
                 vertical = YourChordsRuTheme.dimens.dp8,

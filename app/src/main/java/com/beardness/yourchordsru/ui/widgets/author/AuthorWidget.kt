@@ -1,7 +1,6 @@
 package com.beardness.yourchordsru.ui.widgets.author
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -19,6 +18,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import com.beardness.yourchordsru.presentation.screens.dto.AuthorViewDto
 import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
+import com.beardness.yourchordsru.utils.extensions.clickableHaptic
 
 @Composable
 fun AuthorWidget(
@@ -37,7 +37,7 @@ fun AuthorWidget(
                 end = YourChordsRuTheme.dimens.dp4,
             )
             .clip(shape = shape)
-            .clickable { onClick() }
+            .clickableHaptic { onClick() }
             .background(
                 color = YourChordsRuTheme.colors.card,
                 shape = shape,

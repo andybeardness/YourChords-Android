@@ -1,6 +1,5 @@
 package com.beardness.yourchordsru.ui.widgets.toolbar.classic
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -11,6 +10,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
+import com.beardness.yourchordsru.utils.extensions.clickableHaptic
 
 @Composable
 fun ToolbarIconWidget(
@@ -22,7 +22,7 @@ fun ToolbarIconWidget(
     Icon(
         modifier = Modifier
             .clip(shape = RoundedCornerShape(percent = 50))
-            .clickable { onClick() }
+            .clickableHaptic { onClick() }
             .padding(all = YourChordsRuTheme.dimens.dp8)
             .size(size = YourChordsRuTheme.dimens.dp32),
         imageVector = icon,
