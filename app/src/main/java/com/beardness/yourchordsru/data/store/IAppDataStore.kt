@@ -7,10 +7,12 @@ interface IAppDataStore {
     val isFirstLaunch: Flow<Boolean>
     val themeCode: Flow<Int>
     val chordsView: Flow<ChordsViewDataStoreDto>
+    val songSortTypeCode: Flow<Int>
     suspend fun setFirstLaunch()
     suspend fun setThemeCode(code: Int)
     suspend fun setBackgroundColor(color: Long)
     suspend fun setTextColor(color: Long)
     suspend fun setChordsColor(color: Long)
     suspend fun setFontSize(size: Int)
+    suspend fun setSongsSortType(code: Int)
 }

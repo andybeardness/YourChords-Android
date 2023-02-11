@@ -3,6 +3,8 @@ package com.beardness.yourchordsru.presentation.core.settings
 import androidx.compose.ui.graphics.Color
 import com.beardness.yourchordsru.presentation.core.dto.coreDto
 import com.beardness.yourchordsru.presentation.data.repo.settings.ISettingsRepo
+import com.beardness.yourchordsru.utils.sorttype.SongsSortType
+import com.beardness.yourchordsru.utils.sorttype.codeToSongsSortType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -19,6 +21,11 @@ class SettingsCore @Inject constructor(
         settingsRepo
             .chordsView
             .map { chordsView -> chordsView.coreDto() }
+
+    override val songsSortType: Flow<SongsSortType> =
+        settingsRepo
+            .songsSortTypeCode
+            .map { code -> code.codeToSongsSortType() }
 
     override suspend fun setupThemeCode(code: Int) {
         settingsRepo.setupThemeCode(code = code)
@@ -38,5 +45,9 @@ class SettingsCore @Inject constructor(
 
     override suspend fun setupFontSize(size: Int) {
         settingsRepo.setupFontSize(size = size)
+    }
+
+    override suspend fun setupSongsSortType(songsSortType: SongsSortType) {
+        settingsRepo.updateSongsSortType(code = songsSortType.code)
     }
 }

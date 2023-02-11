@@ -20,6 +20,10 @@ class SettingsRepo @Inject constructor(
             .chordsView
             .map { chordsView -> chordsView.repoDto() }
 
+    override val songsSortTypeCode: Flow<Int> =
+        appDataStore
+            .songSortTypeCode
+
     override suspend fun setupThemeCode(code: Int) {
         appDataStore.setThemeCode(code = code)
     }
@@ -38,5 +42,9 @@ class SettingsRepo @Inject constructor(
 
     override suspend fun setupFontSize(size: Int) {
         appDataStore.setFontSize(size = size)
+    }
+
+    override suspend fun updateSongsSortType(code: Int) {
+        appDataStore.setSongsSortType(code = code)
     }
 }

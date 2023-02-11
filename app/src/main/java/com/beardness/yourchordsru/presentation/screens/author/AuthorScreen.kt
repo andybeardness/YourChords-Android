@@ -19,7 +19,7 @@ import com.beardness.yourchordsru.ui.widgets.navigation.ArrowBackWidget
 import com.beardness.yourchordsru.ui.widgets.song.SongCollectionWidget
 import com.beardness.yourchordsru.ui.widgets.toolbar.classic.AnimatedToolbarWidget
 import com.beardness.yourchordsru.ui.widgets.toolbar.classic.ToolbarIconWidget
-import com.beardness.yourchordsru.utils.sorttype.SortType
+import com.beardness.yourchordsru.utils.sorttype.SongsSortType
 
 @Composable
 fun AuthorScreen(
@@ -27,7 +27,7 @@ fun AuthorScreen(
 ) {
     val authorName by viewModel.authorName.collectAsState()
     val songs by viewModel.songs.collectAsState()
-    val sortType by viewModel.sortType.collectAsState()
+    val sortType by viewModel.songsSortType.collectAsState(initial = SongsSortType.BY_NAME)
     val scrollUp by viewModel.scrollUp.collectAsState()
 
     val lazyListState = rememberLazyListState()
@@ -42,16 +42,16 @@ fun AuthorScreen(
 
     val toolbarVisibility = scrollUp ?: true
 
-    val sortTypeIcon =
+    val songsSortTypeIcon =
         when (sortType) {
-            SortType.BY_NAME -> Icons.Rounded.SortByAlpha
-            SortType.BY_RATING -> Icons.Rounded.TrendingUp
+            SongsSortType.BY_NAME -> Icons.Rounded.SortByAlpha
+            SongsSortType.BY_RATING -> Icons.Rounded.TrendingUp
         }
 
-    val sortTypeIconColor =
+    val songsSortTypeIconColor =
         when (sortType) {
-            SortType.BY_NAME -> YourChordsRuTheme.colors.blue
-            SortType.BY_RATING -> YourChordsRuTheme.colors.red
+            SongsSortType.BY_NAME -> YourChordsRuTheme.colors.blue
+            SongsSortType.BY_RATING -> YourChordsRuTheme.colors.red
         }
 
     Column {
@@ -65,9 +65,9 @@ fun AuthorScreen(
             },
             icons = listOf {
                 ToolbarIconWidget(
-                    icon = sortTypeIcon,
+                    icon = songsSortTypeIcon,
                     iconDescription = "",
-                    iconColor = sortTypeIconColor,
+                    iconColor = songsSortTypeIconColor,
                     onClick = { viewModel.switchSortType() },
                 )
 

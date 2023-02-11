@@ -22,6 +22,7 @@ class AppDataStore @Inject constructor(
         private val TEXT_COLOR_KEY = longPreferencesKey(name = "TEXT_COLOR_KEY")
         private val CHORDS_COLOR_KEY = longPreferencesKey(name = "CHORDS_COLOR_KEY")
         private val FONT_SIZE_KEY = intPreferencesKey(name = "FONT_SIZE_KEY")
+        private val SONG_SORT_TYPE_CODE_KEY = intPreferencesKey(name = "SONG_SORT_TYPE_CODE_KEY")
     }
 
     private val dataStore = context.dataStore
@@ -55,6 +56,13 @@ class AppDataStore @Inject constructor(
             .data
             .map { preferences ->
                 preferences[THEME_CODE_KEY] ?: 0
+            }
+
+    override val songSortTypeCode: Flow<Int> =
+        dataStore
+            .data
+            .map { preferences ->
+                preferences[SONG_SORT_TYPE_CODE_KEY] ?: 0
             }
 
     override suspend fun setFirstLaunch() {
@@ -96,6 +104,13 @@ class AppDataStore @Inject constructor(
         dataStore
             .edit { mutablePreferences ->
                 mutablePreferences[FONT_SIZE_KEY] = size
+            }
+    }
+
+    override suspend fun setSongsSortType(code: Int) {
+        dataStore
+            .edit { mutablePreferences ->
+                mutablePreferences[SONG_SORT_TYPE_CODE_KEY] = code
             }
     }
 }
