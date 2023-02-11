@@ -64,6 +64,7 @@ fun SettingsThemeButtonWidget(
         Text(
             text = title,
             color = titleColor,
+            style = YourChordsRuTheme.typography.themeTitleAtSettings,
         )
     }
 }

@@ -27,6 +27,7 @@ class SettingsScreenViewModel @Inject constructor(
         private val themesSet: Set<ThemeSettingsType> =
             ThemeSettingsType
                 .values()
+                .filter { type -> type != ThemeSettingsType.NONE }
                 .toSet()
 
         private val backgroundColorsSet = setOf<Color>(
@@ -56,7 +57,7 @@ class SettingsScreenViewModel @Inject constructor(
     private val _activeTextColor = MutableStateFlow<Color>(value = Color.Unspecified)
     override val activeTextColor = _activeTextColor.asStateFlow()
 
-    private val _activeChordsColor = MutableStateFlow<ChordsColorSettingsType>(value = ChordsColorSettingsType.CYAN)
+    private val _activeChordsColor = MutableStateFlow<ChordsColorSettingsType>(value = ChordsColorSettingsType.BLUE)
     override val activeChordsColor = _activeChordsColor.asStateFlow()
 
     private val _themesTypes = MutableStateFlow<Set<ThemeSettingsType>>(value = themesSet)

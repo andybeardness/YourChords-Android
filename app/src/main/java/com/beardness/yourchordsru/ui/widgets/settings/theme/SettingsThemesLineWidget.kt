@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.beardness.yourchordsru.presentation.screens.settings.types.ThemeSettingsType
+import com.beardness.yourchordsru.presentation.screens.settings.types.title
 import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
 
 @Composable
@@ -25,7 +26,7 @@ fun SettingsThemesLineWidget(
     ) {
         themes.forEach { theme ->
             SettingsThemeButtonWidget(
-                title = theme.name,
+                title = theme.title(),
                 isActive = theme == activeTheme,
                 onClick = { onClick(theme) }
             )

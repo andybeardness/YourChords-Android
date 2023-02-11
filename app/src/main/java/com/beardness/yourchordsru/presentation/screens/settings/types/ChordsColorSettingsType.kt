@@ -8,7 +8,7 @@ enum class ChordsColorSettingsType {
     RED,
     YELLOW,
     GREEN,
-    CYAN,
+    BLUE,
 }
 
 fun Color.toChordsColorSettingType(): ChordsColorSettingsType =
@@ -22,10 +22,10 @@ fun Color.toChordsColorSettingType(): ChordsColorSettingsType =
         Color(0xFF34C759),
         Color(0xFF34C759) -> ChordsColorSettingsType.GREEN
 
-        Color(0xFF5AC8FA),
-        Color(0xFF5AC8FA) -> ChordsColorSettingsType.CYAN
+        Color(0xFF007AFF),
+        Color(0xFF0A84FF) -> ChordsColorSettingsType.BLUE
 
-        else -> ChordsColorSettingsType.CYAN
+        else -> ChordsColorSettingsType.BLUE
     }
 
 @Composable
@@ -34,7 +34,7 @@ fun ChordsColorSettingsType.color(): Color =
         ChordsColorSettingsType.RED -> YourChordsRuTheme.colors.red
         ChordsColorSettingsType.YELLOW -> YourChordsRuTheme.colors.yellow
         ChordsColorSettingsType.GREEN -> YourChordsRuTheme.colors.green
-        ChordsColorSettingsType.CYAN -> YourChordsRuTheme.colors.cyan
+        ChordsColorSettingsType.BLUE -> YourChordsRuTheme.colors.blue
     }
 
 @Composable
