@@ -10,8 +10,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.TextDecrease
-import androidx.compose.material.icons.rounded.TextIncrease
+import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.Remove
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -76,7 +76,7 @@ fun SettingsValuesPickerLineWidget(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         SettingsValuesPickerButtonWidget(
-            icon = Icons.Rounded.TextDecrease,
+            icon = Icons.Rounded.Remove,
             color = decreaseButtonColor,
             onClick = { onClickDecreaseButton() },
         )
@@ -93,7 +93,7 @@ fun SettingsValuesPickerLineWidget(
         )
 
         SettingsValuesPickerButtonWidget(
-            icon = Icons.Rounded.TextIncrease,
+            icon = Icons.Rounded.Add,
             color = increaseButtonColor,
             onClick = { onClickIncreaseButton() },
         )

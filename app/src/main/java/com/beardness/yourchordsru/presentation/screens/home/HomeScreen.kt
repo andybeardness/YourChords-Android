@@ -1,6 +1,5 @@
 package com.beardness.yourchordsru.presentation.screens.home
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -93,7 +92,7 @@ fun HomeScreen(
                             .size(size = YourChordsRuTheme.dimens.dp32),
                         imageVector = Icons.Rounded.Menu,
                         contentDescription = "",
-                        tint = YourChordsRuTheme.colors.orange,
+                        tint = YourChordsRuTheme.colors.text,
                     )
                 },
                 icons = listOf {
@@ -119,7 +118,7 @@ fun HomeScreen(
                     ToolbarIconWidget(
                         icon = Icons.Rounded.Search,
                         iconDescription = "",
-                        iconColor = YourChordsRuTheme.colors.blue,
+                        iconColor = YourChordsRuTheme.colors.text,
                         onClick = { viewModel.navigateToSearch() },
                     )
                 }

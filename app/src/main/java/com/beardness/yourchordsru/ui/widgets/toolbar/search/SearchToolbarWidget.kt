@@ -4,8 +4,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.*
-import androidx.compose.runtime.*
+import androidx.compose.material.icons.rounded.ChevronLeft
+import androidx.compose.material.icons.rounded.Close
+import androidx.compose.material.icons.rounded.Search
+import androidx.compose.material.icons.rounded.Sync
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,6 +29,13 @@ fun SearchToolbarWidget(
     onClickNavigation: () -> Unit,
     isSearch: Boolean,
 ) {
+    val clearButtonColor =
+        if (input.isEmpty()) {
+            YourChordsRuTheme.colors.text.copy(alpha = .2f)
+        } else {
+            YourChordsRuTheme.colors.text
+        }
+
     Column(
         modifier = Modifier
             .height(height = YourChordsRuTheme.dimens.dp64x2)
@@ -75,16 +85,16 @@ fun SearchToolbarWidget(
                 )
             } else {
                 ToolbarIconWidget(
-                    icon = Icons.Rounded.Cancel,
+                    icon = Icons.Rounded.Close,
                     iconDescription = "",
-                    iconColor = YourChordsRuTheme.colors.red,
+                    iconColor = clearButtonColor,
                     onClick = { onClickClear() }
                 )
 
                 ToolbarIconWidget(
                     icon = Icons.Rounded.Search,
                     iconDescription = "",
-                    iconColor = YourChordsRuTheme.colors.blue,
+                    iconColor = YourChordsRuTheme.colors.text,
                     onClick = { onClickSearch(input) }
                 )
             }
