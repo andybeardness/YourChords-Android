@@ -21,7 +21,6 @@ import com.beardness.yourchordsru.presentation.screens.settings.SettingsScreen
 import com.beardness.yourchordsru.presentation.screens.settings.SettingsScreenViewModel
 import com.beardness.yourchordsru.presentation.screens.song.SongScreen
 import com.beardness.yourchordsru.presentation.screens.song.SongScreenViewModel
-import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
 
 @Composable
 fun Navigation(
@@ -89,16 +88,9 @@ fun Navigation(
                     .arguments
                     ?.getInt(argumentSongId.name)
 
-            val backgroundColor = YourChordsRuTheme.colors.background
-            val textColor = YourChordsRuTheme.colors.text
-            val chordsColor = YourChordsRuTheme.colors.blue
-
             viewModel.load(
                 authorId = authorId,
                 songId = songId,
-                backgroundColor = backgroundColor,
-                textColor = textColor,
-                chordsColor = chordsColor,
             )
 
             SongScreen(

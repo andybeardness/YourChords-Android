@@ -4,6 +4,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import com.beardness.yourchordsru.di.qualifiers.IoCoroutineScope
 import com.beardness.yourchordsru.navigation.navigator.INavigator
+import com.beardness.yourchordsru.presentation.core.settings.ISettingsCore
 import com.beardness.yourchordsru.presentation.screens.settings.types.ChordsColorSettingsType
 import com.beardness.yourchordsru.presentation.screens.settings.types.ThemeSettingsType
 import com.beardness.yourchordsru.presentation.screens.settings.types.toChordsColorSettingType
@@ -16,6 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SettingsScreenViewModel @Inject constructor(
+    private val settingsCore: ISettingsCore,
     private val navigator: INavigator,
     @IoCoroutineScope private val ioCoroutineScope: CoroutineScope,
 ): ViewModel(), ISettingsScreenViewModel {
@@ -47,10 +49,10 @@ class SettingsScreenViewModel @Inject constructor(
     private val _activeTheme = MutableStateFlow<ThemeSettingsType>(value = ThemeSettingsType.DEVICE)
     override val activeTheme = _activeTheme.asStateFlow()
 
-    private val _activeBackgroundColor = MutableStateFlow<Color>(value = Color(color = 0xFFFAFAFA))
+    private val _activeBackgroundColor = MutableStateFlow<Color>(value = Color.Unspecified)
     override val activeBackgroundColor = _activeBackgroundColor.asStateFlow()
 
-    private val _activeTextColor = MutableStateFlow<Color>(value = Color(color = 0xFF000000))
+    private val _activeTextColor = MutableStateFlow<Color>(value = Color.Unspecified)
     override val activeTextColor = _activeTextColor.asStateFlow()
 
     private val _activeChordsColor = MutableStateFlow<ChordsColorSettingsType>(value = ChordsColorSettingsType.CYAN)
@@ -71,6 +73,17 @@ class SettingsScreenViewModel @Inject constructor(
     private val _fontSize = MutableStateFlow<Int>(value = 16)
     override val fontSize = _fontSize.asStateFlow()
 
+    init {
+        ioCoroutineScope.launch {
+            settingsCore.chordsView.collect { chordsViewDto ->
+                _activeBackgroundColor.emit(value = chordsViewDto.backgroundColor)
+                _activeTextColor.emit(value = chordsViewDto.textColor)
+                _activeChordsColor.emit(value = chordsViewDto.chordsColor.toChordsColorSettingType())
+                _fontSize.emit(value = chordsViewDto.fontSize)
+            }
+        }
+    }
+
     override fun updateTheme(theme: ThemeSettingsType) {
         ioCoroutineScope.launch {
             if (theme != _activeTheme.value) {
@@ -81,20 +94,25 @@ class SettingsScreenViewModel @Inject constructor(
 
     override fun updateBackgroundColor(color: Color) {
         ioCoroutineScope.launch {
-            _activeBackgroundColor.emit(value = color)
+            if (color != _activeBackgroundColor.value) {
+                settingsCore.setupBackgroundColor(color = color)
+            }
         }
     }
 
     override fun updateTextColor(color: Color) {
         ioCoroutineScope.launch {
-            _activeTextColor.emit(value = color)
+            if (color != _activeTextColor.value) {
+                settingsCore.setupTextColor(color = color)
+            }
         }
     }
 
     override fun updateChordsColor(color: Color) {
         ioCoroutineScope.launch {
-            val colorType = color.toChordsColorSettingType()
-            _activeChordsColor.emit(value = colorType)
+            if (color.toChordsColorSettingType() != _activeChordsColor.value) {
+                settingsCore.setupChordsColor(color = color)
+            }
         }
     }
 
@@ -103,7 +121,7 @@ class SettingsScreenViewModel @Inject constructor(
             val newValue =
                 _fontSize.value + difference
 
-            _fontSize.emit(value = newValue)
+            settingsCore.setupFontSize(size = newValue)
         }
     }
 

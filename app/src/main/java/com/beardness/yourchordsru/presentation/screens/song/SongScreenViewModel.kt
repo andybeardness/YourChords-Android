@@ -4,6 +4,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import com.beardness.yourchordsru.di.qualifiers.IoCoroutineScope
 import com.beardness.yourchordsru.navigation.navigator.INavigator
+import com.beardness.yourchordsru.presentation.core.settings.ISettingsCore
 import com.beardness.yourchordsru.presentation.core.songs.ISongsCore
 import com.beardness.yourchordsru.presentation.screens.dto.viewDto
 import com.beardness.yourchordsru.utils.extensions.bounds
@@ -19,6 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SongScreenViewModel @Inject constructor(
     private val songsCore: ISongsCore,
+    private val settingsCore: ISettingsCore,
     private val navigator: INavigator,
     private val htmlBuilder: IHtmlBuilder,
     @IoCoroutineScope private val ioCoroutineScope: CoroutineScope,
@@ -50,21 +52,19 @@ class SongScreenViewModel @Inject constructor(
     private val _isToolbarExpanded = MutableStateFlow<Boolean>(value = false)
     override val isToolbarExpanded = _isToolbarExpanded.asStateFlow()
 
-    private val _textSize = MutableStateFlow<Int>(value = DEFAULT_FONT_SIZE_PX)
+    private val _initialTextSize = MutableStateFlow<Int>(value = 0)
+    override val initialTextSize = _initialTextSize.asStateFlow()
+
+    private val _textSize = MutableStateFlow<Int>(value = 0)
     override val textSize = _textSize.asStateFlow()
 
-    companion object {
-        const val DEFAULT_FONT_SIZE_PX = 12
-        const val MAX_FONT_SIZE_PX = 24
-        const val MIN_FONT_SIZE_PX = 8
+    init {
+        collectChordsView()
     }
 
     override fun load(
         authorId: Int?,
         songId: Int?,
-        backgroundColor: Color,
-        textColor: Color,
-        chordsColor: Color,
     ) {
         authorId ?: return
         songId ?: return
@@ -85,9 +85,9 @@ class SongScreenViewModel @Inject constructor(
             _authorName.emit(value = song.authorName)
             _songTitle.emit(value = song.title)
 
-            _backgroundColor.emit(value = backgroundColor)
-            _textColor.emit(value = textColor)
-            _chordsColor.emit(value = chordsColor)
+            val backgroundColor = _backgroundColor.value
+            val textColor = _textColor.value
+            val chordsColor = _chordsColor.value
 
             val chords =
                 song.chords
@@ -133,8 +133,20 @@ class SongScreenViewModel @Inject constructor(
 
     override fun textReset() {
         ioCoroutineScope.launch {
-            _textSize.emit(value = DEFAULT_FONT_SIZE_PX)
+            _textSize.emit(value = _initialTextSize.value)
             reload()
+        }
+    }
+
+    private fun collectChordsView() {
+        ioCoroutineScope.launch {
+            settingsCore.chordsView.collect { chordsViewCoreDto ->
+                _backgroundColor.emit(value = chordsViewCoreDto.backgroundColor)
+                _textColor.emit(value = chordsViewCoreDto.textColor)
+                _chordsColor.emit(value = chordsViewCoreDto.chordsColor)
+                _initialTextSize.emit(value = chordsViewCoreDto.fontSize)
+                _textSize.emit(value = chordsViewCoreDto.fontSize)
+            }
         }
     }
 
@@ -166,10 +178,7 @@ class SongScreenViewModel @Inject constructor(
 
             val boundedTextSize =
                 newTextSize
-                    .bounds(
-                        max = MAX_FONT_SIZE_PX,
-                        min = MIN_FONT_SIZE_PX,
-                    )
+                    .bounds()
 
             _textSize.emit(value = boundedTextSize)
             reload()

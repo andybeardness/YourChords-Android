@@ -108,10 +108,10 @@ fun ChordsToolbarWidget(
                 horizontalArrangement = Arrangement.SpaceAround,
             ) {
                 ToolbarIconWidget(
-                    icon = Icons.Rounded.TextIncrease,
+                    icon = Icons.Rounded.TextDecrease,
                     iconDescription = "",
-                    iconColor = increaseButtonColor,
-                    onClick = onClickTextIncrease,
+                    iconColor = decreaseButtonColor,
+                    onClick = onClickTextDecrease,
                 )
                 ToolbarIconWidget(
                     icon = Icons.Rounded.Spellcheck,
@@ -120,10 +120,10 @@ fun ChordsToolbarWidget(
                     onClick = onClickResetFontSize,
                 )
                 ToolbarIconWidget(
-                    icon = Icons.Rounded.TextDecrease,
+                    icon = Icons.Rounded.TextIncrease,
                     iconDescription = "",
-                    iconColor = decreaseButtonColor,
-                    onClick = onClickTextDecrease,
+                    iconColor = increaseButtonColor,
+                    onClick = onClickTextIncrease,
                 )
             }
         }

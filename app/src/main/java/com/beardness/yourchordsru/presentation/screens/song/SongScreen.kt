@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import com.beardness.yourchordsru.config.ChordsConfig
 import com.beardness.yourchordsru.ui.widgets.chords.ChordsWidget
 import com.beardness.yourchordsru.ui.widgets.toolbar.chords.ChordsToolbarWidget
 
@@ -16,11 +17,12 @@ fun SongScreen(
     val songTitle by viewModel.songTitle.collectAsState()
     val chords by viewModel.chords.collectAsState()
     val isToolbarExpanded by viewModel.isToolbarExpanded.collectAsState()
+    val initialTextSize by viewModel.initialTextSize.collectAsState()
     val textSize by viewModel.textSize.collectAsState()
 
-    val isIncreaseButtonActive = textSize != SongScreenViewModel.MAX_FONT_SIZE_PX
-    val isResetButtonActive = textSize != SongScreenViewModel.DEFAULT_FONT_SIZE_PX
-    val isDecreaseButtonActive = textSize != SongScreenViewModel.MIN_FONT_SIZE_PX
+    val isIncreaseButtonActive = textSize != ChordsConfig.MAX_FONT_SIZE_PX
+    val isResetButtonActive = textSize != initialTextSize
+    val isDecreaseButtonActive = textSize != ChordsConfig.MIN_FONT_SIZE_PX
 
     Column(
         modifier = Modifier

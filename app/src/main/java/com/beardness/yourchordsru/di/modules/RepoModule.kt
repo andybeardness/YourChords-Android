@@ -1,9 +1,12 @@
 package com.beardness.yourchordsru.di.modules
 
+import com.beardness.yourchordsru.data.store.IAppDataStore
 import com.beardness.yourchordsru.presentation.data.datasource.authors.IAuthorsDataSource
 import com.beardness.yourchordsru.presentation.data.datasource.songs.ISongsDataSource
 import com.beardness.yourchordsru.presentation.data.repo.authors.AuthorsRepo
 import com.beardness.yourchordsru.presentation.data.repo.authors.IAuthorsRepo
+import com.beardness.yourchordsru.presentation.data.repo.settings.ISettingsRepo
+import com.beardness.yourchordsru.presentation.data.repo.settings.SettingsRepo
 import com.beardness.yourchordsru.presentation.data.repo.songs.ISongsRepo
 import com.beardness.yourchordsru.presentation.data.repo.songs.SongsRepo
 import dagger.Module
@@ -32,5 +35,14 @@ object RepoModule {
     ): ISongsRepo =
         SongsRepo(
             songsDataSource = songsDataSource,
+        )
+
+    @Provides
+    @Singleton
+    fun provideSettingsRepo(
+        appDataStore: IAppDataStore,
+    ): ISettingsRepo =
+        SettingsRepo(
+            appDataStore = appDataStore,
         )
 }

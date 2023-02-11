@@ -10,9 +10,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import com.beardness.yourchordsru.config.ChordsConfig
 import com.beardness.yourchordsru.presentation.screens.settings.types.chordsColorSettingsTypeToColors
 import com.beardness.yourchordsru.presentation.screens.settings.types.color
-import com.beardness.yourchordsru.presentation.screens.song.SongScreenViewModel
 import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
 import com.beardness.yourchordsru.ui.widgets.navigation.ArrowBackWidget
 import com.beardness.yourchordsru.ui.widgets.settings.colors.SettingsColorPickerWidget
@@ -90,8 +90,8 @@ fun SettingsScreen(
             SettingsValuePickerWidget(
                 title = "Font size",
                 value = fontSize,
-                minimum = SongScreenViewModel.MIN_FONT_SIZE_PX,
-                maximum = SongScreenViewModel.MAX_FONT_SIZE_PX,
+                minimum = ChordsConfig.MIN_FONT_SIZE_PX,
+                maximum = ChordsConfig.MAX_FONT_SIZE_PX,
                 onClickIncrease = { viewModel.updateFontSize(difference = 2) },
                 onClickDecrease = { viewModel.updateFontSize(difference = -2) }
             )

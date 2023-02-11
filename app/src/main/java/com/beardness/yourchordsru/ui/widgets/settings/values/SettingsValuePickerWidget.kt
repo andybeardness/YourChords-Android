@@ -6,7 +6,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.beardness.yourchordsru.presentation.screens.song.SongScreenViewModel
+import com.beardness.yourchordsru.config.ChordsConfig
 import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
 
 @Composable
@@ -52,8 +52,8 @@ fun Preview_SettingsValuePickerWidget_0() {
     SettingsValuePickerWidget(
         title = "Font size",
         value = 18,
-        minimum = SongScreenViewModel.MIN_FONT_SIZE_PX,
-        maximum = SongScreenViewModel.MAX_FONT_SIZE_PX,
+        minimum = ChordsConfig.MIN_FONT_SIZE_PX,
+        maximum = ChordsConfig.MAX_FONT_SIZE_PX,
         onClickIncrease = { },
         onClickDecrease = { },
     )
