@@ -23,15 +23,22 @@ fun SettingsThemeButtonWidget(
     isActive: Boolean,
     onClick: () -> Unit,
 ) {
-    val color =
+    val backgroundColor =
         if (isActive) {
             YourChordsRuTheme.colors.blue
         } else {
             Color.Transparent
         }
 
+    val titleColor =
+        if (isActive) {
+            Color.White
+        } else {
+            YourChordsRuTheme.colors.text
+        }
+
     val animatedColor by animateColorAsState(
-        targetValue = color,
+        targetValue = backgroundColor,
         animationSpec = tween(
             durationMillis = 200,
             easing = LinearOutSlowInEasing,
@@ -56,7 +63,7 @@ fun SettingsThemeButtonWidget(
     ) {
         Text(
             text = title,
-            color = Color.White,
+            color = titleColor,
         )
     }
 }

@@ -4,6 +4,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import com.beardness.yourchordsru.presentation.screens.settings.types.ThemeSettingsType
 import com.beardness.yourchordsru.ui.theme.colors.AppColors
 import com.beardness.yourchordsru.ui.theme.colors.LocalExtendedColors
 import com.beardness.yourchordsru.ui.theme.colors.darkColors
@@ -11,16 +12,26 @@ import com.beardness.yourchordsru.ui.theme.colors.lightColors
 import com.beardness.yourchordsru.ui.theme.dimens.AppDimens
 import com.beardness.yourchordsru.ui.theme.dimens.LocalExtendedDimens
 import com.beardness.yourchordsru.ui.theme.dimens.dimens
-import com.beardness.yourchordsru.ui.theme.typography.*
+import com.beardness.yourchordsru.ui.theme.typography.AppTypography
+import com.beardness.yourchordsru.ui.theme.typography.LocalExtendedTypography
+import com.beardness.yourchordsru.ui.theme.typography.typography
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
 fun YourChordsRuTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    theme: ThemeSettingsType,
     content: @Composable () -> Unit,
 ) {
+    val isDarkTheme =
+        when (theme) {
+            ThemeSettingsType.LIGHT -> false
+            ThemeSettingsType.DARK -> true
+            ThemeSettingsType.DEVICE -> isSystemInDarkTheme()
+            ThemeSettingsType.NONE -> false
+        }
+
     val colors =
-        if (darkTheme) {
+        if (isDarkTheme) {
             darkColors
         } else {
             lightColors

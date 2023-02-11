@@ -12,11 +12,12 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class AppDataStore @Inject constructor(
-    private val context: Context,
+    context: Context,
 ): IAppDataStore {
 
     companion object {
         private val IS_FIRST_LAUNCH_KEY = booleanPreferencesKey(name = "IS_FIRST_LAUNCH_KEY")
+        private val THEME_CODE_KEY = intPreferencesKey(name = "THEME_CODE_KEY")
         private val BACKGROUND_COLOR_KEY = longPreferencesKey(name = "BACKGROUND_COLOR_KEY")
         private val TEXT_COLOR_KEY = longPreferencesKey(name = "TEXT_COLOR_KEY")
         private val CHORDS_COLOR_KEY = longPreferencesKey(name = "CHORDS_COLOR_KEY")
@@ -49,10 +50,24 @@ class AppDataStore @Inject constructor(
                 )
             }
 
+    override val themeCode: Flow<Int> =
+        dataStore
+            .data
+            .map { preferences ->
+                preferences[THEME_CODE_KEY] ?: 0
+            }
+
     override suspend fun setFirstLaunch() {
         dataStore
             .edit { mutablePreferences ->
                 mutablePreferences[IS_FIRST_LAUNCH_KEY] = false
+            }
+    }
+
+    override suspend fun setThemeCode(code: Int) {
+        dataStore
+            .edit { mutablePreferences ->
+                mutablePreferences[THEME_CODE_KEY] = code
             }
     }
 

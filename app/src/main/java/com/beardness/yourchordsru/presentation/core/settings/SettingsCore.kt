@@ -3,6 +3,7 @@ package com.beardness.yourchordsru.presentation.core.settings
 import androidx.compose.ui.graphics.Color
 import com.beardness.yourchordsru.presentation.core.dto.coreDto
 import com.beardness.yourchordsru.presentation.data.repo.settings.ISettingsRepo
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
@@ -10,10 +11,18 @@ class SettingsCore @Inject constructor(
     private val settingsRepo: ISettingsRepo,
 ) : ISettingsCore {
 
+    override val themeCode: Flow<Int> =
+        settingsRepo
+            .themeCode
+
     override val chordsView =
         settingsRepo
             .chordsView
             .map { chordsView -> chordsView.coreDto() }
+
+    override suspend fun setupThemeCode(code: Int) {
+        settingsRepo.setupThemeCode(code = code)
+    }
 
     override suspend fun setupBackgroundColor(color: Color) {
        settingsRepo.setupBackgroundColor(color = color.value.toLong())

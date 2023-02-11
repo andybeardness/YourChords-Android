@@ -7,6 +7,7 @@ import com.beardness.yourchordsru.navigation.navigator.INavigator
 import com.beardness.yourchordsru.presentation.core.settings.ISettingsCore
 import com.beardness.yourchordsru.presentation.screens.settings.types.ChordsColorSettingsType
 import com.beardness.yourchordsru.presentation.screens.settings.types.ThemeSettingsType
+import com.beardness.yourchordsru.presentation.screens.settings.types.themeSettingsType
 import com.beardness.yourchordsru.presentation.screens.settings.types.toChordsColorSettingType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -74,20 +75,15 @@ class SettingsScreenViewModel @Inject constructor(
     override val fontSize = _fontSize.asStateFlow()
 
     init {
-        ioCoroutineScope.launch {
-            settingsCore.chordsView.collect { chordsViewDto ->
-                _activeBackgroundColor.emit(value = chordsViewDto.backgroundColor)
-                _activeTextColor.emit(value = chordsViewDto.textColor)
-                _activeChordsColor.emit(value = chordsViewDto.chordsColor.toChordsColorSettingType())
-                _fontSize.emit(value = chordsViewDto.fontSize)
-            }
-        }
+        collectChordsView()
+        collectTheme()
     }
 
     override fun updateTheme(theme: ThemeSettingsType) {
         ioCoroutineScope.launch {
             if (theme != _activeTheme.value) {
                 _activeTheme.emit(value = theme)
+                settingsCore.setupThemeCode(code = theme.id)
             }
         }
     }
@@ -126,6 +122,26 @@ class SettingsScreenViewModel @Inject constructor(
     }
 
     override fun navigateBack() {
+        updateTheme(theme = _activeTheme.value)
         navigator.back()
+    }
+
+    private fun collectChordsView() {
+        ioCoroutineScope.launch {
+            settingsCore.chordsView.collect { chordsViewDto ->
+                _activeBackgroundColor.emit(value = chordsViewDto.backgroundColor)
+                _activeTextColor.emit(value = chordsViewDto.textColor)
+                _activeChordsColor.emit(value = chordsViewDto.chordsColor.toChordsColorSettingType())
+                _fontSize.emit(value = chordsViewDto.fontSize)
+            }
+        }
+    }
+
+    private fun collectTheme() {
+        ioCoroutineScope.launch {
+            settingsCore.themeCode.collect { code ->
+                _activeTheme.emit(value = code.themeSettingsType())
+            }
+        }
     }
 }
