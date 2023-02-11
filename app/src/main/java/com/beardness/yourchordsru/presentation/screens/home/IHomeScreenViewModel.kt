@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.StateFlow
 interface IHomeScreenViewModel {
     val authorsSortType: StateFlow<AuthorsSortType>
     val authors: Flow<List<AuthorViewDto>>
+    val authorsFirstChars: Flow<List<Char>>
     val scrollUp: StateFlow<Boolean?>
     fun navigateToHome()
     fun navigateToAuthor(authorId: Int)
@@ -15,4 +16,5 @@ interface IHomeScreenViewModel {
     fun navigateToSettings()
     fun updateScrollPosition(firstVisibleItemIndex: Int)
     fun changeAuthorsSortType()
+    fun indexOfFirstAuthor(char: Char): Int
 }

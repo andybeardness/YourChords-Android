@@ -10,6 +10,7 @@ fun AnimatedToolbarWidget(
     visibility: Boolean,
     navigationContent: @Composable (() -> Unit)? = null,
     icons: List<@Composable () -> Unit> = emptyList(),
+    onClickToolbar: (() -> Unit)? = null
 ) {
     AnimatedVisibility(
         visible = visibility,
@@ -22,6 +23,7 @@ fun AnimatedToolbarWidget(
             title = title,
             navigationContent = navigationContent,
             icons = icons,
+            onClickToolbar = onClickToolbar,
         )
     }
 }

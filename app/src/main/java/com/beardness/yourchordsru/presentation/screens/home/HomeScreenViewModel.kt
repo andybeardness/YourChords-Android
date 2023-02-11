@@ -11,6 +11,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,6 +28,13 @@ class HomeScreenViewModel @Inject constructor(
 
     private val _authors = MutableStateFlow<List<AuthorViewDto>>(value = emptyList())
     override val authors = _authors.asStateFlow()
+
+    override val authorsFirstChars =
+        _authors.map { authors ->
+            authors.map { author -> author.name }
+                .mapNotNull { author -> author.firstOrNull() }
+                .distinct()
+        }
 
     private var _lastScrollPosition: Int = 0
     private val _scrollUp = MutableStateFlow<Boolean?>(value = null)
@@ -76,6 +84,9 @@ class HomeScreenViewModel @Inject constructor(
             _authorsSortType.emit(value = newValue)
         }
     }
+
+    override fun indexOfFirstAuthor(char: Char): Int =
+        _authors.value.indexOfFirst { author -> author.name.startsWith(char = char) }
 
     private fun load() {
         ioCoroutineScope.launch {

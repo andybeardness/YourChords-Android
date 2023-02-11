@@ -41,9 +41,8 @@ fun HomeScreenScaffold(
                 navigateAbout = {},
             )
         },
-        drawerElevation = YourChordsRuTheme.dimens.dp4
+        drawerElevation = YourChordsRuTheme.dimens.dp32
     ) { paddingValues ->
         content(paddingValues)
     }
-
 }

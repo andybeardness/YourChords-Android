@@ -1,9 +1,6 @@
 package com.beardness.yourchordsru.presentation.screens.home
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
@@ -24,6 +21,7 @@ import com.beardness.yourchordsru.presentation.screens.dto.types.AuthorsSortType
 import com.beardness.yourchordsru.presentation.screens.home.scaffold.HomeScreenScaffold
 import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
 import com.beardness.yourchordsru.ui.widgets.author.AuthorCollectionWidget
+import com.beardness.yourchordsru.ui.widgets.slider.SliderWidget
 import com.beardness.yourchordsru.ui.widgets.toolbar.classic.AnimatedToolbarWidget
 import com.beardness.yourchordsru.ui.widgets.toolbar.classic.ToolbarIconWidget
 import com.beardness.yourchordsru.utils.extensions.clickableHaptic
@@ -39,6 +37,10 @@ fun HomeScreen(
 
     val authors by viewModel
         .authors
+        .collectAsState(initial = emptyList())
+
+    val authorsFirstChars by viewModel
+        .authorsFirstChars
         .collectAsState(initial = emptyList())
 
     val scrollUp by viewModel
@@ -58,14 +60,30 @@ fun HomeScreen(
     val toolbarVisibility =
         scrollUp ?: true
 
-    val lazyListState = rememberLazyListState()
+    val authorsLazyListState = rememberLazyListState()
+    val charsLazyListState = rememberLazyListState()
 
     val nestedScrollConnection = remember {
         object : NestedScrollConnection {
             override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
-                viewModel.updateScrollPosition(firstVisibleItemIndex = lazyListState.firstVisibleItemIndex)
+                viewModel.updateScrollPosition(firstVisibleItemIndex = authorsLazyListState.firstVisibleItemIndex)
                 return super.onPreScroll(available, source)
             }
+        }
+    }
+
+    val scrollToChar: (Char) -> Unit = { char ->
+        coroutineScope.launch {
+            val index = viewModel.indexOfFirstAuthor(char = char)
+
+            authorsLazyListState.scrollToItem(index = index)
+        }
+    }
+
+    val scrollOnTop: () -> Unit = {
+        coroutineScope.launch {
+            authorsLazyListState.scrollToItem(index = 0)
+            charsLazyListState.scrollToItem(index = 0)
         }
     }
 
@@ -77,7 +95,7 @@ fun HomeScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues = paddingValues),
+                .padding(paddingValues = paddingValues)
         ) {
             AnimatedToolbarWidget(
                 title = "Home",
@@ -121,17 +139,30 @@ fun HomeScreen(
                         iconColor = YourChordsRuTheme.colors.text,
                         onClick = { viewModel.navigateToSearch() },
                     )
-                }
+                },
+                onClickToolbar = scrollOnTop
             )
 
-            AuthorCollectionWidget(
+            Row(
                 modifier = Modifier
                     .weight(weight = 1f)
-                    .nestedScroll(connection = nestedScrollConnection),
-                lazyListState = lazyListState,
-                authors = authors,
-                onCLick = { authorId -> viewModel.navigateToAuthor(authorId = authorId) },
-            )
+                    .fillMaxWidth()
+            ) {
+                AuthorCollectionWidget(
+                    modifier = Modifier
+                        .weight(weight = 1f)
+                        .nestedScroll(connection = nestedScrollConnection),
+                    lazyListState = authorsLazyListState,
+                    authors = authors,
+                    onCLick = { authorId -> viewModel.navigateToAuthor(authorId = authorId) },
+                )
+
+                SliderWidget(
+                    lazyListState = charsLazyListState,
+                    chars = authorsFirstChars,
+                    onClickChar = scrollToChar,
+                )
+            }
         }
     }
 }

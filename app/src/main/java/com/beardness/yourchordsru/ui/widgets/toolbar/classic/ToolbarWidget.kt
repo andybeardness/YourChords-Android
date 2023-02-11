@@ -15,12 +15,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
+import com.beardness.yourchordsru.utils.extensions.clickableWithoutRipple
 
 @Composable
 fun ToolbarWidget(
     title: String,
     navigationContent: @Composable (() -> Unit)? = null,
     icons: List<@Composable () -> Unit> = emptyList(),
+    onClickToolbar: (() -> Unit)? = null
 ) {
     Row(
         modifier = Modifier
@@ -33,7 +35,8 @@ fun ToolbarWidget(
 
         Text(
             modifier = Modifier
-                .weight(weight = 1f),
+                .weight(weight = 1f)
+                .clickableWithoutRipple { onClickToolbar?.invoke() },
             text = title,
             color = YourChordsRuTheme.colors.text,
             style = YourChordsRuTheme.typography.titleAtToolbar,
