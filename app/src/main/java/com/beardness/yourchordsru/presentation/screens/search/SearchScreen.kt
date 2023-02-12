@@ -61,6 +61,8 @@ fun SearchScreen(viewModel: ISearchScreenViewModel) {
             lazyListState = lazyListState,
             founded = searchResult,
             onClick = { item -> viewModel.navigateBySearchResult(searchResult = item) },
+            onClickMakeFavorite = { item -> viewModel.makeFavorite(searchResult = item) },
+            onClickRemoveFavorite = { item -> viewModel.removeFavorite(searchResult = item) }
         )
     }
 }

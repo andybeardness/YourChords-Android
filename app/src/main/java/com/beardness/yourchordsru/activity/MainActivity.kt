@@ -22,11 +22,14 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         compose()
+        setup()
     }
 
     private fun compose() {
         setContent {
-            val theme by viewModel.theme.collectAsState(initial = ThemeSettingsType.DEVICE)
+            val theme by viewModel
+                .theme
+                .collectAsState(initial = ThemeSettingsType.DEVICE)
 
             YourChordsRuTheme(
                 theme = theme,
@@ -46,5 +49,13 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    private fun setup() {
+        setupFavorites()
+    }
+
+    private fun setupFavorites() {
+        viewModel.setupFavorites()
     }
 }

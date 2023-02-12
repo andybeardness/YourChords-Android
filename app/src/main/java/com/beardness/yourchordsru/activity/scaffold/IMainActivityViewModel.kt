@@ -7,4 +7,5 @@ import kotlinx.coroutines.flow.Flow
 interface IMainActivityViewModel {
     val theme: Flow<ThemeSettingsType>
     fun setupNavController(navHostController: NavHostController)
+    fun setupFavorites()
 }

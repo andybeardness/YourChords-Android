@@ -92,6 +92,18 @@ fun AuthorScreen(
                     songId = songId
                 )
             },
+            onClickMakeFavorite = { authorId, songId ->
+                viewModel.makeFavorite(
+                    authorId = authorId,
+                    songId = songId
+                )
+            },
+            onClickRemoveFavorite = { authorId, songId ->
+                viewModel.removeFavorite(
+                    authorId = authorId,
+                    songId = songId
+                )
+            }
         )
     }
 }

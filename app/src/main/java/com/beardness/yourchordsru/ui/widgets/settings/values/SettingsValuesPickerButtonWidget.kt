@@ -15,7 +15,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
-import com.beardness.yourchordsru.utils.extensions.clickableWithoutRipple
+import com.beardness.yourchordsru.utils.extensions.clickableHapticNoRipple
 
 @Composable
 fun SettingsValuesPickerButtonWidget(
@@ -40,7 +40,7 @@ fun SettingsValuesPickerButtonWidget(
                 shape = shape,
             )
             .clip(shape = shape)
-            .clickableWithoutRipple { onClick() }
+            .clickableHapticNoRipple { onClick() }
             .padding(all = YourChordsRuTheme.dimens.dp8)
             .size(size = YourChordsRuTheme.dimens.dp32),
         imageVector = icon,

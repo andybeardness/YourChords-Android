@@ -154,7 +154,9 @@ fun HomeScreen(
                         .nestedScroll(connection = nestedScrollConnection),
                     lazyListState = authorsLazyListState,
                     authors = authors,
-                    onCLick = { authorId -> viewModel.navigateToAuthor(authorId = authorId) },
+                    onCLick = { authorId: Int -> viewModel.navigateToAuthor(authorId = authorId) },
+                    onClickMakeFavorite = { authorId: Int -> viewModel.makeFavorite(authorId = authorId) },
+                    onClickRemoveFavorite = { authorId: Int -> viewModel.removeFavorite(authorId = authorId) },
                 )
 
                 SliderWidget(

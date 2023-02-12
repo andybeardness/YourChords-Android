@@ -3,6 +3,7 @@ package com.beardness.yourchordsru.presentation.screens.search
 import androidx.lifecycle.ViewModel
 import com.beardness.yourchordsru.di.qualifiers.IoCoroutineScope
 import com.beardness.yourchordsru.navigation.navigator.INavigator
+import com.beardness.yourchordsru.presentation.core.favorite.IFavoriteCore
 import com.beardness.yourchordsru.presentation.core.search.ISearchCore
 import com.beardness.yourchordsru.presentation.screens.dto.search.SearchResult
 import com.beardness.yourchordsru.presentation.screens.dto.search.SearchResultAuthor
@@ -19,6 +20,7 @@ import javax.inject.Inject
 class SearchScreenViewModel @Inject constructor(
     private val navigator: INavigator,
     private val searchCore: ISearchCore,
+    private val favoriteCore: IFavoriteCore,
     @IoCoroutineScope private val ioCoroutineScope: CoroutineScope,
 ) : ViewModel(), ISearchScreenViewModel {
 
@@ -101,6 +103,7 @@ class SearchScreenViewModel @Inject constructor(
                 authorId = searchResult.authorId,
                 songId = searchResult.songId,
             )
+            else -> throw java.lang.IllegalStateException("Type of $searchResult is not correct")
         }
     }
 
@@ -118,6 +121,40 @@ class SearchScreenViewModel @Inject constructor(
         ioCoroutineScope.launch {
             _scrollUp.emit(value = newScrollUpValue)
             _lastScrollPosition = firstVisibleItemIndex
+        }
+    }
+
+    override fun makeFavorite(searchResult: SearchResult) {
+        ioCoroutineScope.launch {
+            when (searchResult) {
+                is SearchResultAuthor -> favoriteCore
+                    .insertAuthor(
+                        authorId = searchResult.authorId,
+                    )
+                is SearchResultSong -> favoriteCore
+                    .insertSong(
+                        authorId = searchResult.authorId,
+                        songId = searchResult.songId,
+                    )
+                else -> throw java.lang.IllegalStateException("Type of $searchResult is not correct")
+            }
+        }
+    }
+
+    override fun removeFavorite(searchResult: SearchResult) {
+        ioCoroutineScope.launch {
+            when (searchResult) {
+                is SearchResultAuthor -> favoriteCore
+                    .removeAuthor(
+                        authorId = searchResult.authorId,
+                    )
+                is SearchResultSong -> favoriteCore
+                    .removeSong(
+                        authorId = searchResult.authorId,
+                        songId = searchResult.songId,
+                    )
+                else -> throw java.lang.IllegalStateException("Type of $searchResult is not correct")
+            }
         }
     }
 }

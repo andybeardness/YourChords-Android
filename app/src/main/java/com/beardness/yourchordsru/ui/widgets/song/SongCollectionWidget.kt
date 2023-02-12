@@ -12,6 +12,8 @@ fun SongCollectionWidget(
     lazyListState: LazyListState,
     songs: List<SongViewDto>,
     onCLick: (authorId: Int, songId: Int) -> Unit,
+    onClickMakeFavorite: (authorId: Int, songId: Int) -> Unit,
+    onClickRemoveFavorite: (authorId: Int, songId: Int) -> Unit,
 ) {
     LazyColumn(
         modifier = modifier,
@@ -26,6 +28,8 @@ fun SongCollectionWidget(
             SongWidget(
                 songViewDto = songViewDto,
                 onClick = { onCLick(authorId, songId) },
+                actionMakeFavorite = { onClickMakeFavorite(authorId, songId) },
+                actionRemoveFavorite = { onClickRemoveFavorite(authorId, songId) },
             )
         }
     }

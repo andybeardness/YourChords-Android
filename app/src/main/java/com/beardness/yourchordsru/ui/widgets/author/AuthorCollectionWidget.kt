@@ -12,6 +12,8 @@ fun AuthorCollectionWidget(
     lazyListState: LazyListState,
     authors: List<AuthorViewDto>,
     onCLick: (authorId: Int) -> Unit,
+    onClickMakeFavorite: (authorId: Int) -> Unit,
+    onClickRemoveFavorite: (authorId: Int) -> Unit,
 ) {
     LazyColumn(
         modifier = modifier,
@@ -22,7 +24,9 @@ fun AuthorCollectionWidget(
 
             AuthorWidget(
                 authorViewDto = author,
-                onClick = { onCLick(author.id) },
+                onClickAuthor = { onCLick(author.id) },
+                actionMakeFavorite = { onClickMakeFavorite(author.id) },
+                actionRemoveFavorite = { onClickRemoveFavorite(author.id) },
             )
         }
     }

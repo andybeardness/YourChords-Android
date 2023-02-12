@@ -9,11 +9,15 @@ import com.beardness.yourchordsru.ui.widgets.author.AuthorWidget
 fun SearchAuthorWidget(
     item: SearchResultAuthor,
     onClick: () -> Unit,
+    onClickMakeFavorite: () -> Unit,
+    onClickRemoveFavorite: () -> Unit,
 ) {
     val author = item.viewDto()
 
     AuthorWidget(
         authorViewDto = author,
-        onClick = onClick
+        onClickAuthor = onClick,
+        actionMakeFavorite = onClickMakeFavorite,
+        actionRemoveFavorite = onClickRemoveFavorite,
     )
 }

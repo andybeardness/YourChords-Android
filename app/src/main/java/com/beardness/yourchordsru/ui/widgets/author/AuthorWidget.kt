@@ -1,5 +1,8 @@
 package com.beardness.yourchordsru.ui.widgets.author
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,7 +13,9 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Star
+import androidx.compose.material.icons.rounded.StarBorder
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -19,13 +24,49 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.beardness.yourchordsru.presentation.screens.dto.AuthorViewDto
 import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
 import com.beardness.yourchordsru.utils.extensions.clickableHaptic
+import com.beardness.yourchordsru.utils.extensions.clickableHapticNoRipple
 
 @Composable
 fun AuthorWidget(
     authorViewDto: AuthorViewDto,
-    onClick: () -> Unit,
+    onClickAuthor: () -> Unit,
+    actionMakeFavorite: () -> Unit,
+    actionRemoveFavorite: () -> Unit,
 ) {
+    val isFavorite = authorViewDto.isFavorite
     val shape = RoundedCornerShape(size = YourChordsRuTheme.dimens.dp8)
+
+    val favoriteStar =
+        if (isFavorite) {
+            Icons.Rounded.Star
+        } else {
+            Icons.Rounded.StarBorder
+        }
+
+    val favoriteStarColor =
+        if (isFavorite) {
+            YourChordsRuTheme.colors.yellow
+        } else {
+            YourChordsRuTheme.colors.text.copy(alpha = .2f)
+        }
+
+    val favoriteStarColorAnimated by
+        animateColorAsState(
+            targetValue = favoriteStarColor,
+            animationSpec = tween(
+                durationMillis = 100,
+                easing = LinearOutSlowInEasing,
+            ),
+        )
+
+    val onClickStar =
+        if (isFavorite) {
+            actionRemoveFavorite
+        } else {
+            actionMakeFavorite
+        }
+
+    val starShape = RoundedCornerShape(percent = 50)
 
     Row(
         modifier = Modifier
@@ -37,7 +78,7 @@ fun AuthorWidget(
                 end = YourChordsRuTheme.dimens.dp4,
             )
             .clip(shape = shape)
-            .clickableHaptic { onClick() }
+            .clickableHaptic { onClickAuthor() }
             .background(
                 color = YourChordsRuTheme.colors.card,
                 shape = shape,
@@ -59,8 +100,11 @@ fun AuthorWidget(
         )
 
         Icon(
-            imageVector = Icons.Rounded.Star,
-            tint = YourChordsRuTheme.colors.yellow,
+            modifier = Modifier
+                .clip(shape = starShape)
+                .clickableHapticNoRipple { onClickStar() },
+            imageVector = favoriteStar,
+            tint = favoriteStarColorAnimated,
             contentDescription = "",
         )
     }
@@ -72,9 +116,12 @@ fun Preview_AuthorWidget_0() {
     AuthorWidget(
         authorViewDto = AuthorViewDto(
             id = 0,
-            name = "Author name"
+            name = "Author name",
+            isFavorite = false,
         ),
-        onClick = {},
+        onClickAuthor = {},
+        actionMakeFavorite = {},
+        actionRemoveFavorite = {},
     )
 }
 
@@ -84,8 +131,11 @@ fun Preview_AuthorWidget_1() {
     AuthorWidget(
         authorViewDto = AuthorViewDto(
             id = 0,
-            name = "Long long long long long long long author name"
+            name = "Long long long long long long long author name",
+            isFavorite = true,
         ),
-        onClick = {},
+        onClickAuthor = {},
+        actionMakeFavorite = {},
+        actionRemoveFavorite = {},
     )
 }

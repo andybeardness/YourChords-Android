@@ -19,7 +19,7 @@ fun Modifier.clickableHaptic(action: () -> Unit) =
         }
     }
 
-fun Modifier.clickableWithoutRipple(action: () -> Unit) =
+fun Modifier.clickableHapticNoRipple(action: () -> Unit) =
     composed {
         val haptic = LocalHapticFeedback.current
 

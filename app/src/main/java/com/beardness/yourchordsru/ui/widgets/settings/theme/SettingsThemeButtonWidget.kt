@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
-import com.beardness.yourchordsru.utils.extensions.clickableWithoutRipple
+import com.beardness.yourchordsru.utils.extensions.clickableHapticNoRipple
 
 @Composable
 fun SettingsThemeButtonWidget(
@@ -54,7 +54,7 @@ fun SettingsThemeButtonWidget(
                 shape = shape,
             )
             .clip(shape = shape)
-            .clickableWithoutRipple { onClick() }
+            .clickableHapticNoRipple { onClick() }
             .padding(
                 horizontal = YourChordsRuTheme.dimens.dp16,
                 vertical = YourChordsRuTheme.dimens.dp8,

@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
-import com.beardness.yourchordsru.utils.extensions.clickableWithoutRipple
+import com.beardness.yourchordsru.utils.extensions.clickableHapticNoRipple
 
 @Composable
 fun ToolbarWidget(
@@ -36,7 +36,7 @@ fun ToolbarWidget(
         Text(
             modifier = Modifier
                 .weight(weight = 1f)
-                .clickableWithoutRipple { onClickToolbar?.invoke() },
+                .clickableHapticNoRipple { onClickToolbar?.invoke() },
             text = title,
             color = YourChordsRuTheme.colors.text,
             style = YourChordsRuTheme.typography.titleAtToolbar,

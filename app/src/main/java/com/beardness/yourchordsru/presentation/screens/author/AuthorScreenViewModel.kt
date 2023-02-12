@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.beardness.yourchordsru.di.qualifiers.IoCoroutineScope
 import com.beardness.yourchordsru.navigation.navigator.INavigator
 import com.beardness.yourchordsru.presentation.core.authors.IAuthorsCore
+import com.beardness.yourchordsru.presentation.core.favorite.IFavoriteCore
 import com.beardness.yourchordsru.presentation.core.settings.ISettingsCore
 import com.beardness.yourchordsru.presentation.core.songs.ISongsCore
 import com.beardness.yourchordsru.presentation.screens.dto.SongViewDto
@@ -22,6 +23,7 @@ class AuthorScreenViewModel @Inject constructor(
     private val authorsCore: IAuthorsCore,
     private val songsCore: ISongsCore,
     private val settingsCore: ISettingsCore,
+    private val favoriteCore: IFavoriteCore,
     private val navigator: INavigator,
     @IoCoroutineScope private val ioCoroutineScope: CoroutineScope,
 ): ViewModel(), IAuthorScreenViewModel {
@@ -136,4 +138,16 @@ class AuthorScreenViewModel @Inject constructor(
                 )
             }
         }
+
+    override fun makeFavorite(authorId: Int, songId: Int) {
+        ioCoroutineScope.launch {
+            favoriteCore.insertSong(authorId = authorId, songId = songId)
+        }
+    }
+
+    override fun removeFavorite(authorId: Int, songId: Int) {
+        ioCoroutineScope.launch {
+            favoriteCore.removeSong(authorId = authorId, songId = songId)
+        }
+    }
 }

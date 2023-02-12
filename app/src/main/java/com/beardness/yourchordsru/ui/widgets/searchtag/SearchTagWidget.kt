@@ -11,7 +11,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
-import com.beardness.yourchordsru.utils.extensions.clickableWithoutRipple
+import com.beardness.yourchordsru.utils.extensions.clickableHapticNoRipple
 
 @Composable
 fun SearchTagWidget(
@@ -46,7 +46,7 @@ fun SearchTagWidget(
                 shape = shape,
             )
             .clip(shape = shape)
-            .clickableWithoutRipple { onClick() }
+            .clickableHapticNoRipple { onClick() }
             .padding(
                 vertical = YourChordsRuTheme.dimens.dp8,
                 horizontal = YourChordsRuTheme.dimens.dp16,

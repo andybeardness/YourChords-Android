@@ -20,6 +20,8 @@ import com.beardness.yourchordsru.utils.extensions.clickableHaptic
 fun SongWidget(
     songViewDto: SongViewDto,
     onClick: () -> Unit,
+    actionMakeFavorite: () -> Unit,
+    actionRemoveFavorite: () -> Unit,
     doesShowAuthor: Boolean = false,
 ) {
     val shape = RoundedCornerShape(size = YourChordsRuTheme.dimens.dp8)
@@ -111,7 +113,9 @@ fun Preview_SongWidget_0() {
             authorId = 0,
             authorName = "Author name",
         ),
-        onClick = {}
+        onClick = {},
+        actionMakeFavorite = {},
+        actionRemoveFavorite = {},
     )
 }
 
@@ -127,6 +131,8 @@ fun Preview_SongWidget_1() {
             authorId = 0,
             authorName = "Author name",
         ),
-        onClick = {}
+        onClick = {},
+        actionMakeFavorite = {},
+        actionRemoveFavorite = {},
     )
 }

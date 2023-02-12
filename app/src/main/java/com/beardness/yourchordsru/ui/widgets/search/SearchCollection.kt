@@ -14,6 +14,8 @@ fun SearchCollection(
     lazyListState: LazyListState,
     founded: List<SearchResult>,
     onClick: (item: SearchResult) -> Unit,
+    onClickMakeFavorite: (item: SearchResult) -> Unit,
+    onClickRemoveFavorite: (item: SearchResult) -> Unit,
 ) {
     LazyColumn(
         modifier = modifier,
@@ -24,11 +26,16 @@ fun SearchCollection(
                 is SearchResultAuthor -> SearchAuthorWidget(
                     item = item,
                     onClick = { onClick(item) },
+                    onClickMakeFavorite = { onClickMakeFavorite(item) },
+                    onClickRemoveFavorite = { onClickRemoveFavorite(item) },
                 )
                 is SearchResultSong -> SearchSongWidget(
                     item = item,
                     onClick = { onClick(item) },
+                    onClickMakeFavorite = { onClickMakeFavorite(item) },
+                    onClickRemoveFavorite = { onClickRemoveFavorite(item) },
                 )
+                else -> throw java.lang.IllegalStateException("Type of $item is not correct")
             }
         }
     }

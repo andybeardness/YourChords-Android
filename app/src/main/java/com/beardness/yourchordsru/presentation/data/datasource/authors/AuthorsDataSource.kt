@@ -7,24 +7,13 @@ import javax.inject.Inject
 class AuthorsDataSource @Inject constructor(
     private val authorsCsvReader: IAuthorsCsvReader,
 ): IAuthorsDataSource {
-    private val _authors = mutableListOf<AuthorSourceDto>()
-
-    override fun load() {
-        TODO("Not yet implemented")
-    }
-
-    override fun authors(): List<AuthorSourceDto> {
+    override suspend fun authors(): List<AuthorSourceDto> {
         return authorsCsvReader.read()
     }
 
-    override fun author(id: Int): AuthorSourceDto? {
+    override suspend fun author(id: Int): AuthorSourceDto? {
         return authorsCsvReader
             .read()
             .firstOrNull { authorSourceDto -> authorSourceDto.id == id }
-    }
-
-    private fun setup(authors: List<AuthorSourceDto>) {
-        _authors.clear()
-        _authors.addAll(elements = authors)
     }
 }

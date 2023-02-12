@@ -15,5 +15,6 @@ interface IAuthorScreenViewModel {
     fun navigateBack()
     fun updateScrollPosition(firstVisibleItemIndex: Int)
     fun switchSortType()
-
+    fun makeFavorite(authorId: Int, songId: Int)
+    fun removeFavorite(authorId: Int, songId: Int)
 }
