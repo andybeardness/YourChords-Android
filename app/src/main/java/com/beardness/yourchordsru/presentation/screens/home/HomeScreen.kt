@@ -1,5 +1,6 @@
 package com.beardness.yourchordsru.presentation.screens.home
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -84,6 +85,14 @@ fun HomeScreen(
         coroutineScope.launch {
             authorsLazyListState.scrollToItem(index = 0)
             charsLazyListState.scrollToItem(index = 0)
+        }
+    }
+
+    if (scaffoldState.drawerState.isOpen) {
+        BackHandler {
+            coroutineScope.launch {
+                scaffoldState.drawerState.close()
+            }
         }
     }
 
