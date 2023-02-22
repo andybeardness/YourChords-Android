@@ -14,6 +14,7 @@ fun HomeScreenScaffold(
     scaffoldState: ScaffoldState,
     onClickNavigateHome: () -> Unit,
     onClickNavigateSettings: () -> Unit,
+    onClickAbout: () -> Unit,
     content: @Composable (PaddingValues) -> Unit,
 ) {
     val coroutineScope = rememberCoroutineScope()
@@ -38,7 +39,10 @@ fun HomeScreenScaffold(
                     onClickNavigateSettings()
                     closeDrawer()
                 },
-                navigateAbout = {},
+                navigateAbout = {
+                    onClickAbout()
+                    closeDrawer()
+                },
             )
         },
         drawerElevation = YourChordsRuTheme.dimens.dp32

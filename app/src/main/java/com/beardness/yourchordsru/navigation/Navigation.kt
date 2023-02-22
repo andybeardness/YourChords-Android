@@ -13,6 +13,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.beardness.yourchordsru.presentation.screens.author.AuthorScreen
 import com.beardness.yourchordsru.presentation.screens.author.AuthorScreenViewModel
+import com.beardness.yourchordsru.presentation.screens.about.AboutScreen
+import com.beardness.yourchordsru.presentation.screens.about.AboutScreenViewModel
 import com.beardness.yourchordsru.presentation.screens.home.HomeScreen
 import com.beardness.yourchordsru.presentation.screens.home.HomeScreenViewModel
 import com.beardness.yourchordsru.presentation.screens.search.SearchScreen
@@ -114,6 +116,14 @@ fun Navigation(
             SettingsScreen(
                 viewModel = viewModel,
             )
+        }
+
+        composable(
+            route = "about"
+        ) {
+            val viewModel = hiltViewModel<AboutScreenViewModel>()
+
+            AboutScreen(viewModel = viewModel)
         }
     }
 }

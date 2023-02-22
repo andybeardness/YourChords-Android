@@ -2,9 +2,8 @@ package com.beardness.yourchordsru.presentation.data.repo.settings
 
 import com.beardness.yourchordsru.data.store.IAppDataStore
 import com.beardness.yourchordsru.presentation.data.repo.dto.ChordsViewRepoDto
-import com.beardness.yourchordsru.presentation.data.repo.dto.repoDto
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.combine
 import javax.inject.Inject
 
 class SettingsRepo @Inject constructor(
@@ -16,9 +15,23 @@ class SettingsRepo @Inject constructor(
             .themeCode
 
     override val chordsView: Flow<ChordsViewRepoDto> =
-        appDataStore
-            .chordsView
-            .map { chordsView -> chordsView.repoDto() }
+        combine(
+            appDataStore.backgroundColor,
+            appDataStore.textColor,
+            appDataStore.chordsColor,
+            appDataStore.fontSize,
+        ) { backgroundColor,
+            textColor,
+            chordsColor,
+            fontSize ->
+
+            ChordsViewRepoDto(
+                backgroundColor = backgroundColor,
+                textColor = textColor,
+                chordsColor = chordsColor,
+                fontSize = fontSize,
+            )
+        }
 
     override val songsSortTypeCode: Flow<Int> =
         appDataStore

@@ -6,6 +6,7 @@ import com.beardness.yourchordsru.di.qualifiers.IoCoroutineScope
 import com.beardness.yourchordsru.navigation.navigator.INavigator
 import com.beardness.yourchordsru.presentation.core.settings.ISettingsCore
 import com.beardness.yourchordsru.presentation.core.songs.ISongsCore
+import com.beardness.yourchordsru.presentation.screens.dto.settings.viewDto
 import com.beardness.yourchordsru.presentation.screens.dto.viewDto
 import com.beardness.yourchordsru.utils.extensions.bounds
 import com.beardness.yourchordsru.utils.extensions.invert
@@ -141,11 +142,13 @@ class SongScreenViewModel @Inject constructor(
     private fun collectChordsView() {
         ioCoroutineScope.launch {
             settingsCore.chordsView.collect { chordsViewCoreDto ->
-                _backgroundColor.emit(value = chordsViewCoreDto.backgroundColor)
-                _textColor.emit(value = chordsViewCoreDto.textColor)
-                _chordsColor.emit(value = chordsViewCoreDto.chordsColor)
-                _initialTextSize.emit(value = chordsViewCoreDto.fontSize)
-                _textSize.emit(value = chordsViewCoreDto.fontSize)
+                val chordsViewViewDto = chordsViewCoreDto.viewDto()
+
+                _backgroundColor.emit(value = chordsViewViewDto.backgroundColor)
+                _textColor.emit(value = chordsViewViewDto.textColor)
+                _chordsColor.emit(value = chordsViewViewDto.chordsColor)
+                _initialTextSize.emit(value = chordsViewViewDto.fontSize)
+                _textSize.emit(value = chordsViewViewDto.fontSize)
             }
         }
     }

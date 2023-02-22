@@ -10,4 +10,5 @@ interface INavigator {
     fun song(authorId: Int, songId: Int)
     fun search()
     fun settings()
+    fun about()
 }

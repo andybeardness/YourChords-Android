@@ -99,6 +99,7 @@ fun HomeScreen(
     HomeScreenScaffold(
         onClickNavigateHome = { viewModel.navigateToHome() },
         onClickNavigateSettings = { viewModel.navigateToSettings() },
+        onClickAbout = { viewModel.navigateToAbout() },
         scaffoldState = scaffoldState,
     ) { paddingValues ->
         Column(

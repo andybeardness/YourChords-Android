@@ -2,13 +2,13 @@ package com.beardness.yourchordsru.presentation.screens.settings
 
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
+import com.beardness.yourchordsru.config.ChordsConfig
 import com.beardness.yourchordsru.di.qualifiers.IoCoroutineScope
 import com.beardness.yourchordsru.navigation.navigator.INavigator
 import com.beardness.yourchordsru.presentation.core.settings.ISettingsCore
-import com.beardness.yourchordsru.presentation.screens.settings.types.ChordsColorSettingsType
 import com.beardness.yourchordsru.presentation.screens.settings.types.ThemeSettingsType
 import com.beardness.yourchordsru.presentation.screens.settings.types.themeSettingsType
-import com.beardness.yourchordsru.presentation.screens.settings.types.toChordsColorSettingType
+import com.beardness.yourchordsru.utils.extensions.composeColor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,21 +30,22 @@ class SettingsScreenViewModel @Inject constructor(
                 .filter { type -> type != ThemeSettingsType.NONE }
                 .toSet()
 
-        private val backgroundColorsSet = setOf<Color>(
-            Color(color = 0xFFFAFAFA),
-            Color(color = 0xFFF5F5F5),
-            Color(color = 0xFF121212),
-            Color(color = 0xFF272727),
-        )
+        private val backgroundColorsSet =
+            ChordsConfig
+                .BACKGROUND_COLORS
+                .map { colorLong -> colorLong.composeColor() }
+                .toSet()
 
-        private val textColorsSet = setOf<Color>(
-            Color(color = 0xFF000000),
-            Color(color = 0xFFFFFFFF),
-        )
+        private val textColorsSet =
+            ChordsConfig
+                .TEXT_COLORS
+                .map { colorLong -> colorLong.composeColor() }
+                .toSet()
 
-        private val chordsColorsSet: Set<ChordsColorSettingsType> =
-            ChordsColorSettingsType
-                .values()
+        private val chordsColorsSet =
+            ChordsConfig
+                .CHORDS_COLORS
+                .map { colorLong -> colorLong.composeColor() }
                 .toSet()
     }
 
@@ -57,7 +58,7 @@ class SettingsScreenViewModel @Inject constructor(
     private val _activeTextColor = MutableStateFlow<Color>(value = Color.Unspecified)
     override val activeTextColor = _activeTextColor.asStateFlow()
 
-    private val _activeChordsColor = MutableStateFlow<ChordsColorSettingsType>(value = ChordsColorSettingsType.BLUE)
+    private val _activeChordsColor = MutableStateFlow<Color>(value = Color.Unspecified)
     override val activeChordsColor = _activeChordsColor.asStateFlow()
 
     private val _themesTypes = MutableStateFlow<Set<ThemeSettingsType>>(value = themesSet)
@@ -69,7 +70,7 @@ class SettingsScreenViewModel @Inject constructor(
     private val _textColors = MutableStateFlow<Set<Color>>(value = textColorsSet)
     override val textColors = _textColors.asStateFlow()
 
-    private val _chordsColors = MutableStateFlow<Set<ChordsColorSettingsType>>(value = chordsColorsSet)
+    private val _chordsColors = MutableStateFlow<Set<Color>>(value = chordsColorsSet)
     override val chordsColors = _chordsColors.asStateFlow()
 
     private val _fontSize = MutableStateFlow<Int>(value = 16)
@@ -107,7 +108,7 @@ class SettingsScreenViewModel @Inject constructor(
 
     override fun updateChordsColor(color: Color) {
         ioCoroutineScope.launch {
-            if (color.toChordsColorSettingType() != _activeChordsColor.value) {
+            if (color != _activeChordsColor.value) {
                 settingsCore.setupChordsColor(color = color)
             }
         }
@@ -132,7 +133,7 @@ class SettingsScreenViewModel @Inject constructor(
             settingsCore.chordsView.collect { chordsViewDto ->
                 _activeBackgroundColor.emit(value = chordsViewDto.backgroundColor)
                 _activeTextColor.emit(value = chordsViewDto.textColor)
-                _activeChordsColor.emit(value = chordsViewDto.chordsColor.toChordsColorSettingType())
+                _activeChordsColor.emit(value = chordsViewDto.chordsColor)
                 _fontSize.emit(value = chordsViewDto.fontSize)
             }
         }

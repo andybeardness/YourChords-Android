@@ -11,8 +11,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.beardness.yourchordsru.config.ChordsConfig
-import com.beardness.yourchordsru.presentation.screens.settings.types.chordsColorSettingsTypeToColors
-import com.beardness.yourchordsru.presentation.screens.settings.types.color
 import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
 import com.beardness.yourchordsru.ui.widgets.navigation.ArrowBackWidget
 import com.beardness.yourchordsru.ui.widgets.settings.colors.SettingsColorPickerWidget
@@ -34,10 +32,7 @@ fun SettingsScreen(
     val activeTextColor by viewModel.activeTextColor.collectAsState()
 
     val chordsColors by viewModel.chordsColors.collectAsState()
-    val activeChordsColorType by viewModel.activeChordsColor.collectAsState()
-
-    val chordsColorsSet = chordsColors.chordsColorSettingsTypeToColors().toSet()
-    val activeChordsColor = activeChordsColorType.color()
+    val activeChordsColor by viewModel.activeChordsColor.collectAsState()
 
     val fontSize by viewModel.fontSize.collectAsState()
 
@@ -82,7 +77,7 @@ fun SettingsScreen(
 
             SettingsColorPickerWidget(
                 title = "Chords color",
-                colors = chordsColorsSet,
+                colors = chordsColors,
                 activeColor = activeChordsColor,
                 onClickColor = { color: Color -> viewModel.updateChordsColor(color = color) },
             )

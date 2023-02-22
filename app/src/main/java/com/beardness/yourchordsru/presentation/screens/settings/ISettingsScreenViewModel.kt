@@ -1,7 +1,6 @@
 package com.beardness.yourchordsru.presentation.screens.settings
 
 import androidx.compose.ui.graphics.Color
-import com.beardness.yourchordsru.presentation.screens.settings.types.ChordsColorSettingsType
 import com.beardness.yourchordsru.presentation.screens.settings.types.ThemeSettingsType
 import kotlinx.coroutines.flow.StateFlow
 
@@ -9,11 +8,11 @@ interface ISettingsScreenViewModel {
     val activeTheme: StateFlow<ThemeSettingsType>
     val activeBackgroundColor: StateFlow<Color>
     val activeTextColor: StateFlow<Color>
-    val activeChordsColor: StateFlow<ChordsColorSettingsType>
+    val activeChordsColor: StateFlow<Color>
     val themesTypes: StateFlow<Set<ThemeSettingsType>>
     val backgroundColors: StateFlow<Set<Color>>
     val textColors: StateFlow<Set<Color>>
-    val chordsColors: StateFlow<Set<ChordsColorSettingsType>>
+    val chordsColors: StateFlow<Set<Color>>
     val fontSize: StateFlow<Int>
     fun updateTheme(theme: ThemeSettingsType)
     fun updateBackgroundColor(color: Color)

@@ -1,7 +1,7 @@
 package com.beardness.yourchordsru.utils.extensions
 
 import androidx.compose.ui.graphics.Color
-import androidx.core.graphics.toColorInt
+import androidx.compose.ui.graphics.toArgb
 
 val Color.htmlStyle: String
     get() = "rgb(${this.r} ${this.g} ${this.b})"
@@ -14,8 +14,11 @@ fun Color.buttonColorByCondition(condition: Boolean): Color =
     }
 
 fun Long.composeColor(): Color {
-    return Color(color = this.toColorInt())
+    return Color(color = this)
 }
+
+fun Color.toLong(): Long =
+    this.toArgb().toLong()
 
 private val Color.r: Int
     get() = (this.red * 255).toInt()

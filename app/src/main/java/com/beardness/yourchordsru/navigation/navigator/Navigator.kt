@@ -37,4 +37,8 @@ class Navigator @Inject constructor(): INavigator {
     override fun settings() {
         _navHostController?.navigate(route = "settings")
     }
+
+    override fun about() {
+        _navHostController?.navigate(route = "about")
+    }
 }
