@@ -12,7 +12,6 @@ interface ISongScreenViewModel {
     val chordsColor: StateFlow<Color>
     val chords: Flow<String>
     val isToolbarExpanded: StateFlow<Boolean>
-    val initialTextSize: StateFlow<Int>
     val textSize: StateFlow<Int>
     fun load(
         authorId: Int?,
@@ -22,7 +21,6 @@ interface ISongScreenViewModel {
     fun expandToolbar()
     fun textIncrease()
     fun textDecrease()
-    fun textReset()
     fun changeBackgroundColor(color: Color)
     fun changeTextColor(color: Color)
     fun changeChordsColor(color: Color)

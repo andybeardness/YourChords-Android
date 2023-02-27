@@ -19,7 +19,6 @@ fun SongScreen(
     val songTitle by viewModel.songTitle.collectAsState()
     val chords by viewModel.chords.collectAsState(initial = "")
     val isToolbarExpanded by viewModel.isToolbarExpanded.collectAsState()
-    val initialTextSize by viewModel.initialTextSize.collectAsState()
     val textSize by viewModel.textSize.collectAsState()
 
     val backgroundColor by viewModel.backgroundColor.collectAsState()
@@ -31,7 +30,6 @@ fun SongScreen(
     val chordsColors = ChordsConfig.CHORDS_COLORS.map { color -> color.composeColor() }
 
     val isIncreaseButtonActive = textSize != ChordsConfig.MAX_FONT_SIZE_PX
-    val isResetButtonActive = textSize != initialTextSize
     val isDecreaseButtonActive = textSize != ChordsConfig.MIN_FONT_SIZE_PX
 
     val backgroundColorsTitle = "Background color"
@@ -49,8 +47,6 @@ fun SongScreen(
             onClickExpand = { viewModel.expandToolbar() },
             onClickTextIncrease = { viewModel.textIncrease() },
             isIncreaseButtonActive = isIncreaseButtonActive,
-            onClickResetFontSize = { viewModel.textReset() },
-            isResetFontSizeButtonActive = isResetButtonActive,
             onClickTextDecrease = { viewModel.textDecrease() },
             isDecreaseButtonActive = isDecreaseButtonActive,
             backgroundColorsTitle = backgroundColorsTitle,

@@ -23,6 +23,7 @@ data class AppTypography(
     val themeTitleAtSettings: TextStyle,
     val fontSizeTitleAtFontSizeSetting: TextStyle,
     val charAtSlider: TextStyle,
+    val titleAtSongScreenToolbar: TextStyle,
 )
 
 val typography = AppTypography(
@@ -81,7 +82,11 @@ val typography = AppTypography(
     charAtSlider = TextStyle(
         fontSize = 22.sp,
         fontWeight = FontWeight.Light,
-    )
+    ),
+    titleAtSongScreenToolbar = TextStyle(
+        fontSize = 22.sp,
+        fontWeight = FontWeight.ExtraLight,
+    ),
 )
 
 val LocalExtendedTypography = staticCompositionLocalOf {
@@ -100,5 +105,6 @@ val LocalExtendedTypography = staticCompositionLocalOf {
         themeTitleAtSettings = typography.themeTitleAtSettings,
         fontSizeTitleAtFontSizeSetting = typography.fontSizeTitleAtFontSizeSetting,
         charAtSlider = typography.charAtSlider,
+        titleAtSongScreenToolbar = typography.titleAtSongScreenToolbar,
     )
 }

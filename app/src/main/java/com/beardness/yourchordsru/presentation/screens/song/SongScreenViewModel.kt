@@ -54,7 +54,6 @@ class SongScreenViewModel @Inject constructor(
             settingsCore.chordsView,
             _chordsRaw
         ) { chordsView, chordsRaw ->
-
             _backgroundColor.emit(value = chordsView.backgroundColor)
             _textColor.emit(value = chordsView.textColor)
             _chordsColor.emit(value = chordsView.chordsColor)
@@ -73,9 +72,6 @@ class SongScreenViewModel @Inject constructor(
 
     private val _isToolbarExpanded = MutableStateFlow<Boolean>(value = false)
     override val isToolbarExpanded = _isToolbarExpanded.asStateFlow()
-
-    private val _initialTextSize = MutableStateFlow<Int>(value = 0)
-    override val initialTextSize = _initialTextSize.asStateFlow()
 
     private val _textSize = MutableStateFlow<Int>(value = 0)
     override val textSize = _textSize.asStateFlow()
@@ -134,12 +130,6 @@ class SongScreenViewModel @Inject constructor(
         textSizePxUpdate(difference = -2)
     }
 
-    override fun textReset() {
-        ioCoroutineScope.launch {
-            _textSize.emit(value = _initialTextSize.value)
-        }
-    }
-
     private fun collectChordsView() {
         ioCoroutineScope.launch {
             settingsCore.chordsView.collect { chordsViewCoreDto ->
@@ -148,7 +138,6 @@ class SongScreenViewModel @Inject constructor(
                 _backgroundColor.emit(value = chordsViewViewDto.backgroundColor)
                 _textColor.emit(value = chordsViewViewDto.textColor)
                 _chordsColor.emit(value = chordsViewViewDto.chordsColor)
-                _initialTextSize.emit(value = chordsViewViewDto.fontSize)
                 _textSize.emit(value = chordsViewViewDto.fontSize)
             }
         }
@@ -164,7 +153,7 @@ class SongScreenViewModel @Inject constructor(
                 newTextSize
                     .bounds()
 
-            _textSize.emit(value = boundedTextSize)
+            settingsCore.setupFontSize(size = boundedTextSize)
         }
     }
 

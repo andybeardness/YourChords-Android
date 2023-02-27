@@ -30,6 +30,7 @@ fun MiniColorPickerLineWidget(
         Text(
             text = title,
             color = YourChordsRuTheme.colors.text,
+            style = YourChordsRuTheme.typography.titleAtSongScreenToolbar,
         )
 
         colors.forEach { color ->
