@@ -48,12 +48,6 @@ fun AuthorScreen(
             SongsSortType.BY_RATING -> Icons.Rounded.TrendingUp
         }
 
-    val songsSortTypeIconColor =
-        when (sortType) {
-            SongsSortType.BY_NAME -> YourChordsRuTheme.colors.blue
-            SongsSortType.BY_RATING -> YourChordsRuTheme.colors.red
-        }
-
     Column {
         AnimatedToolbarWidget(
             title = authorName,
@@ -67,7 +61,7 @@ fun AuthorScreen(
                 ToolbarIconWidget(
                     icon = songsSortTypeIcon,
                     iconDescription = "",
-                    iconColor = songsSortTypeIconColor,
+                    iconColor = YourChordsRuTheme.colors.text,
                     onClick = { viewModel.switchSortType() },
                 )
 
