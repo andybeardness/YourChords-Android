@@ -13,8 +13,10 @@ import com.beardness.yourchordsru.utils.extensions.invert
 import com.beardness.yourchordsru.utils.html.IHtmlBuilder
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -47,8 +49,27 @@ class SongScreenViewModel @Inject constructor(
 
     private val _chordsRaw = MutableStateFlow<String>(value = "")
 
-    private val _chords = MutableStateFlow<String>(value = "")
-    override val chords = _chords.asStateFlow()
+    override val chords: Flow<String> =
+        combine(
+            settingsCore.chordsView,
+            _chordsRaw
+        ) { chordsView, chordsRaw ->
+
+            _backgroundColor.emit(value = chordsView.backgroundColor)
+            _textColor.emit(value = chordsView.textColor)
+            _chordsColor.emit(value = chordsView.chordsColor)
+            _textSize.emit(value = chordsView.fontSize)
+
+            val htmlChords = htmlBuilder.html(
+                content = chordsRaw,
+                backgroundColor = chordsView.backgroundColor,
+                textColor = chordsView.textColor,
+                textSizePx = chordsView.fontSize,
+                chordsColor = chordsView.chordsColor,
+            )
+
+            htmlChords
+        }
 
     private val _isToolbarExpanded = MutableStateFlow<Boolean>(value = false)
     override val isToolbarExpanded = _isToolbarExpanded.asStateFlow()
@@ -86,26 +107,7 @@ class SongScreenViewModel @Inject constructor(
             _authorName.emit(value = song.authorName)
             _songTitle.emit(value = song.title)
 
-            val backgroundColor = _backgroundColor.value
-            val textColor = _textColor.value
-            val chordsColor = _chordsColor.value
-
-            val chords =
-                song.chords
-
-            _chordsRaw.emit(value = chords)
-
-            val textSizePx = _textSize.value
-
-            val htmlChords = htmlBuilder.html(
-                content = chords,
-                backgroundColor = backgroundColor,
-                textColor = textColor,
-                textSizePx = textSizePx,
-                chordsColor = chordsColor,
-            )
-
-            _chords.emit(value = htmlChords)
+            _chordsRaw.emit(value = song.chords)
         }
     }
 
@@ -135,7 +137,6 @@ class SongScreenViewModel @Inject constructor(
     override fun textReset() {
         ioCoroutineScope.launch {
             _textSize.emit(value = _initialTextSize.value)
-            reload()
         }
     }
 
@@ -153,26 +154,6 @@ class SongScreenViewModel @Inject constructor(
         }
     }
 
-    private fun reload() {
-        ioCoroutineScope.launch {
-            val chords = _chordsRaw.value
-            val backgroundColor = _backgroundColor.value
-            val textColor = _textColor.value
-            val chordsColor = _chordsColor.value
-            val textSizePx = _textSize.value
-
-            val htmlChords = htmlBuilder.html(
-                content = chords,
-                backgroundColor = backgroundColor,
-                textColor = textColor,
-                textSizePx = textSizePx,
-                chordsColor = chordsColor,
-            )
-
-            _chords.emit(value = htmlChords)
-        }
-    }
-
     private fun textSizePxUpdate(difference: Int) {
         ioCoroutineScope.launch {
             val newTextSize =
@@ -184,7 +165,24 @@ class SongScreenViewModel @Inject constructor(
                     .bounds()
 
             _textSize.emit(value = boundedTextSize)
-            reload()
+        }
+    }
+
+    override fun changeBackgroundColor(color: Color) {
+        ioCoroutineScope.launch {
+            settingsCore.setupBackgroundColor(color = color)
+        }
+    }
+
+    override fun changeTextColor(color: Color) {
+        ioCoroutineScope.launch {
+            settingsCore.setupTextColor(color = color)
+        }
+    }
+
+    override fun changeChordsColor(color: Color) {
+        ioCoroutineScope.launch {
+            settingsCore.setupChordsColor(color = color)
         }
     }
 }

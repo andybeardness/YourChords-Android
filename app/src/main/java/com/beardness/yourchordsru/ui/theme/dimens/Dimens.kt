@@ -19,6 +19,7 @@ data class AppDimens(
     val dp64x2: Dp,
     val dp64x3: Dp,
     val dp64x4: Dp,
+    val dp64x5: Dp,
     val bottomBannerHeight: Dp,
 )
 
@@ -35,6 +36,7 @@ val dimens = AppDimens(
     dp64x2 = 128.dp,
     dp64x3 = 192.dp,
     dp64x4 = 256.dp,
+    dp64x5 = 320.dp,
     bottomBannerHeight = 50.dp,
 )
 
@@ -52,6 +54,7 @@ val LocalExtendedDimens = staticCompositionLocalOf {
         dp64x2 = dimens.dp64x2,
         dp64x3 = dimens.dp64x3,
         dp64x4 = dimens.dp64x4,
+        dp64x5 = dimens.dp64x5,
         bottomBannerHeight = dimens.bottomBannerHeight,
     )
 }

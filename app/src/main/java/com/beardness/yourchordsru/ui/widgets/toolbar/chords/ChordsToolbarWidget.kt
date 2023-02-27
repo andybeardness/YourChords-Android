@@ -11,7 +11,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
+import com.beardness.yourchordsru.ui.widgets.settings.colors.MiniColorPickerLineWidget
 import com.beardness.yourchordsru.ui.widgets.toolbar.classic.ToolbarIconWidget
 import com.beardness.yourchordsru.utils.extensions.buttonColorByCondition
 
@@ -27,12 +29,28 @@ fun ChordsToolbarWidget(
     isResetFontSizeButtonActive: Boolean,
     onClickTextDecrease: () -> Unit,
     isDecreaseButtonActive: Boolean,
+    backgroundColorsTitle: String,
+    backgroundColors: List<Color>,
+    activeBackgroundColor: Color,
+    onClickBackgroundColor: (Color) -> Unit,
+    textColorsTitle: String,
+    textColors: List<Color>,
+    activeTextColor: Color,
+    onClickTextColor: (Color) -> Unit,
+    chordsColorsTitle: String,
+    chordsColors: List<Color>,
+    activeChordsColor: Color,
+    onClickChordsColor: (Color) -> Unit,
 ) {
+    val heightValue =
+        if (isExpanded) {
+            YourChordsRuTheme.dimens.dp64x5
+        } else {
+            YourChordsRuTheme.dimens.dp64
+        }
+
     val height by animateDpAsState(
-        targetValue = if (isExpanded)
-            YourChordsRuTheme.dimens.dp64x2
-        else
-            YourChordsRuTheme.dimens.dp64,
+        targetValue = heightValue,
         animationSpec = tween(
             durationMillis = 300,
         ),
@@ -126,6 +144,27 @@ fun ChordsToolbarWidget(
                     onClick = onClickTextIncrease,
                 )
             }
+
+            MiniColorPickerLineWidget(
+                title = backgroundColorsTitle,
+                colors = backgroundColors,
+                activeColor = activeBackgroundColor,
+                onClickColor = onClickBackgroundColor,
+            )
+
+            MiniColorPickerLineWidget(
+                title = textColorsTitle,
+                colors = textColors,
+                activeColor = activeTextColor,
+                onClickColor = onClickTextColor,
+            )
+
+            MiniColorPickerLineWidget(
+                title = chordsColorsTitle,
+                colors = chordsColors,
+                activeColor = activeChordsColor,
+                onClickColor = onClickChordsColor,
+            )
         }
     }
 }

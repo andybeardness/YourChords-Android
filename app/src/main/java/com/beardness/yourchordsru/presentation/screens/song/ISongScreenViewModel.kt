@@ -1,6 +1,7 @@
 package com.beardness.yourchordsru.presentation.screens.song
 
 import androidx.compose.ui.graphics.Color
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
 
 interface ISongScreenViewModel {
@@ -9,7 +10,7 @@ interface ISongScreenViewModel {
     val backgroundColor: StateFlow<Color>
     val textColor: StateFlow<Color>
     val chordsColor: StateFlow<Color>
-    val chords: StateFlow<String>
+    val chords: Flow<String>
     val isToolbarExpanded: StateFlow<Boolean>
     val initialTextSize: StateFlow<Int>
     val textSize: StateFlow<Int>
@@ -22,4 +23,7 @@ interface ISongScreenViewModel {
     fun textIncrease()
     fun textDecrease()
     fun textReset()
+    fun changeBackgroundColor(color: Color)
+    fun changeTextColor(color: Color)
+    fun changeChordsColor(color: Color)
 }
