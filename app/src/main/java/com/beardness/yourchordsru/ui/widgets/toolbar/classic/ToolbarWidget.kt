@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
 import com.beardness.yourchordsru.utils.extensions.clickableHapticNoRipple
@@ -40,6 +41,8 @@ fun ToolbarWidget(
             text = title,
             color = YourChordsRuTheme.colors.text,
             style = YourChordsRuTheme.typography.titleAtToolbar,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
         )
 
         Row(

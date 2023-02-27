@@ -6,9 +6,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.ChevronLeft
-import androidx.compose.material.icons.rounded.ExpandLess
-import androidx.compose.material.icons.rounded.ExpandMore
+import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,9 +17,25 @@ import com.beardness.yourchordsru.ui.widgets.toolbar.classic.ToolbarIconWidget
 fun BaseChordsToolbarWidget(
     title: String,
     onClickNavigation: () -> Unit,
+    isFavoriteSong: Boolean,
+    onClickFavoriteSong: () -> Unit,
     isExpanded: Boolean,
     onClickExpand: () -> Unit,
 ) {
+    val favoriteIcon =
+        if (isFavoriteSong) {
+            Icons.Rounded.Star
+        } else {
+            Icons.Rounded.StarBorder
+        }
+
+    val favoriteColor =
+        if (isFavoriteSong) {
+            YourChordsRuTheme.colors.yellow
+        } else {
+            YourChordsRuTheme.colors.text
+        }
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -42,6 +56,13 @@ fun BaseChordsToolbarWidget(
             text = title,
             color = YourChordsRuTheme.colors.text,
             style = YourChordsRuTheme.typography.titleAtToolbar,
+        )
+
+        ToolbarIconWidget(
+            icon = favoriteIcon,
+            iconDescription = "",
+            iconColor = favoriteColor,
+            onClick = onClickFavoriteSong,
         )
 
         if (isExpanded) {

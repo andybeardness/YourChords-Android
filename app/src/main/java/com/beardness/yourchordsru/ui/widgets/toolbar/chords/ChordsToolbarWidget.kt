@@ -19,6 +19,8 @@ import com.beardness.yourchordsru.ui.widgets.settings.fonts.MiniFontPickerLineWi
 fun ChordsToolbarWidget(
     title: String,
     onClickNavigation: () -> Unit,
+    isFavoriteSong: Boolean,
+    onClickFavoriteSong: () -> Unit,
     isExpanded: Boolean,
     onClickExpand: () -> Unit,
     onClickTextIncrease: () -> Unit,
@@ -63,6 +65,8 @@ fun ChordsToolbarWidget(
         BaseChordsToolbarWidget(
             title = title,
             onClickNavigation = onClickNavigation,
+            isFavoriteSong = isFavoriteSong,
+            onClickFavoriteSong = onClickFavoriteSong,
             isExpanded = isExpanded,
             onClickExpand = onClickExpand,
         )

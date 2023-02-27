@@ -10,8 +10,6 @@ import com.beardness.yourchordsru.ui.widgets.song.SongWidget
 fun SearchSongWidget(
     item: SearchResultSong,
     onClick: () -> Unit,
-    onClickMakeFavorite: () -> Unit,
-    onClickRemoveFavorite: () -> Unit,
 ) {
     val songViewDto = item.viewDto()
 
@@ -19,8 +17,8 @@ fun SearchSongWidget(
         songViewDto = songViewDto,
         onClick = onClick,
         doesShowAuthor = true,
-        actionMakeFavorite = onClickMakeFavorite,
-        actionRemoveFavorite = onClickRemoveFavorite,
+        isFavorite = true,
+        onClickFavorite = {},
     )
 }
 
@@ -37,8 +35,6 @@ fun Preview_SearchSongWidget_0() {
             isFavorite = true,
         ),
         onClick = {},
-        onClickMakeFavorite = {},
-        onClickRemoveFavorite = {},
     )
 }
 
@@ -55,7 +51,5 @@ fun Preview_SearchSongWidget_1() {
             isFavorite = false,
         ),
         onClick = {},
-        onClickMakeFavorite = {},
-        onClickRemoveFavorite = {},
     )
 }

@@ -13,8 +13,7 @@ import com.beardness.yourchordsru.presentation.screens.dto.viewDto
 import com.beardness.yourchordsru.utils.sorttype.SongsSortType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -31,11 +30,23 @@ class AuthorScreenViewModel @Inject constructor(
     private val _authorName = MutableStateFlow<String>(value = "")
     override val authorName = _authorName.asStateFlow()
 
+    private val _authorId = MutableStateFlow<Int>(value = -1)
+
+    private val _isFavorite = MutableStateFlow<Boolean>(value = false)
+    override val isFavorite = _isFavorite.asStateFlow()
+
     private val _songs = MutableStateFlow<List<SongViewDto>>(value = emptyList())
     override val songs = _songs.asStateFlow()
 
     private val _songsSortType = MutableStateFlow<SongsSortType>(value = SongsSortType.BY_NAME)
     override val songsSortType = _songsSortType.asStateFlow()
+
+    override val favoriteSongsIds: Flow<List<Int>> =
+        favoriteCore
+            .favoriteSongs
+            .map { songs ->
+                songs.map { song -> song.songId }
+            }
 
     private var _lastScrollPosition: Int = 0
     private val _scrollUp = MutableStateFlow<Boolean?>(value = null)
@@ -49,6 +60,8 @@ class AuthorScreenViewModel @Inject constructor(
         authorId ?: return
 
         ioCoroutineScope.launch {
+            _authorId.emit(value = authorId)
+
             val authorName =
                 authorsCore
                     .author(authorId = authorId)
@@ -57,6 +70,18 @@ class AuthorScreenViewModel @Inject constructor(
                     ?: ""
 
             _authorName.emit(value = authorName)
+
+            val favoriteAuthorsIds =
+                favoriteCore
+                    .favoriteAuthors
+                    .value
+                    .map { author -> author.authorId }
+
+            val isAuthorFavorite =
+                favoriteAuthorsIds
+                    .contains(element = authorId)
+
+            _isFavorite.emit(value = isAuthorFavorite)
 
             val songs =
                 songsCore
@@ -138,6 +163,39 @@ class AuthorScreenViewModel @Inject constructor(
                 )
             }
         }
+
+    override fun changeAuthorFavorite() {
+        ioCoroutineScope.launch {
+            val authorId = _authorId.value
+
+            if (_isFavorite.value) {
+                favoriteCore.removeAuthor(authorId = authorId)
+            } else {
+                favoriteCore.insertAuthor(authorId = authorId)
+            }
+
+            _isFavorite.emit(value = !_isFavorite.value)
+        }
+    }
+
+    override fun changeSongFavorite(songId: Int) {
+        ioCoroutineScope.launch {
+            val authorId = _authorId.value
+
+            val isSongFavorite =
+                favoriteCore
+                    .favoriteSongs
+                    .value
+                    .map { favoriteSongCoreDto -> favoriteSongCoreDto.songId }
+                    .contains(element = songId)
+
+            if (isSongFavorite) {
+                favoriteCore.removeSong(authorId = authorId, songId = songId)
+            } else {
+                favoriteCore.insertSong(authorId = authorId, songId = songId)
+            }
+        }
+    }
 
     override fun makeFavorite(authorId: Int, songId: Int) {
         ioCoroutineScope.launch {

@@ -4,6 +4,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import com.beardness.yourchordsru.di.qualifiers.IoCoroutineScope
 import com.beardness.yourchordsru.navigation.navigator.INavigator
+import com.beardness.yourchordsru.presentation.core.favorite.IFavoriteCore
 import com.beardness.yourchordsru.presentation.core.settings.ISettingsCore
 import com.beardness.yourchordsru.presentation.core.songs.ISongsCore
 import com.beardness.yourchordsru.presentation.screens.dto.settings.viewDto
@@ -24,6 +25,7 @@ import javax.inject.Inject
 class SongScreenViewModel @Inject constructor(
     private val songsCore: ISongsCore,
     private val settingsCore: ISettingsCore,
+    private val favoriteCore: IFavoriteCore,
     private val navigator: INavigator,
     private val htmlBuilder: IHtmlBuilder,
     @IoCoroutineScope private val ioCoroutineScope: CoroutineScope,
@@ -37,6 +39,9 @@ class SongScreenViewModel @Inject constructor(
 
     private val _songTitle = MutableStateFlow<String>(value = "")
     override val songTitle = _songTitle.asStateFlow()
+
+    private val _isSongFavorite = MutableStateFlow<Boolean>(value = false)
+    override val isSongFavorite = _isSongFavorite.asStateFlow()
 
     private val _backgroundColor = MutableStateFlow<Color>(value = Color.Transparent)
     override val backgroundColor = _backgroundColor.asStateFlow()
@@ -102,6 +107,17 @@ class SongScreenViewModel @Inject constructor(
 
             _authorName.emit(value = song.authorName)
             _songTitle.emit(value = song.title)
+
+            val favoriteSongsIds =
+                favoriteCore
+                    .favoriteSongs
+                    .value
+                    .map { favoriteSong -> favoriteSong.songId }
+
+            val isFavorite =
+                favoriteSongsIds.contains(element = songId)
+
+            _isSongFavorite.emit(value = isFavorite)
 
             _chordsRaw.emit(value = song.chords)
         }
@@ -172,6 +188,23 @@ class SongScreenViewModel @Inject constructor(
     override fun changeChordsColor(color: Color) {
         ioCoroutineScope.launch {
             settingsCore.setupChordsColor(color = color)
+        }
+    }
+
+    override fun changeSongFavorite() {
+        ioCoroutineScope.launch {
+            val isCurrentSongFavorite = _isSongFavorite.value
+
+            val authorId = _authorId.value
+            val songId = _songId.value
+
+            if (isCurrentSongFavorite) {
+                favoriteCore.removeSong(authorId = authorId, songId = songId)
+            } else {
+                favoriteCore.insertSong(authorId = authorId, songId = songId)
+            }
+
+            _isSongFavorite.emit(!isCurrentSongFavorite)
         }
     }
 }

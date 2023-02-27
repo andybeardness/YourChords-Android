@@ -3,9 +3,7 @@ package com.beardness.yourchordsru.presentation.screens.author
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Search
-import androidx.compose.material.icons.rounded.SortByAlpha
-import androidx.compose.material.icons.rounded.TrendingUp
+import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -26,8 +24,10 @@ fun AuthorScreen(
     viewModel: IAuthorScreenViewModel,
 ) {
     val authorName by viewModel.authorName.collectAsState()
+    val isFavorite by viewModel.isFavorite.collectAsState()
     val songs by viewModel.songs.collectAsState()
     val sortType by viewModel.songsSortType.collectAsState(initial = SongsSortType.BY_NAME)
+    val favoriteSongsIds by viewModel.favoriteSongsIds.collectAsState(initial = emptyList())
     val scrollUp by viewModel.scrollUp.collectAsState()
 
     val lazyListState = rememberLazyListState()
@@ -48,6 +48,20 @@ fun AuthorScreen(
             SongsSortType.BY_RATING -> Icons.Rounded.TrendingUp
         }
 
+    val authorFavoriteStarIcon =
+        if (isFavorite) {
+            Icons.Rounded.Star
+        } else {
+            Icons.Rounded.StarBorder
+        }
+
+    val authorFavoriteStarColor =
+        if (isFavorite) {
+            YourChordsRuTheme.colors.yellow
+        } else {
+            YourChordsRuTheme.colors.text
+        }
+
     Column {
         AnimatedToolbarWidget(
             title = authorName,
@@ -66,6 +80,13 @@ fun AuthorScreen(
                 )
 
                 ToolbarIconWidget(
+                    icon = authorFavoriteStarIcon,
+                    iconDescription = "",
+                    iconColor = authorFavoriteStarColor,
+                    onClick = { viewModel.changeAuthorFavorite() },
+                )
+
+                ToolbarIconWidget(
                     icon = Icons.Rounded.Search,
                     iconDescription = "",
                     iconColor = YourChordsRuTheme.colors.text,
@@ -80,23 +101,15 @@ fun AuthorScreen(
                 .nestedScroll(connection = nestedScrollConnection),
             lazyListState = lazyListState,
             songs = songs,
+            favoriteSongsIds = favoriteSongsIds,
             onCLick = { authorId, songId ->
                 viewModel.navigateToSong(
                     authorId = authorId,
                     songId = songId
                 )
             },
-            onClickMakeFavorite = { authorId, songId ->
-                viewModel.makeFavorite(
-                    authorId = authorId,
-                    songId = songId
-                )
-            },
-            onClickRemoveFavorite = { authorId, songId ->
-                viewModel.removeFavorite(
-                    authorId = authorId,
-                    songId = songId
-                )
+            onClickChangeSongFavorite = { songId ->
+                viewModel.changeSongFavorite(songId = songId)
             }
         )
     }

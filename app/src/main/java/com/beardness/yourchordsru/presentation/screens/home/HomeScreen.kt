@@ -6,10 +6,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Menu
-import androidx.compose.material.icons.rounded.Search
-import androidx.compose.material.icons.rounded.Star
-import androidx.compose.material.icons.rounded.StarBorder
+import androidx.compose.material.icons.rounded.*
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -127,7 +124,7 @@ fun HomeScreen(
                     when (authorsSortType) {
                         AuthorsSortType.DEFAULT -> {
                             ToolbarIconWidget(
-                                icon = Icons.Rounded.StarBorder,
+                                icon = Icons.Rounded.Insights,
                                 iconDescription = "",
                                 iconColor = YourChordsRuTheme.colors.text,
                                 onClick = { viewModel.changeAuthorsSortType() },
@@ -135,7 +132,7 @@ fun HomeScreen(
                         }
                         AuthorsSortType.FAVORITE_FIRST -> {
                             ToolbarIconWidget(
-                                icon = Icons.Rounded.Star,
+                                icon = Icons.Rounded.Insights,
                                 iconDescription = "",
                                 iconColor = YourChordsRuTheme.colors.yellow,
                                 onClick = { viewModel.changeAuthorsSortType() },

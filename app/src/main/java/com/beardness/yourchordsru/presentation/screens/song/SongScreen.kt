@@ -17,6 +17,7 @@ fun SongScreen(
     viewModel: ISongScreenViewModel,
 ) {
     val songTitle by viewModel.songTitle.collectAsState()
+    val isSongFavorite by viewModel.isSongFavorite.collectAsState()
     val chords by viewModel.chords.collectAsState(initial = "")
     val isToolbarExpanded by viewModel.isToolbarExpanded.collectAsState()
     val textSize by viewModel.textSize.collectAsState()
@@ -43,6 +44,8 @@ fun SongScreen(
         ChordsToolbarWidget(
             title = songTitle,
             onClickNavigation = { viewModel.navigateBack() },
+            isFavoriteSong = isSongFavorite,
+            onClickFavoriteSong = { viewModel.changeSongFavorite() },
             isExpanded = isToolbarExpanded,
             onClickExpand = { viewModel.expandToolbar() },
             onClickTextIncrease = { viewModel.textIncrease() },

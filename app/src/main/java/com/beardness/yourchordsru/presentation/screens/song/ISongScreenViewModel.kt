@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.StateFlow
 interface ISongScreenViewModel {
     val authorName: StateFlow<String>
     val songTitle: StateFlow<String>
+    val isSongFavorite: StateFlow<Boolean>
     val backgroundColor: StateFlow<Color>
     val textColor: StateFlow<Color>
     val chordsColor: StateFlow<Color>
@@ -24,4 +25,5 @@ interface ISongScreenViewModel {
     fun changeBackgroundColor(color: Color)
     fun changeTextColor(color: Color)
     fun changeChordsColor(color: Color)
+    fun changeSongFavorite()
 }

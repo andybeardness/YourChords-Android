@@ -32,8 +32,6 @@ fun SearchCollection(
                 is SearchResultSong -> SearchSongWidget(
                     item = item,
                     onClick = { onClick(item) },
-                    onClickMakeFavorite = { onClickMakeFavorite(item) },
-                    onClickRemoveFavorite = { onClickRemoveFavorite(item) },
                 )
                 else -> throw java.lang.IllegalStateException("Type of $item is not correct")
             }

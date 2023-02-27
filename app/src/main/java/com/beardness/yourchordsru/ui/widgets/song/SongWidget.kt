@@ -7,7 +7,9 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Star
+import androidx.compose.material.icons.rounded.StarBorder
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
@@ -15,13 +17,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.beardness.yourchordsru.presentation.screens.dto.SongViewDto
 import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
 import com.beardness.yourchordsru.utils.extensions.clickableHaptic
+import com.beardness.yourchordsru.utils.extensions.clickableHapticNoRipple
 
 @Composable
 fun SongWidget(
     songViewDto: SongViewDto,
     onClick: () -> Unit,
-    actionMakeFavorite: () -> Unit,
-    actionRemoveFavorite: () -> Unit,
+    isFavorite: Boolean,
+    onClickFavorite: () -> Unit,
     doesShowAuthor: Boolean = false,
 ) {
     val shape = RoundedCornerShape(size = YourChordsRuTheme.dimens.dp8)
@@ -30,6 +33,22 @@ fun SongWidget(
         songViewDto
             .rating
             .toString()
+
+    val favoriteIcon =
+        if (isFavorite) {
+            Icons.Rounded.Star
+        } else {
+            Icons.Rounded.StarBorder
+        }
+
+    val favoriteColor =
+        if (isFavorite) {
+            YourChordsRuTheme.colors.yellow
+        } else {
+            YourChordsRuTheme.colors.text
+        }
+
+    val starShape = RoundedCornerShape(percent = 50)
 
     Row(
         modifier = Modifier
@@ -47,14 +66,29 @@ fun SongWidget(
                 shape = shape,
             )
             .padding(
-                horizontal = YourChordsRuTheme.dimens.dp16,
-                vertical = YourChordsRuTheme.dimens.dp8,
+                horizontal = YourChordsRuTheme.dimens.dp8,
+                vertical = YourChordsRuTheme.dimens.dp4,
             ),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
+        Icon(
+            modifier = Modifier
+                .clip(shape = starShape)
+                .clickableHapticNoRipple { onClickFavorite() },
+            imageVector = favoriteIcon,
+            tint = favoriteColor,
+            contentDescription = "",
+        )
+
+        Spacer(
+            modifier = Modifier
+                .width(width = YourChordsRuTheme.dimens.dp8)
+        )
+
         Column(
             modifier = Modifier
-                .weight(weight = 7f)
-                .fillMaxHeight(),
+                .fillMaxHeight()
+                .weight(weight = 1f),
             verticalArrangement = Arrangement.Center,
         ) {
             Text(
@@ -75,27 +109,21 @@ fun SongWidget(
             }
         }
 
-        Column(
+        Spacer(
             modifier = Modifier
-                .weight(weight = 1f)
-                .fillMaxHeight()
+                .width(width = YourChordsRuTheme.dimens.dp8)
+        )
+
+        Box(
+            modifier = Modifier
+                .fillMaxHeight(),
+            contentAlignment = Alignment.Center,
         ) {
             Text(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(weight = 1f),
+                modifier = Modifier,
                 text = rating,
                 style = YourChordsRuTheme.typography.ratingAtSongCard,
                 color = YourChordsRuTheme.colors.text,
-            )
-
-            Icon(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .size(size = YourChordsRuTheme.dimens.dp16),
-                imageVector = Icons.Rounded.Star,
-                contentDescription = "",
-                tint = YourChordsRuTheme.colors.yellow,
             )
         }
     }
@@ -109,13 +137,13 @@ fun Preview_SongWidget_0() {
             id = 0,
             title = "Song title",
             chords = "Я помню наш последний вечер, наш последний разговор",
-            rating = 999,
+            rating = 999999,
             authorId = 0,
             authorName = "Author name",
         ),
         onClick = {},
-        actionMakeFavorite = {},
-        actionRemoveFavorite = {},
+        isFavorite = true,
+        onClickFavorite = {},
     )
 }
 
@@ -127,12 +155,12 @@ fun Preview_SongWidget_1() {
             id = 0,
             title = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
             chords = "Я помню наш последний вечер, наш последний разговор, по телу твоему скользит последний мой взор",
-            rating = 999,
+            rating = 999999,
             authorId = 0,
             authorName = "Author name",
         ),
         onClick = {},
-        actionMakeFavorite = {},
-        actionRemoveFavorite = {},
+        isFavorite = true,
+        onClickFavorite = {},
     )
 }
