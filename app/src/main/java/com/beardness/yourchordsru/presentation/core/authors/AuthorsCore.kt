@@ -21,7 +21,7 @@ class AuthorsCore @Inject constructor(
             authorsRepo
                 .authors()
                 .authorsRepoDtoToCoreDto()
-                .sortedBy { authorCoreDto -> authorCoreDto.name }
+                .sortedBy { authorCoreDto -> authorCoreDto.name.lowercase() }
 
         _authors.emit(value = currentAuthors)
     }

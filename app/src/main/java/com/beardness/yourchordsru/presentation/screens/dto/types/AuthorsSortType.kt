@@ -18,11 +18,11 @@ fun AuthorsSortType.toComparator() =
     when (this) {
         AuthorsSortType.DEFAULT ->
             compareBy<AuthorViewDto>(
-                { authorViewDto -> authorViewDto.name },
+                { authorViewDto -> authorViewDto.name.lowercase() },
             )
         AuthorsSortType.FAVORITE_FIRST ->
             compareBy<AuthorViewDto>(
                 { authorViewDto -> !authorViewDto.isFavorite },
-                { authorViewDto -> authorViewDto.name },
+                { authorViewDto -> authorViewDto.name.lowercase() },
             )
     }

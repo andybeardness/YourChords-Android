@@ -5,6 +5,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.beardness.yourchordsru.utils.extensions.toAuthorFirstCharColor
 
 @Composable
 fun SliderWidget(
@@ -20,8 +21,11 @@ fun SliderWidget(
         items(count = chars.size) { index ->
             val char = chars[index]
 
+            val charColor = char.toAuthorFirstCharColor()
+
             SliderElementWidget(
                 char = char,
+                charColor = charColor,
                 onClickChar = { onClickChar(char) }
             )
         }

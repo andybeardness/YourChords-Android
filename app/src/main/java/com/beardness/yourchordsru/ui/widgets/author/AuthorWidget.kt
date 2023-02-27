@@ -4,10 +4,7 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -84,11 +81,25 @@ fun AuthorWidget(
                 shape = shape,
             )
             .padding(
-                horizontal = YourChordsRuTheme.dimens.dp16,
-                vertical = YourChordsRuTheme.dimens.dp8,
+                horizontal = YourChordsRuTheme.dimens.dp8,
+                vertical = YourChordsRuTheme.dimens.dp4,
             ),
         verticalAlignment = Alignment.CenterVertically,
     ) {
+        Icon(
+            modifier = Modifier
+                .clip(shape = starShape)
+                .clickableHapticNoRipple { onClickStar() },
+            imageVector = favoriteStar,
+            tint = favoriteStarColorAnimated,
+            contentDescription = "",
+        )
+        
+        Spacer(
+            modifier = Modifier
+                .width(width = YourChordsRuTheme.dimens.dp8)
+        )
+
         Text(
             modifier = Modifier
                 .weight(weight = 1f),
@@ -97,15 +108,6 @@ fun AuthorWidget(
             color = YourChordsRuTheme.colors.text,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
-        )
-
-        Icon(
-            modifier = Modifier
-                .clip(shape = starShape)
-                .clickableHapticNoRipple { onClickStar() },
-            imageVector = favoriteStar,
-            tint = favoriteStarColorAnimated,
-            contentDescription = "",
         )
     }
 }

@@ -9,27 +9,33 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
 import com.beardness.yourchordsru.utils.extensions.clickableHaptic
 
 @Composable
 fun SliderElementWidget(
     char: Char,
+    charColor: Color,
     onClickChar: () -> Unit,
 ) {
-    val shape = RoundedCornerShape(percent = 50)
+    val shape = RoundedCornerShape(size = YourChordsRuTheme.dimens.dp8)
 
     Box(
         modifier = Modifier
-            .size(size = YourChordsRuTheme.dimens.dp64)
+            .size(size = YourChordsRuTheme.dimens.dp48)
             .padding(
                 top = YourChordsRuTheme.dimens.dp8,
                 start = YourChordsRuTheme.dimens.dp4,
                 end = YourChordsRuTheme.dimens.dp4,
             )
+            .clip(shape = shape)
             .background(
                 color = YourChordsRuTheme.colors.card,
-                shape = shape,
+            )
+            .background(
+                color = charColor.copy(alpha = .2f)
             )
             .clickableHaptic(action = onClickChar),
         contentAlignment = Alignment.Center,

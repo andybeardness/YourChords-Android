@@ -131,14 +131,30 @@ class HomeScreenViewModel @Inject constructor(
         }
     }
 
-    override fun indexOfFirstAuthor(char: Char): Int =
-        authorsCore
+    override fun indexOfFirstAuthor(char: Char): Int {
+        val indexOfAuthor = authorsCore
             .authors
             .value
             .indexOfFirst { author ->
                 author.name
                     .startsWith(char = char)
             }
+
+        val isAuthorsSortTypeFavoriteFirst =
+            _authorsSortType.value == AuthorsSortType.FAVORITE_FIRST
+
+        val favoriteAuthorsCount =
+            if (isAuthorsSortTypeFavoriteFirst) {
+                favoriteCore
+                    .favoriteAuthors
+                    .value
+                    .count()
+            } else {
+                0
+            }
+
+        return indexOfAuthor + favoriteAuthorsCount
+    }
 
     private fun collectAuthorsSortType() {
         ioCoroutineScope.launch {
