@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
 
 interface IHomeScreenViewModel {
-    val authorsSortType: StateFlow<AuthorsSortType>
+    val authorsSortType: Flow<AuthorsSortType>
     val authors: Flow<List<AuthorViewDto>>
     val authorsFirstChars: Flow<List<Char>>
     val scrollUp: StateFlow<Boolean?>

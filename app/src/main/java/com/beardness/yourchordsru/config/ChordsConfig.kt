@@ -26,7 +26,8 @@ object ChordsConfig {
     const val DEFAULT_FONT_SIZE = 14
 
     const val DEFAULT_THEME_CODE = 0
-    const val DEFAULT_SORT_TYPE = 0
+    const val DEFAULT_AUTHOR_SORT_TYPE = 0
+    const val DEFAULT_SONG_SORT_TYPE = 0
 
     const val MAX_FONT_SIZE_PX = 24
     const val MIN_FONT_SIZE_PX = 8

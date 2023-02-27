@@ -34,7 +34,7 @@ fun HomeScreen(
 ) {
     val authorsSortType by viewModel
         .authorsSortType
-        .collectAsState()
+        .collectAsState(initial = AuthorsSortType.DEFAULT)
 
     val authors by viewModel
         .authors
@@ -108,7 +108,7 @@ fun HomeScreen(
                 .padding(paddingValues = paddingValues)
         ) {
             AnimatedToolbarWidget(
-                title = "Home",
+                title = "Authors",
                 visibility = toolbarVisibility,
                 navigationContent = {
                     Icon(

@@ -67,13 +67,23 @@ class AppDataStore @Inject constructor(
                 )
             }
 
+    override val authorSortTypeCode: Flow<Int> =
+        dataStore
+            .data
+            .map { preferences ->
+                preferences.integer(
+                    key = DataStoreKey.AUTHOR_SORT_TYPE,
+                    default = ChordsConfig.DEFAULT_AUTHOR_SORT_TYPE,
+                )
+            }
+
     override val songSortTypeCode: Flow<Int> =
         dataStore
             .data
             .map { preferences ->
                 preferences.integer(
                     key = DataStoreKey.SONG_SORT_TYPE,
-                    default = ChordsConfig.DEFAULT_SORT_TYPE,
+                    default = ChordsConfig.DEFAULT_SONG_SORT_TYPE,
                 )
             }
 
@@ -123,6 +133,16 @@ class AppDataStore @Inject constructor(
                 mutablePreferences.integer(
                     key = DataStoreKey.FONT_SIZE,
                     value = size,
+                )
+            }
+    }
+
+    override suspend fun setAuthorsSortType(code: Int) {
+        dataStore
+            .edit { mutablePreferences ->
+                mutablePreferences.integer(
+                    key = DataStoreKey.AUTHOR_SORT_TYPE,
+                    value = code,
                 )
             }
     }

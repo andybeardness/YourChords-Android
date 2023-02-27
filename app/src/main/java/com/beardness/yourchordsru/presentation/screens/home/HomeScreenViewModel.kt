@@ -5,13 +5,15 @@ import com.beardness.yourchordsru.di.qualifiers.IoCoroutineScope
 import com.beardness.yourchordsru.navigation.navigator.INavigator
 import com.beardness.yourchordsru.presentation.core.authors.IAuthorsCore
 import com.beardness.yourchordsru.presentation.core.favorite.IFavoriteCore
-import com.beardness.yourchordsru.presentation.screens.dto.AuthorViewDto
+import com.beardness.yourchordsru.presentation.core.settings.ISettingsCore
 import com.beardness.yourchordsru.presentation.screens.dto.types.AuthorsSortType
+import com.beardness.yourchordsru.presentation.screens.dto.types.toComparator
 import com.beardness.yourchordsru.presentation.screens.dto.viewDto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -20,6 +22,7 @@ import javax.inject.Inject
 class HomeScreenViewModel @Inject constructor(
     private val authorsCore: IAuthorsCore,
     private val favoriteCore: IFavoriteCore,
+    private val settingsCore: ISettingsCore,
     private val navigator: INavigator,
     @IoCoroutineScope private val ioCoroutineScope: CoroutineScope,
 ) : ViewModel(), IHomeScreenViewModel {
@@ -27,11 +30,37 @@ class HomeScreenViewModel @Inject constructor(
     private val _authorsSortType = MutableStateFlow<AuthorsSortType>(value = AuthorsSortType.DEFAULT)
     override val authorsSortType = _authorsSortType.asStateFlow()
 
-    private val _authors = MutableStateFlow<List<AuthorViewDto>>(value = emptyList())
-    override val authors = _authors.asStateFlow()
+    override val authors =
+        combine(
+            authorsCore.authors,
+            settingsCore.authorsSortType,
+            favoriteCore.favoriteAuthors,
+        ) { authors,
+            sortType,
+            favoriteAuthors ->
+
+            val favoritesAuthorsIds =
+                favoriteAuthors
+                    .map { author -> author.authorId }
+
+            val comparator =
+                sortType.toComparator()
+
+            val sortedAuthors =
+                authors
+                    .map { authorCoreDto ->
+                        val authorId = authorCoreDto.id
+                        val isFavorite = favoritesAuthorsIds.contains(element = authorId)
+
+                        authorCoreDto.viewDto(isFavorite = isFavorite)
+                    }
+                    .sortedWith(comparator = comparator)
+
+            sortedAuthors
+        }
 
     override val authorsFirstChars =
-        _authors.map { authors ->
+        authorsCore.authors.map { authors ->
             authors.map { author -> author.name }
                 .mapNotNull { author -> author.firstOrNull() }
                 .distinct()
@@ -42,8 +71,7 @@ class HomeScreenViewModel @Inject constructor(
     override val scrollUp = _scrollUp.asStateFlow()
 
     init {
-        load()
-        collectFavoriteAuthors()
+        collectAuthorsSortType()
     }
 
     override fun navigateToHome() {
@@ -87,7 +115,7 @@ class HomeScreenViewModel @Inject constructor(
                     AuthorsSortType.FAVORITE_FIRST -> AuthorsSortType.DEFAULT
                 }
 
-            _authorsSortType.emit(value = newValue)
+            settingsCore.setupAuthorsSortType(authorsSortType = newValue)
         }
     }
 
@@ -104,34 +132,18 @@ class HomeScreenViewModel @Inject constructor(
     }
 
     override fun indexOfFirstAuthor(char: Char): Int =
-        _authors.value.indexOfFirst { author -> author.name.startsWith(char = char) }
+        authorsCore
+            .authors
+            .value
+            .indexOfFirst { author ->
+                author.name
+                    .startsWith(char = char)
+            }
 
-    private fun load() {
+    private fun collectAuthorsSortType() {
         ioCoroutineScope.launch {
-            val favoritesAuthorsIds =
-                favoriteCore
-                    .favoriteAuthors
-                    .value
-                    .map { favoriteAuthorCoreDto -> favoriteAuthorCoreDto.authorId }
-
-            val authorsView =
-                authorsCore
-                    .authors()
-                    .sortedBy { authorCoreDto -> authorCoreDto.name }
-                    .map { authorCoreDto ->
-                        val isFavorite = favoritesAuthorsIds.contains(element = authorCoreDto.id)
-
-                        authorCoreDto.viewDto(isFavorite = isFavorite)
-                    }
-
-            _authors.emit(value = authorsView)
-        }
-    }
-
-    private fun collectFavoriteAuthors() {
-        ioCoroutineScope.launch {
-            favoriteCore.favoriteAuthors.collect { favoriteAuthors ->
-                load()
+            settingsCore.authorsSortType.collect { sortType ->
+                _authorsSortType.emit(value = sortType)
             }
         }
     }

@@ -33,6 +33,10 @@ class SettingsRepo @Inject constructor(
             )
         }
 
+    override val authorsSortTypeCode: Flow<Int> =
+        appDataStore
+            .authorSortTypeCode
+
     override val songsSortTypeCode: Flow<Int> =
         appDataStore
             .songSortTypeCode
@@ -55,6 +59,10 @@ class SettingsRepo @Inject constructor(
 
     override suspend fun setupFontSize(size: Int) {
         appDataStore.setFontSize(size = size)
+    }
+
+    override suspend fun updateAuthorsSortType(code: Int) {
+        appDataStore.setAuthorsSortType(code = code)
     }
 
     override suspend fun updateSongsSortType(code: Int) {

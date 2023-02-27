@@ -8,6 +8,7 @@ enum class DataStoreKey(val type: DataStoreKeyType) {
     TEXT_COLOR(type = DataStoreKeyType.LONG),
     CHORDS_COLOR(type = DataStoreKeyType.LONG),
     FONT_SIZE(type = DataStoreKeyType.INTEGER),
+    AUTHOR_SORT_TYPE(type = DataStoreKeyType.INTEGER),
     SONG_SORT_TYPE(type = DataStoreKeyType.INTEGER),
 }
 
