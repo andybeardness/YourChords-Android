@@ -168,11 +168,7 @@ class AuthorScreenViewModel @Inject constructor(
         ioCoroutineScope.launch {
             val authorId = _authorId.value
 
-            if (_isFavorite.value) {
-                favoriteCore.removeAuthor(authorId = authorId)
-            } else {
-                favoriteCore.insertAuthor(authorId = authorId)
-            }
+            favoriteCore.changeAuthorFavorite(authorId = authorId)
 
             _isFavorite.emit(value = !_isFavorite.value)
         }
@@ -182,30 +178,7 @@ class AuthorScreenViewModel @Inject constructor(
         ioCoroutineScope.launch {
             val authorId = _authorId.value
 
-            val isSongFavorite =
-                favoriteCore
-                    .favoriteSongs
-                    .value
-                    .map { favoriteSongCoreDto -> favoriteSongCoreDto.songId }
-                    .contains(element = songId)
-
-            if (isSongFavorite) {
-                favoriteCore.removeSong(authorId = authorId, songId = songId)
-            } else {
-                favoriteCore.insertSong(authorId = authorId, songId = songId)
-            }
-        }
-    }
-
-    override fun makeFavorite(authorId: Int, songId: Int) {
-        ioCoroutineScope.launch {
-            favoriteCore.insertSong(authorId = authorId, songId = songId)
-        }
-    }
-
-    override fun removeFavorite(authorId: Int, songId: Int) {
-        ioCoroutineScope.launch {
-            favoriteCore.removeSong(authorId = authorId, songId = songId)
+            favoriteCore.changeSongFavorite(authorId = authorId, songId = songId)
         }
     }
 }

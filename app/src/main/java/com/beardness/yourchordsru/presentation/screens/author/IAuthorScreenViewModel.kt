@@ -20,6 +20,4 @@ interface IAuthorScreenViewModel {
     fun switchSortType()
     fun changeAuthorFavorite()
     fun changeSongFavorite(songId: Int)
-    fun makeFavorite(authorId: Int, songId: Int)
-    fun removeFavorite(authorId: Int, songId: Int)
 }

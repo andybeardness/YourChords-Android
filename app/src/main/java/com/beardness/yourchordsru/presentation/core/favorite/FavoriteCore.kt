@@ -24,23 +24,35 @@ class FavoriteCore @Inject constructor(
         reloadFavoriteSongs()
     }
 
-    override suspend fun insertAuthor(authorId: Int) {
-        favoriteRepo.insertAuthor(authorId = authorId)
+    override suspend fun changeAuthorFavorite(authorId: Int) {
+        val isFavorite =
+            _favoriteAuthors
+                .value
+                .map { author -> author.authorId }
+                .contains(element = authorId)
+
+        if (isFavorite) {
+            favoriteRepo.removeAuthor(authorId = authorId)
+        } else {
+            favoriteRepo.insertAuthor(authorId = authorId)
+        }
+
         reloadFavoriteAuthors()
     }
 
-    override suspend fun insertSong(authorId: Int, songId: Int) {
-        favoriteRepo.insertSong(authorId = authorId, songId = songId)
-        reloadFavoriteSongs()
-    }
+    override suspend fun changeSongFavorite(authorId: Int, songId: Int) {
+        val isFavorite =
+            _favoriteSongs
+                .value
+                .map { song -> song.songId }
+                .contains(element = songId)
 
-    override suspend fun removeAuthor(authorId: Int) {
-        favoriteRepo.removeAuthor(authorId = authorId)
-        reloadFavoriteAuthors()
-    }
+        if (isFavorite) {
+            favoriteRepo.removeSong(authorId = authorId, songId = songId)
+        } else {
+            favoriteRepo.insertSong(authorId = authorId, songId = songId)
+        }
 
-    override suspend fun removeSong(authorId: Int, songId: Int) {
-        favoriteRepo.removeSong(authorId = authorId, songId = songId)
         reloadFavoriteSongs()
     }
 

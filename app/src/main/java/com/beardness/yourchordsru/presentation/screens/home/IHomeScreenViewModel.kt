@@ -17,7 +17,6 @@ interface IHomeScreenViewModel {
     fun navigateToAbout()
     fun updateScrollPosition(firstVisibleItemIndex: Int)
     fun changeAuthorsSortType()
-    fun makeFavorite(authorId: Int)
-    fun removeFavorite(authorId: Int)
+    fun changeAuthorFavorite(authorId: Int)
     fun indexOfFirstAuthor(char: Char): Int
 }

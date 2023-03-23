@@ -18,6 +18,5 @@ interface ISearchScreenViewModel {
     fun navigateBySearchResult(searchResult: SearchResult)
     fun navigateBack()
     fun updateScrollPosition(firstVisibleItemIndex: Int)
-    fun makeFavorite(searchResult: SearchResult)
-    fun removeFavorite(searchResult: SearchResult)
+    fun changeFavorite(searchResult: SearchResult)
 }

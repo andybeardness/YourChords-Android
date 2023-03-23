@@ -27,8 +27,7 @@ import com.beardness.yourchordsru.utils.extensions.clickableHapticNoRipple
 fun AuthorWidget(
     authorViewDto: AuthorViewDto,
     onClickAuthor: () -> Unit,
-    actionMakeFavorite: () -> Unit,
-    actionRemoveFavorite: () -> Unit,
+    actionChangeFavorite: () -> Unit,
 ) {
     val isFavorite = authorViewDto.isFavorite
     val shape = RoundedCornerShape(size = YourChordsRuTheme.dimens.dp8)
@@ -56,13 +55,6 @@ fun AuthorWidget(
             ),
         )
 
-    val onClickStar =
-        if (isFavorite) {
-            actionRemoveFavorite
-        } else {
-            actionMakeFavorite
-        }
-
     val starShape = RoundedCornerShape(percent = 50)
 
     Row(
@@ -89,7 +81,7 @@ fun AuthorWidget(
         Icon(
             modifier = Modifier
                 .clip(shape = starShape)
-                .clickableHapticNoRipple { onClickStar() },
+                .clickableHapticNoRipple { actionChangeFavorite() },
             imageVector = favoriteStar,
             tint = favoriteStarColorAnimated,
             contentDescription = "",
@@ -122,8 +114,7 @@ fun Preview_AuthorWidget_0() {
             isFavorite = false,
         ),
         onClickAuthor = {},
-        actionMakeFavorite = {},
-        actionRemoveFavorite = {},
+        actionChangeFavorite = {},
     )
 }
 
@@ -137,7 +128,6 @@ fun Preview_AuthorWidget_1() {
             isFavorite = true,
         ),
         onClickAuthor = {},
-        actionMakeFavorite = {},
-        actionRemoveFavorite = {},
+        actionChangeFavorite = {},
     )
 }

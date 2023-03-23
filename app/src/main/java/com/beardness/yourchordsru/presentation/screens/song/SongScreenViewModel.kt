@@ -193,18 +193,12 @@ class SongScreenViewModel @Inject constructor(
 
     override fun changeSongFavorite() {
         ioCoroutineScope.launch {
-            val isCurrentSongFavorite = _isSongFavorite.value
-
             val authorId = _authorId.value
             val songId = _songId.value
 
-            if (isCurrentSongFavorite) {
-                favoriteCore.removeSong(authorId = authorId, songId = songId)
-            } else {
-                favoriteCore.insertSong(authorId = authorId, songId = songId)
-            }
+            favoriteCore.changeSongFavorite(authorId = authorId, songId = songId)
 
-            _isSongFavorite.emit(!isCurrentSongFavorite)
+            _isSongFavorite.emit(!_isSongFavorite.value)
         }
     }
 }

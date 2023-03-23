@@ -124,35 +124,22 @@ class SearchScreenViewModel @Inject constructor(
         }
     }
 
-    override fun makeFavorite(searchResult: SearchResult) {
+    override fun changeFavorite(searchResult: SearchResult) {
         ioCoroutineScope.launch {
             when (searchResult) {
-                is SearchResultAuthor -> favoriteCore
-                    .insertAuthor(
-                        authorId = searchResult.authorId,
-                    )
-                is SearchResultSong -> favoriteCore
-                    .insertSong(
-                        authorId = searchResult.authorId,
-                        songId = searchResult.songId,
-                    )
-                else -> throw java.lang.IllegalStateException("Type of $searchResult is not correct")
-            }
-        }
-    }
+                is SearchResultAuthor ->
+                    favoriteCore
+                        .changeAuthorFavorite(
+                            authorId = searchResult.authorId,
+                        )
 
-    override fun removeFavorite(searchResult: SearchResult) {
-        ioCoroutineScope.launch {
-            when (searchResult) {
-                is SearchResultAuthor -> favoriteCore
-                    .removeAuthor(
-                        authorId = searchResult.authorId,
-                    )
-                is SearchResultSong -> favoriteCore
-                    .removeSong(
-                        authorId = searchResult.authorId,
-                        songId = searchResult.songId,
-                    )
+                is SearchResultSong ->
+                    favoriteCore
+                        .changeSongFavorite(
+                            authorId = searchResult.authorId,
+                            songId = searchResult.songId,
+                        )
+
                 else -> throw java.lang.IllegalStateException("Type of $searchResult is not correct")
             }
         }

@@ -162,8 +162,7 @@ fun HomeScreen(
                     lazyListState = authorsLazyListState,
                     authors = authors,
                     onCLick = { authorId: Int -> viewModel.navigateToAuthor(authorId = authorId) },
-                    onClickMakeFavorite = { authorId: Int -> viewModel.makeFavorite(authorId = authorId) },
-                    onClickRemoveFavorite = { authorId: Int -> viewModel.removeFavorite(authorId = authorId) },
+                    onClickChangeFavorite = { authorId: Int -> viewModel.changeAuthorFavorite(authorId = authorId) },
                 )
 
                 SliderWidget(

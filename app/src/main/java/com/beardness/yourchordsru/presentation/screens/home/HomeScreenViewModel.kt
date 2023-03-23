@@ -119,15 +119,9 @@ class HomeScreenViewModel @Inject constructor(
         }
     }
 
-    override fun makeFavorite(authorId: Int) {
+    override fun changeAuthorFavorite(authorId: Int) {
         ioCoroutineScope.launch {
-            favoriteCore.insertAuthor(authorId = authorId)
-        }
-    }
-
-    override fun removeFavorite(authorId: Int) {
-        ioCoroutineScope.launch {
-            favoriteCore.removeAuthor(authorId = authorId)
+            favoriteCore.changeAuthorFavorite(authorId = authorId)
         }
     }
 

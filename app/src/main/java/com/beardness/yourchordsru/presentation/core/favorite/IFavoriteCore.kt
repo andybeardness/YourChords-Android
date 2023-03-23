@@ -8,8 +8,6 @@ interface IFavoriteCore {
     val favoriteAuthors: StateFlow<List<FavoriteAuthorCoreDto>>
     val favoriteSongs: StateFlow<List<FavoriteSongCoreDto>>
     suspend fun load()
-    suspend fun insertAuthor(authorId: Int)
-    suspend fun insertSong(authorId: Int, songId: Int)
-    suspend fun removeAuthor(authorId: Int)
-    suspend fun removeSong(authorId: Int, songId: Int)
+    suspend fun changeAuthorFavorite(authorId: Int)
+    suspend fun changeSongFavorite(authorId: Int, songId: Int)
 }

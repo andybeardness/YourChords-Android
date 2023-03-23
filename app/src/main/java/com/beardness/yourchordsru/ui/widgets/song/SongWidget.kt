@@ -30,9 +30,10 @@ fun SongWidget(
     val shape = RoundedCornerShape(size = YourChordsRuTheme.dimens.dp8)
 
     val rating =
-        songViewDto
-            .rating
-            .toString()
+        String.format(
+            "%,d",
+            songViewDto.rating,
+        )
 
     val favoriteIcon =
         if (isFavorite) {
@@ -155,7 +156,7 @@ fun Preview_SongWidget_1() {
             id = 0,
             title = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
             chords = "Я помню наш последний вечер, наш последний разговор, по телу твоему скользит последний мой взор",
-            rating = 999999,
+            rating = 9999999,
             authorId = 0,
             authorName = "Author name",
         ),
