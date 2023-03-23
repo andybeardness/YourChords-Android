@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.beardness.yourchordsru.di.qualifiers.IoCoroutineScope
 import com.beardness.yourchordsru.navigation.navigator.INavigator
 import com.beardness.yourchordsru.presentation.core.favorite.IFavoriteCore
+import com.beardness.yourchordsru.presentation.core.screen.awake.IScreenAwakeCore
 import com.beardness.yourchordsru.presentation.core.settings.ISettingsCore
 import com.beardness.yourchordsru.presentation.core.songs.ISongsCore
 import com.beardness.yourchordsru.presentation.screens.dto.settings.viewDto
@@ -26,6 +27,7 @@ class SongScreenViewModel @Inject constructor(
     private val songsCore: ISongsCore,
     private val settingsCore: ISettingsCore,
     private val favoriteCore: IFavoriteCore,
+    private val screenAwakeCore: IScreenAwakeCore,
     private val navigator: INavigator,
     private val htmlBuilder: IHtmlBuilder,
     @IoCoroutineScope private val ioCoroutineScope: CoroutineScope,
@@ -83,6 +85,7 @@ class SongScreenViewModel @Inject constructor(
 
     init {
         collectChordsView()
+        makeScreenKeepAwake()
     }
 
     override fun load(
@@ -124,6 +127,7 @@ class SongScreenViewModel @Inject constructor(
     }
 
     override fun navigateBack() {
+        unmakeScreenKeepAwake()
         navigator.back()
     }
 
@@ -156,6 +160,18 @@ class SongScreenViewModel @Inject constructor(
                 _chordsColor.emit(value = chordsViewViewDto.chordsColor)
                 _textSize.emit(value = chordsViewViewDto.fontSize)
             }
+        }
+    }
+
+    private fun makeScreenKeepAwake() {
+        ioCoroutineScope.launch {
+            screenAwakeCore.makeScreenKeepAwake()
+        }
+    }
+
+    private fun unmakeScreenKeepAwake() {
+        ioCoroutineScope.launch {
+            screenAwakeCore.unmakeScreenKeepAwake()
         }
     }
 

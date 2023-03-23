@@ -4,6 +4,8 @@ import com.beardness.yourchordsru.presentation.core.authors.AuthorsCore
 import com.beardness.yourchordsru.presentation.core.authors.IAuthorsCore
 import com.beardness.yourchordsru.presentation.core.favorite.FavoriteCore
 import com.beardness.yourchordsru.presentation.core.favorite.IFavoriteCore
+import com.beardness.yourchordsru.presentation.core.screen.awake.IScreenAwakeCore
+import com.beardness.yourchordsru.presentation.core.screen.awake.ScreenAwakeCore
 import com.beardness.yourchordsru.presentation.core.search.ISearchCore
 import com.beardness.yourchordsru.presentation.core.search.SearchCore
 import com.beardness.yourchordsru.presentation.core.settings.ISettingsCore
@@ -72,4 +74,9 @@ object CoreModule {
         FavoriteCore(
             favoriteRepo = favoriteRepo,
         )
+
+    @Provides
+    @Singleton
+    fun provideScreenAwakeCore(): IScreenAwakeCore =
+        ScreenAwakeCore()
 }

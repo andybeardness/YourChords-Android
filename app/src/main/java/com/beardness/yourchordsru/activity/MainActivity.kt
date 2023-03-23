@@ -1,6 +1,7 @@
 package com.beardness.yourchordsru.activity
 
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -9,10 +10,12 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.lifecycleScope
 import com.beardness.yourchordsru.activity.scaffold.AdBottomBarScaffold
 import com.beardness.yourchordsru.presentation.screens.settings.types.ThemeSettingsType
 import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -23,6 +26,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         compose()
         setup()
+        collect()
     }
 
     private fun compose() {
@@ -57,5 +61,29 @@ class MainActivity : ComponentActivity() {
 
     private fun setupFavorites() {
         viewModel.setupFavorites()
+    }
+
+    private fun collect() {
+        collectKeepScreenAwake()
+    }
+
+    private fun collectKeepScreenAwake() {
+        lifecycleScope.launch {
+            viewModel.keepScreenAwake.collect { isScreenNeedKeepAwake ->
+                if (isScreenNeedKeepAwake) {
+                    makeScreenAlwaysDisplay()
+                } else {
+                    unmakeScreenAlwaysDisplay()
+                }
+            }
+        }
+    }
+
+    private fun makeScreenAlwaysDisplay() {
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+    }
+
+    private fun unmakeScreenAlwaysDisplay() {
+        window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     }
 }
