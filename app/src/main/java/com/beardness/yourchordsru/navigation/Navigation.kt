@@ -1,129 +1,76 @@
 package com.beardness.yourchordsru.navigation
 
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.beardness.yourchordsru.presentation.screens.author.AuthorScreen
-import com.beardness.yourchordsru.presentation.screens.author.AuthorScreenViewModel
-import com.beardness.yourchordsru.presentation.screens.about.AboutScreen
-import com.beardness.yourchordsru.presentation.screens.about.AboutScreenViewModel
-import com.beardness.yourchordsru.presentation.screens.home.HomeScreen
-import com.beardness.yourchordsru.presentation.screens.home.HomeScreenViewModel
-import com.beardness.yourchordsru.presentation.screens.search.SearchScreen
-import com.beardness.yourchordsru.presentation.screens.search.SearchScreenViewModel
-import com.beardness.yourchordsru.presentation.screens.settings.SettingsScreen
-import com.beardness.yourchordsru.presentation.screens.settings.SettingsScreenViewModel
-import com.beardness.yourchordsru.presentation.screens.song.SongScreen
-import com.beardness.yourchordsru.presentation.screens.song.SongScreenViewModel
+import com.beardness.yourchordsru.presentation.view.screen.author.AuthorScreenViewModel
+import com.beardness.yourchordsru.presentation.view.screen.author.AuthorsScreen
 
 @Composable
-fun Navigation(
-    paddings: PaddingValues,
-    setupNavController: (NavHostController) -> Unit
-) {
+fun Navigation() {
     val navController = rememberNavController()
-    setupNavController(navController)
 
-    val argumentAuthorId = navArgument(
-        name = "authorId",
-        builder = { type = NavType.IntType }
-    )
+    val navigateBack: () -> Unit = {
+        navController.navigateUp()
+    }
 
-    val argumentSongId = navArgument(
-        name = "songId",
-        builder = { type = NavType.IntType }
-    )
+    val navigateSongs: (authorId: Int) -> Unit = { authorId ->
+        navController.navigate(route = "songs/${authorId}")
+    }
+
+    val navigateChords: (authorId: Int, songId: Int) -> Unit = { authorId, songId ->
+        navController.navigate(route = "chords/$authorId/$songId")
+    }
+
+    val navigateSearch: () -> Unit = {
+        navController.navigate(route = "search")
+    }
 
     NavHost(
-        modifier = Modifier
-            .padding(paddingValues = paddings),
+        modifier = Modifier.fillMaxSize(),
         navController = navController,
-        startDestination = "home",
+        startDestination = "authors",
     ) {
-        composable(route = "home") {
-            val viewModel = hiltViewModel<HomeScreenViewModel>()
-
-            HomeScreen(
-                viewModel = viewModel,
-            )
-        }
-
         composable(
-            route = "author/{${argumentAuthorId.name}}",
-            arguments = listOf(argumentAuthorId),
-        ) { navBackStackEntry ->
+            route = "authors",
+        ) {
             val viewModel = hiltViewModel<AuthorScreenViewModel>()
 
-            val authorId =
-                navBackStackEntry
-                    .arguments
-                    ?.getInt(argumentAuthorId.name)
-
-            viewModel.load(authorId = authorId)
-
-            AuthorScreen(
+            AuthorsScreen(
                 viewModel = viewModel,
+                navigateToSongs = navigateSongs,
+                navigateToSearch = navigateSearch,
             )
         }
 
         composable(
-            route = "song/{${argumentAuthorId.name}}/{${argumentSongId.name}}",
-            arguments = listOf(argumentAuthorId, argumentSongId),
-        ) { navBackStackEntry ->
-            val viewModel = hiltViewModel<SongScreenViewModel>()
+            route = "songs/{authorId}",
+            arguments = listOf(
+                navArgument(name = "authorId") { type = NavType.IntType },
+            ),
+        ) {
 
-            val authorId =
-                navBackStackEntry
-                    .arguments
-                    ?.getInt(argumentAuthorId.name)
-
-            val songId =
-                navBackStackEntry
-                    .arguments
-                    ?.getInt(argumentSongId.name)
-
-            viewModel.load(
-                authorId = authorId,
-                songId = songId,
-            )
-
-            SongScreen(
-                viewModel = viewModel,
-            )
         }
-        
+
+        composable(
+            route = "chords/{authorId}/{songId}", arguments = listOf(
+                navArgument(name = "authorId") { type = NavType.IntType },
+                navArgument(name = "songId") { type = NavType.IntType },
+            )
+        ) {
+
+        }
+
         composable(
             route = "search",
         ) {
-            val viewModel = hiltViewModel<SearchScreenViewModel>()
-            
-            SearchScreen(viewModel = viewModel)
-        }
 
-        composable(
-            route = "settings",
-        ) {
-            val viewModel = hiltViewModel<SettingsScreenViewModel>()
-
-            SettingsScreen(
-                viewModel = viewModel,
-            )
-        }
-
-        composable(
-            route = "about"
-        ) {
-            val viewModel = hiltViewModel<AboutScreenViewModel>()
-
-            AboutScreen(viewModel = viewModel)
         }
     }
 }

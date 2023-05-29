@@ -2,7 +2,7 @@ package com.beardness.yourchordsru.app
 
 import android.app.Application
 import com.beardness.yourchordsru.di.qualifiers.IoCoroutineScope
-import com.beardness.yourchordsru.presentation.core.authors.IAuthorsCore
+import com.beardness.yourchordsru.presentation.domain.usecase.startup.StartupUseCaseProtocol
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -12,7 +12,7 @@ import javax.inject.Inject
 class YourChordsRuApp : Application() {
 
     @Inject
-    lateinit var authorsCore: IAuthorsCore
+    lateinit var startupUseCase: StartupUseCaseProtocol
 
     @Inject
     @IoCoroutineScope
@@ -25,7 +25,7 @@ class YourChordsRuApp : Application() {
 
     private fun loadAuthors() {
         ioCoroutineScope.launch {
-            authorsCore.load()
+            startupUseCase.startup()
         }
     }
 }

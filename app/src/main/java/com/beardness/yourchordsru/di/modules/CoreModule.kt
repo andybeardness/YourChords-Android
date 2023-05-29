@@ -1,21 +1,21 @@
 package com.beardness.yourchordsru.di.modules
 
-import com.beardness.yourchordsru.presentation.core.authors.AuthorsCore
-import com.beardness.yourchordsru.presentation.core.authors.IAuthorsCore
-import com.beardness.yourchordsru.presentation.core.favorite.FavoriteCore
-import com.beardness.yourchordsru.presentation.core.favorite.IFavoriteCore
-import com.beardness.yourchordsru.presentation.core.screen.awake.IScreenAwakeCore
-import com.beardness.yourchordsru.presentation.core.screen.awake.ScreenAwakeCore
-import com.beardness.yourchordsru.presentation.core.search.ISearchCore
-import com.beardness.yourchordsru.presentation.core.search.SearchCore
-import com.beardness.yourchordsru.presentation.core.settings.ISettingsCore
-import com.beardness.yourchordsru.presentation.core.settings.SettingsCore
-import com.beardness.yourchordsru.presentation.core.songs.ISongsCore
-import com.beardness.yourchordsru.presentation.core.songs.SongsCore
-import com.beardness.yourchordsru.presentation.data.repo.authors.IAuthorsRepo
-import com.beardness.yourchordsru.presentation.data.repo.favorite.IFavoriteRepo
-import com.beardness.yourchordsru.presentation.data.repo.settings.ISettingsRepo
-import com.beardness.yourchordsru.presentation.data.repo.songs.ISongsRepo
+import com.beardness.yourchordsru.presentation.data.database.dao.FavoriteAuthorsDao
+import com.beardness.yourchordsru.presentation.data.database.dao.FavoriteSongsDao
+import com.beardness.yourchordsru.presentation.data.reader.csv.authors.AuthorsCsvReaderProtocol
+import com.beardness.yourchordsru.presentation.data.reader.csv.songs.SongsCsvReaderProtocol
+import com.beardness.yourchordsru.presentation.domain.core.authors.AuthorsCore
+import com.beardness.yourchordsru.presentation.domain.core.authors.AuthorsCoreProtocol
+import com.beardness.yourchordsru.presentation.domain.core.favorite.author.FavoriteAuthorCore
+import com.beardness.yourchordsru.presentation.domain.core.favorite.author.FavoriteAuthorCoreProtocol
+import com.beardness.yourchordsru.presentation.domain.core.favorite.song.FavoriteSongCore
+import com.beardness.yourchordsru.presentation.domain.core.favorite.song.FavoriteSongCoreProtocol
+import com.beardness.yourchordsru.presentation.domain.core.search.SearchCore
+import com.beardness.yourchordsru.presentation.domain.core.search.SearchCoreProtocol
+import com.beardness.yourchordsru.presentation.domain.core.settings.SettingsCore
+import com.beardness.yourchordsru.presentation.domain.core.settings.SettingsCoreProtocol
+import com.beardness.yourchordsru.presentation.domain.core.songs.SongsCore
+import com.beardness.yourchordsru.presentation.domain.core.songs.SongsCoreProtocol
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,54 +29,53 @@ object CoreModule {
     @Provides
     @Singleton
     fun provideAuthorsCore(
-        authorsRepo: IAuthorsRepo,
-    ): IAuthorsCore =
+        authorsCsvReader: AuthorsCsvReaderProtocol
+    ): AuthorsCoreProtocol =
         AuthorsCore(
-            authorsRepo = authorsRepo,
+            authorsCsvReader = authorsCsvReader,
         )
 
     @Provides
     @Singleton
     fun provideSongsCore(
-        songsRepo: ISongsRepo
-    ): ISongsCore =
+        songsCsvReader: SongsCsvReaderProtocol
+    ): SongsCoreProtocol =
         SongsCore(
-            songsRepo = songsRepo,
+            songsCsvReader = songsCsvReader,
         )
 
     @Provides
     @Singleton
     fun provideSearchCore(
-        authorsRepo: IAuthorsRepo,
-        songsRepo: ISongsRepo,
-        favoriteRepo: IFavoriteRepo
-    ): ISearchCore =
+        authorsCsvReader: AuthorsCsvReaderProtocol,
+        songsCsvReader: SongsCsvReaderProtocol,
+    ): SearchCoreProtocol =
         SearchCore(
-            authorsRepo = authorsRepo,
-            songsRepo = songsRepo,
-            favoriteRepo = favoriteRepo,
+            authorsCsvReader = authorsCsvReader,
+            songsCsvReader = songsCsvReader,
         )
 
     @Provides
     @Singleton
     fun provideSettingsCore(
-        settingsRepo: ISettingsRepo
-    ): ISettingsCore =
-        SettingsCore(
-            settingsRepo = settingsRepo,
+    ): SettingsCoreProtocol =
+        SettingsCore()
+
+    @Provides
+    @Singleton
+    fun provideFavoriteAuthorCore(
+        favoriteAuthorsDao: FavoriteAuthorsDao,
+    ): FavoriteAuthorCoreProtocol =
+        FavoriteAuthorCore(
+            favoriteAuthorsDao = favoriteAuthorsDao,
         )
 
     @Provides
     @Singleton
-    fun provideFavoriteCore(
-        favoriteRepo: IFavoriteRepo,
-    ): IFavoriteCore =
-        FavoriteCore(
-            favoriteRepo = favoriteRepo,
+    fun provideFavoriteSongCore(
+        favoriteSongsDao: FavoriteSongsDao,
+    ): FavoriteSongCoreProtocol =
+        FavoriteSongCore(
+            favoriteSongsDao = favoriteSongsDao,
         )
-
-    @Provides
-    @Singleton
-    fun provideScreenAwakeCore(): IScreenAwakeCore =
-        ScreenAwakeCore()
 }

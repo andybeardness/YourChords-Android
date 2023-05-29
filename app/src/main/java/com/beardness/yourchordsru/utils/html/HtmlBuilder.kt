@@ -1,10 +1,11 @@
 package com.beardness.yourchordsru.utils.html
 
 import androidx.compose.ui.graphics.Color
-import com.beardness.yourchordsru.utils.extensions.*
+import com.beardness.yourchordsru.utils.extensions.fontSizePxHtmlStyle
+import com.beardness.yourchordsru.utils.extensions.htmlStyle
 import javax.inject.Inject
 
-class HtmlBuilder @Inject constructor(): IHtmlBuilder {
+class HtmlBuilder @Inject constructor() : IHtmlBuilder {
     override fun html(
         content: String,
         backgroundColor: Color,

@@ -2,7 +2,7 @@ package com.beardness.yourchordsru.utils.extensions
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import com.beardness.yourchordsru.ui.theme.YourChordsRuTheme
+import com.beardness.yourchordsru.theme.YourChordsRuTheme
 
 private const val ABC_CHARS = "abcdefghijklmnopqrstuvwxyz"
 

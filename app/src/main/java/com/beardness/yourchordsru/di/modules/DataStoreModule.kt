@@ -1,8 +1,8 @@
 package com.beardness.yourchordsru.di.modules
 
 import android.content.Context
-import com.beardness.yourchordsru.data.store.AppDataStore
-import com.beardness.yourchordsru.data.store.IAppDataStore
+import com.beardness.yourchordsru.presentation.data.storage.AppDataStore
+import com.beardness.yourchordsru.presentation.data.storage.AppDataStoreProtocol
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,7 +18,7 @@ object DataStoreModule {
     @Singleton
     fun provideAppDataStore(
         @ApplicationContext context: Context,
-    ): IAppDataStore =
+    ): AppDataStoreProtocol =
         AppDataStore(
             context = context,
         )
