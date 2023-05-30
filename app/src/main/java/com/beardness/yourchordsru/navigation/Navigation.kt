@@ -11,6 +11,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.beardness.yourchordsru.presentation.view.screen.authors.AuthorsScreen
 import com.beardness.yourchordsru.presentation.view.screen.authors.AuthorsScreenViewModel
+import com.beardness.yourchordsru.presentation.view.screen.chords.ChordsScreen
+import com.beardness.yourchordsru.presentation.view.screen.chords.ChordsScreenViewModel
 import com.beardness.yourchordsru.presentation.view.screen.songs.SongScreen
 import com.beardness.yourchordsru.presentation.view.screen.songs.SongsScreenViewModel
 
@@ -76,8 +78,17 @@ fun Navigation() {
                 navArgument(name = "authorId") { type = NavType.IntType },
                 navArgument(name = "songId") { type = NavType.IntType },
             )
-        ) {
+        ) { navBackStack ->
+            val authorId = navBackStack.arguments?.getInt("authorId") ?: 0
+            val songId = navBackStack.arguments?.getInt("songId") ?: 0
 
+            val viewModel = hiltViewModel<ChordsScreenViewModel>()
+            viewModel.setup(authorId = authorId, songId = songId)
+
+            ChordsScreen(
+                viewModel = viewModel,
+                navigateBack = navigateBack,
+            )
         }
 
         composable(

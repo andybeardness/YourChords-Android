@@ -12,4 +12,8 @@ class SongsUseCase @Inject constructor(
         songsCore
             .songs(authorId = authorId)
 
+    override suspend fun song(authorId: Int, songId: Int): Song? =
+        songsCore
+            .song(authorId = authorId, songId = songId)
+
 }
