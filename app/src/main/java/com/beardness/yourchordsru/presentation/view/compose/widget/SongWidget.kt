@@ -79,7 +79,4 @@ fun SongWidget(
                 .background(color = YourChordsRuTheme.colors.text.copy(alpha = .1f)),
         )
     }
-
-
-
 }

@@ -24,32 +24,32 @@ class SongsScreenViewModel @Inject constructor(
     private val favoriteUseCase: FavoriteUseCaseProtocol,
     @IoCoroutineScope private val ioCoroutineScope: CoroutineScope,
 ) : ViewModel(), SongsScreenViewModelProtocol {
-    
+
     private val _author = MutableStateFlow<Author?>(value = null)
 
     override val authorId: Flow<Int> =
         _author
             .filterNotNull()
             .map { author -> author.id }
-    
-    override val authorName: Flow<String> = 
+
+    override val authorName: Flow<String> =
         _author
             .filterNotNull()
             .map { author -> author.name }
-    
-    override val authorFavoriteType: Flow<FavoriteType> = 
+
+    override val authorFavoriteType: Flow<FavoriteType> =
         _author
             .filterNotNull()
             .map { author -> favoriteUseCase.authorFavoriteType(authorId = author.id) }
-        
-        
+
+
     override val songs: Flow<List<Song>> =
         _author
             .filterNotNull()
             .map { author -> songsUseCase.songs(authorId = author.id) }
 
     override val favoriteSongsIds: Flow<List<Int>> = favoriteUseCase.favoriteSongsIds
-    
+
     override fun setup(authorId: Int) {
         ioCoroutineScope.launch {
             val author = authorsUseCase.author(authorId = authorId)

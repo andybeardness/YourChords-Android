@@ -5,7 +5,7 @@ import com.beardness.yourchordsru.presentation.entity.Song
 import javax.inject.Inject
 
 class SongsCore @Inject constructor(
-    private val songsCsvReader: SongsCsvReaderProtocol
+    private val songsCsvReader: SongsCsvReaderProtocol,
 ) : SongsCoreProtocol {
 
     override suspend fun songs(authorId: Int): List<Song> {

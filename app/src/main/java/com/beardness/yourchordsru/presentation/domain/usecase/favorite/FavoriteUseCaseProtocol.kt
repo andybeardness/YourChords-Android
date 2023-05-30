@@ -11,7 +11,7 @@ interface FavoriteUseCaseProtocol {
 
     suspend fun changeAuthorFavorite(authorId: Int)
     suspend fun changeSongFavorite(authorId: Int, songId: Int)
-    
+
     suspend fun authorFavoriteType(authorId: Int): FavoriteType
     suspend fun favoriteSongsIds(authorId: Int): List<Int>
 }

@@ -71,7 +71,7 @@ class SearchCore @Inject constructor(
                     .read(authorId = author.id)
                     .filter { songDataDto ->
                         songDataDto.title.isMatchPattern(pattern = pattern) ||
-                        songDataDto.chords.isMatchPattern(pattern = pattern)
+                                songDataDto.chords.isMatchPattern(pattern = pattern)
                     }
             }
 

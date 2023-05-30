@@ -6,8 +6,6 @@ import com.beardness.yourchordsru.di.qualifiers.IoCoroutineScope
 import com.beardness.yourchordsru.presentation.domain.usecase.authors.AuthorsUseCaseProtocol
 import com.beardness.yourchordsru.presentation.domain.usecase.chords.ChordsUseCaseProtocol
 import com.beardness.yourchordsru.presentation.domain.usecase.songs.SongsUseCaseProtocol
-import com.beardness.yourchordsru.presentation.entity.Song
-import com.beardness.yourchordsru.utils.html.HtmlBuilder
 import com.beardness.yourchordsru.utils.html.IHtmlBuilder
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope

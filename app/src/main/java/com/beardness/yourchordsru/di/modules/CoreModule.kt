@@ -29,7 +29,7 @@ object CoreModule {
     @Provides
     @Singleton
     fun provideAuthorsCore(
-        authorsCsvReader: AuthorsCsvReaderProtocol
+        authorsCsvReader: AuthorsCsvReaderProtocol,
     ): AuthorsCoreProtocol =
         AuthorsCore(
             authorsCsvReader = authorsCsvReader,
@@ -38,7 +38,7 @@ object CoreModule {
     @Provides
     @Singleton
     fun provideSongsCore(
-        songsCsvReader: SongsCsvReaderProtocol
+        songsCsvReader: SongsCsvReaderProtocol,
     ): SongsCoreProtocol =
         SongsCore(
             songsCsvReader = songsCsvReader,
