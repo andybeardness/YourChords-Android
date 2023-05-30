@@ -3,17 +3,14 @@ package com.beardness.yourchordsru.presentation.domain.core.favorite.song
 import com.beardness.yourchordsru.presentation.data.database.dao.FavoriteSongsDao
 import com.beardness.yourchordsru.presentation.data.database.entity.FavoriteSongEntity
 import com.beardness.yourchordsru.utils.extensions.isNotNull
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 class FavoriteSongCore @Inject constructor(
     private val favoriteSongsDao: FavoriteSongsDao,
 ) : FavoriteSongCoreProtocol {
 
-    private val _favoriteSongsFromDb =
-        MutableStateFlow<List<FavoriteSongEntity>>(value = emptyList())
+    private val _favoriteSongsFromDb = favoriteSongsDao.flow()
 
     override val favoriteSongsAuthorsIds =
         _favoriteSongsFromDb
@@ -27,22 +24,10 @@ class FavoriteSongCore @Inject constructor(
                 favoriteSongEntities.map { favoriteSongEntity -> favoriteSongEntity.songId }
             }
 
-    override suspend fun setup() {
-        favoriteSongsDao
-            .flow()
-            .onEach { favoriteSongEntities ->
-                _favoriteSongsFromDb.emit(value = favoriteSongEntities)
-            }
-    }
-
     override suspend fun changeSongFavorite(authorId: Int, songId: Int) {
         val isFavorite =
-            _favoriteSongsFromDb
-                .value
-                .firstOrNull { favoriteSongEntity ->
-                    favoriteSongEntity.authorId == authorId &&
-                            favoriteSongEntity.songId == songId
-                }
+            favoriteSongsDao
+                .song(authorId = authorId, songId = songId)
                 .isNotNull()
 
         if (isFavorite) {
@@ -59,23 +44,19 @@ class FavoriteSongCore @Inject constructor(
     }
 
     override suspend fun doesSongInFavorite(authorId: Int, songId: Int): Boolean =
-        _favoriteSongsFromDb
-            .value
-            .firstOrNull { favoriteSongEntity ->
-                favoriteSongEntity.authorId == authorId &&
-                        favoriteSongEntity.songId == songId
-            }
+        favoriteSongsDao
+            .song(authorId = authorId, songId = songId)
             .isNotNull()
 
     override suspend fun doesAuthorHasSongsInFavorite(authorId: Int): Boolean =
-        _favoriteSongsFromDb
-            .value
+        favoriteSongsDao
+            .all()
             .firstOrNull { favoriteSongEntity -> favoriteSongEntity.authorId == authorId }
             .isNotNull()
 
     override suspend fun favoriteSongsIds(authorId: Int): List<Int> =
-        _favoriteSongsFromDb
-            .value
+        favoriteSongsDao
+            .all()
             .filter { favoriteSongEntity -> favoriteSongEntity.authorId == authorId }
             .map { favoriteSongEntity -> favoriteSongEntity.songId }
 }

@@ -12,4 +12,5 @@ interface SongsScreenViewModelProtocol {
     val songs: Flow<List<Song>>
     val favoriteSongsIds: Flow<List<Int>>
     val authorId: Flow<Int>
+    fun swapSongFavoriteType(authorId: Int, songId: Int)
 }

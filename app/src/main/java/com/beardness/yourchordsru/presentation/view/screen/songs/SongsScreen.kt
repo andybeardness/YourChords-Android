@@ -46,7 +46,7 @@ fun SongScreen(
             title = authorName,
             navigationButton = IconButton(
                 imageVector = Icons.Rounded.ArrowBackIos,
-                tint = Color.White,
+                tint = authorFavoriteIconColor,
                 onClick = navigateBack
             ),
             actionButton = listOf(
@@ -75,7 +75,12 @@ fun SongScreen(
                     description = song.ratingCount.toString(),
                     onClick = { navigateChords(authorId, song.id) },
                     favoriteType = favoriteType,
-                    onClickFavorite = {},
+                    onClickFavorite = {
+                        viewModel.swapSongFavoriteType(
+                            authorId = authorId,
+                            songId = song.id,
+                        )
+                    },
                 )
             }
         }

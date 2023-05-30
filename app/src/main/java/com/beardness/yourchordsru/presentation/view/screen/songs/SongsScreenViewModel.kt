@@ -48,15 +48,18 @@ class SongsScreenViewModel @Inject constructor(
             .filterNotNull()
             .map { author -> songsUseCase.songs(authorId = author.id) }
 
-    override val favoriteSongsIds: Flow<List<Int>> =
-        _author
-            .filterNotNull()
-            .map { author -> favoriteUseCase.favoriteSongsIds(authorId = author.id) }
+    override val favoriteSongsIds: Flow<List<Int>> = favoriteUseCase.favoriteSongsIds
     
     override fun setup(authorId: Int) {
         ioCoroutineScope.launch {
             val author = authorsUseCase.author(authorId = authorId)
             _author.emit(value = author)
+        }
+    }
+
+    override fun swapSongFavoriteType(authorId: Int, songId: Int) {
+        ioCoroutineScope.launch {
+            favoriteUseCase.changeSongFavorite(authorId = authorId, songId = songId)
         }
     }
 }
