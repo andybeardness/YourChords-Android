@@ -12,6 +12,12 @@ interface FavoriteAuthorsDao {
     @Query("SELECT * FROM favorite_authors")
     fun flow(): Flow<List<FavoriteAuthorEntity>>
 
+    @Query("SELECT * FROM favorite_authors")
+    suspend fun all(): List<FavoriteAuthorEntity>
+
+    @Query("SELECT * FROM favorite_authors WHERE author_id = :id")
+    suspend fun author(id: Int): FavoriteAuthorEntity?
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(favoriteAuthorEntity: FavoriteAuthorEntity)
 
