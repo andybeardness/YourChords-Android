@@ -1,6 +1,6 @@
-package com.beardness.yourchordsru.presentation.data.dto
+package com.beardness.yourchordsru.presentation.entity
 
-class AuthorDataDto(
+class Author(
     val id: Int,
     val name: String,
     val songsCount: Int,

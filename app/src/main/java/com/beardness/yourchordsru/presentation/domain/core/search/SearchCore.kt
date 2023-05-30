@@ -2,10 +2,8 @@ package com.beardness.yourchordsru.presentation.domain.core.search
 
 import com.beardness.yourchordsru.presentation.data.reader.csv.authors.AuthorsCsvReaderProtocol
 import com.beardness.yourchordsru.presentation.data.reader.csv.songs.SongsCsvReaderProtocol
-import com.beardness.yourchordsru.presentation.domain.core.type.AuthorSearchResultCoreDto
-import com.beardness.yourchordsru.presentation.domain.core.type.SearchResultCoreType
-import com.beardness.yourchordsru.presentation.domain.core.type.SongSearchResultCoreDto
-import com.beardness.yourchordsru.presentation.domain.core.type.toSearchResult
+import com.beardness.yourchordsru.presentation.entity.Author
+import com.beardness.yourchordsru.presentation.entity.Song
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
@@ -15,8 +13,11 @@ class SearchCore @Inject constructor(
     private val songsCsvReader: SongsCsvReaderProtocol,
 ) : SearchCoreProtocol {
 
-    private val _founded = MutableStateFlow<List<SearchResultCoreType>>(value = emptyList())
-    override val founded = _founded.asStateFlow()
+    private val _foundedAuthors = MutableStateFlow<List<Author>>(value = emptyList())
+    override val foundedAuthors = _foundedAuthors.asStateFlow()
+
+    private val _foundedSongs = MutableStateFlow<List<Song>>(value = emptyList())
+    override val foundedSongs = _foundedSongs.asStateFlow()
 
     private val _isSearching = MutableStateFlow<Boolean>(value = false)
     override val isSearching = _isSearching.asStateFlow()
@@ -35,47 +36,43 @@ class SearchCore @Inject constructor(
 
         _isSearching.emit(value = true)
 
-        val currentFounded = mutableListOf<SearchResultCoreType>()
-
         if (isAuthorsEnabled) {
             val searchedAuthors = searchInAuthors(pattern = pattern)
-            currentFounded.addAll(elements = searchedAuthors)
-            _founded.emit(value = currentFounded)
+            _foundedAuthors.emit(value = searchedAuthors)
         }
 
         if (isSongsEnabled) {
             val searchedSongs = searchInSongs(pattern = pattern)
-            currentFounded.addAll(elements = searchedSongs)
-            _founded.emit(value = currentFounded)
+            _foundedSongs.emit(value = searchedSongs)
         }
 
         _isSearching.emit(value = false)
     }
 
     override suspend fun clear() {
-        _founded.emit(value = emptyList())
+        _foundedAuthors.emit(value = emptyList())
+        _foundedSongs.emit(value = emptyList())
     }
 
     private fun searchInAuthors(
         pattern: String,
-    ): List<AuthorSearchResultCoreDto> =
+    ): List<Author> =
         authorsCsvReader
             .read()
-            .filter { authorDataDto -> authorDataDto.name.isMatchPattern(pattern = pattern) }
-            .map { authorDataDto -> authorDataDto.toSearchResult() }
+            .filter { author -> author.name.isMatchPattern(pattern = pattern) }
 
     private fun searchInSongs(
         pattern: String,
-    ): List<SongSearchResultCoreDto> =
+    ): List<Song> =
         authorsCsvReader
             .read()
-            .flatMap { authorDataDto ->
-                songsCsvReader.read(authorId = authorDataDto.id)
+            .flatMap { author ->
+                songsCsvReader
+                    .read(authorId = author.id)
                     .filter { songDataDto ->
                         songDataDto.title.isMatchPattern(pattern = pattern) ||
                         songDataDto.chords.isMatchPattern(pattern = pattern)
                     }
-                    .map { songDataDto -> songDataDto.toSearchResult() }
             }
 
     private fun String.isMatchPattern(pattern: String): Boolean =

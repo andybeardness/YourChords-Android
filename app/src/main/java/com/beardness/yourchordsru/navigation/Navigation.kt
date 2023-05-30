@@ -9,8 +9,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.beardness.yourchordsru.presentation.view.screen.author.AuthorScreenViewModel
-import com.beardness.yourchordsru.presentation.view.screen.author.AuthorsScreen
+import com.beardness.yourchordsru.presentation.view.screen.authors.AuthorsScreen
+import com.beardness.yourchordsru.presentation.view.screen.authors.AuthorsScreenViewModel
+import com.beardness.yourchordsru.presentation.view.screen.songs.SongScreen
+import com.beardness.yourchordsru.presentation.view.screen.songs.SongsScreenViewModel
 
 @Composable
 fun Navigation() {
@@ -40,7 +42,7 @@ fun Navigation() {
         composable(
             route = "authors",
         ) {
-            val viewModel = hiltViewModel<AuthorScreenViewModel>()
+            val viewModel = hiltViewModel<AuthorsScreenViewModel>()
 
             AuthorsScreen(
                 viewModel = viewModel,
@@ -54,8 +56,19 @@ fun Navigation() {
             arguments = listOf(
                 navArgument(name = "authorId") { type = NavType.IntType },
             ),
-        ) {
+        ) { navBackStack ->
+            val authorId = navBackStack.arguments?.getInt("authorId") ?: 0
 
+            val viewModel = hiltViewModel<SongsScreenViewModel>()
+                .apply {
+                    setup(authorId = authorId)
+                }
+
+            SongScreen(
+                viewModel = viewModel,
+                navigateBack = navigateBack,
+                navigateChords = navigateChords,
+            )
         }
 
         composable(

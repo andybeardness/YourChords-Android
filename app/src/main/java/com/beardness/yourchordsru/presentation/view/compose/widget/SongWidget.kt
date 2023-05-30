@@ -5,25 +5,23 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowForwardIos
-import androidx.compose.material.icons.rounded.PersonOutline
 import androidx.compose.material.icons.rounded.Star
 import androidx.compose.material.icons.rounded.StarBorder
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import com.beardness.yourchordsru.presentation.types.FavoriteType
-import com.beardness.yourchordsru.presentation.view.compose.component.AvatarComponent
 import com.beardness.yourchordsru.presentation.view.compose.component.ButtonComponent
 import com.beardness.yourchordsru.presentation.view.compose.component.DescriptionComponent
 import com.beardness.yourchordsru.presentation.view.compose.component.IconComponent
+import com.beardness.yourchordsru.presentation.view.compose.component.SongAvatarComponent
 import com.beardness.yourchordsru.theme.YourChordsRuTheme
 
 @Composable
-fun AuthorWidget(
-    name: String,
-    songsCount: Int,
+fun SongWidget(
+    title: String,
+    description: String,
     onClick: () -> Unit,
     favoriteType: FavoriteType,
     onClickFavorite: () -> Unit,
@@ -57,18 +55,14 @@ fun AuthorWidget(
                 onClick = onClickFavorite,
             )
 
-            AvatarComponent(
-                imageVector = Icons.Rounded.PersonOutline,
-                tint = Color.White,
-                color = Color.Blue,
-            )
+            SongAvatarComponent()
 
             DescriptionComponent(
                 modifier = Modifier
                     .weight(weight = 1f),
-                title = name,
+                title = title,
                 descriptions = listOf(
-                    songsCount.toString(),
+                    description,
                 ),
             )
 
@@ -85,40 +79,7 @@ fun AuthorWidget(
                 .background(color = YourChordsRuTheme.colors.text.copy(alpha = .1f)),
         )
     }
-}
 
-@Composable
-@Preview
-fun Preview_AuthorWidget_FavoriteDefault() {
-    AuthorWidget(
-        name = "King & Joker",
-        songsCount = 1488,
-        onClick = {},
-        favoriteType = FavoriteType.DEFAULT,
-        onClickFavorite = {},
-    )
-}
 
-@Composable
-@Preview
-fun Preview_AuthorWidget_Favorite() {
-    AuthorWidget(
-        name = "King & Joker",
-        songsCount = 1488,
-        onClick = {},
-        favoriteType = FavoriteType.FAVORITE,
-        onClickFavorite = {},
-    )
-}
 
-@Composable
-@Preview
-fun Preview_AuthorWidget_FavoritePartly() {
-    AuthorWidget(
-        name = "King & Joker",
-        songsCount = 1488,
-        onClick = {},
-        favoriteType = FavoriteType.PARTLY,
-        onClickFavorite = {},
-    )
 }

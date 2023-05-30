@@ -1,6 +1,6 @@
-package com.beardness.yourchordsru.presentation.data.dto
+package com.beardness.yourchordsru.presentation.entity
 
-class SongDataDto(
+class Song(
     val id: Int,
     val title: String,
     val ratingCount: Int,

@@ -1,10 +1,13 @@
 package com.beardness.yourchordsru.presentation.domain.core.search
 
-import com.beardness.yourchordsru.presentation.domain.core.type.SearchResultCoreType
+import com.beardness.yourchordsru.presentation.entity.Author
+import com.beardness.yourchordsru.presentation.entity.Song
 import kotlinx.coroutines.flow.StateFlow
 
 interface SearchCoreProtocol {
-    val founded: StateFlow<List<SearchResultCoreType>>
+    val foundedAuthors: StateFlow<List<Author>>
+    val foundedSongs: StateFlow<List<Song>>
+
     val isSearching: StateFlow<Boolean>
 
     suspend fun search(

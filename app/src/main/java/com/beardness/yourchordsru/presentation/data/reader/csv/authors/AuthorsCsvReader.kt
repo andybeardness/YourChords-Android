@@ -1,8 +1,8 @@
 package com.beardness.yourchordsru.presentation.data.reader.csv.authors
 
 import android.content.Context
-import com.beardness.yourchordsru.presentation.data.dto.AuthorDataDto
 import com.beardness.yourchordsru.presentation.data.reader.csv.CsvReaderBase
+import com.beardness.yourchordsru.presentation.entity.Author
 import javax.inject.Inject
 
 class AuthorsCsvReader @Inject constructor(
@@ -14,7 +14,7 @@ class AuthorsCsvReader @Inject constructor(
         private const val SEPARATOR = ','
     }
 
-    override fun read(): List<AuthorDataDto> {
+    override fun read(): List<Author> {
         val reader = reader(filename = FILENAME)
 
         // header line
@@ -30,7 +30,7 @@ class AuthorsCsvReader @Inject constructor(
                     limit = 4,
                 )
 
-                AuthorDataDto(
+                Author(
                     id = id.trim().toInt(),
                     name = name.trim(),
                     songsCount = songsCount.trim().toInt(),

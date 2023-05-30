@@ -1,16 +1,16 @@
 package com.beardness.yourchordsru.presentation.view.types
 
-import com.beardness.yourchordsru.presentation.domain.type.FavoriteDomainType
+import com.beardness.yourchordsru.presentation.types.FavoriteType
 
 enum class FavoriteViewType {
     DEFAULT, FAVORITE, PARTLY
 }
 
-fun FavoriteDomainType.viewType(): FavoriteViewType =
+fun FavoriteType.viewType(): FavoriteViewType =
     when (this) {
-        FavoriteDomainType.DEFAULT -> FavoriteViewType.DEFAULT
-        FavoriteDomainType.FAVORITE -> FavoriteViewType.FAVORITE
-        FavoriteDomainType.PARTLY -> FavoriteViewType.PARTLY
+        FavoriteType.DEFAULT -> FavoriteViewType.DEFAULT
+        FavoriteType.FAVORITE -> FavoriteViewType.FAVORITE
+        FavoriteType.PARTLY -> FavoriteViewType.PARTLY
     }
 
 

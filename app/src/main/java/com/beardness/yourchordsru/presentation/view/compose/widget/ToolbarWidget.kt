@@ -8,14 +8,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.beardness.yourchordsru.presentation.view.compose.component.ButtonComponent
-import com.beardness.yourchordsru.presentation.view.dto.ToolbarButtonViewDto
+import com.beardness.yourchordsru.presentation.view.entity.IconButton
 import com.beardness.yourchordsru.theme.YourChordsRuTheme
 
 @Composable
 fun ToolbarWidget(
     title: String,
-    navigationButton: ToolbarButtonViewDto,
-    actionButton: List<ToolbarButtonViewDto>,
+    navigationButton: IconButton,
+    actionButton: List<IconButton>,
 ) {
     Column(
         modifier = Modifier
