@@ -84,9 +84,15 @@ fun SongScreen(
                     else -> FavoriteType.DEFAULT
                 }
 
+                val songRatingDescription = "Rating: ${song.ratingCount}"
+
+                val descriptions = listOf(
+                    songRatingDescription
+                )
+
                 SongWidget(
                     title = song.title,
-                    description = song.ratingCount.toString(),
+                    descriptions = descriptions,
                     onClick = { navigateChords(authorId, song.id) },
                     favoriteType = favoriteType,
                     onClickFavorite = {

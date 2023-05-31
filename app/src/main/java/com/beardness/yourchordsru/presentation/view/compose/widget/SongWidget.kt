@@ -19,7 +19,7 @@ import com.beardness.yourchordsru.theme.YourChordsRuTheme
 @Composable
 fun SongWidget(
     title: String,
-    description: String,
+    descriptions: List<String>,
     onClick: () -> Unit,
     favoriteType: FavoriteType,
     onClickFavorite: () -> Unit,
@@ -62,9 +62,7 @@ fun SongWidget(
                 modifier = Modifier
                     .weight(weight = 1f),
                 title = title,
-                descriptions = listOf(
-                    description,
-                ),
+                descriptions = descriptions,
             )
 
             MiniIconComponent(
