@@ -4,9 +4,13 @@ import androidx.lifecycle.ViewModel
 import com.beardness.yourchordsru.di.qualifiers.IoCoroutineScope
 import com.beardness.yourchordsru.presentation.domain.usecase.authors.AuthorsUseCaseProtocol
 import com.beardness.yourchordsru.presentation.domain.usecase.favorite.FavoriteUseCaseProtocol
+import com.beardness.yourchordsru.presentation.entity.Author
+import com.beardness.yourchordsru.presentation.view.screen.authors.types.AuthorsSortType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,10 +21,8 @@ class AuthorsScreenViewModel @Inject constructor(
     @IoCoroutineScope private val ioCoroutineScope: CoroutineScope,
 ) : ViewModel(), AuthorsScreenViewModelProtocol {
 
-    override val authors =
-        authorsUseCase
-            .authors
-            .map { authors -> authors.sortedBy { author -> author.name } }
+    private val _sortType = MutableStateFlow(value = AuthorsSortType.DEFAULT)
+    override val sortType = _sortType.asStateFlow()
 
     override val favoriteAuthorsIds =
         favoriteUseCase
@@ -30,9 +32,55 @@ class AuthorsScreenViewModel @Inject constructor(
         favoriteUseCase
             .favoriteSongsAuthorsIds
 
+    override val authors =
+        combine(
+            authorsUseCase.authors,
+            favoriteAuthorsIds,
+            favoriteSongsAuthorsIds,
+            sortType
+        ) { authors, favoriteAuthorsIds, favoriteSongsAuthorsIds, sort ->
+            when (sort) {
+                AuthorsSortType.DEFAULT -> {
+                    authors.sortedBy { author -> author.name }
+                }
+                AuthorsSortType.BY_FAVORITE -> {
+                    authors.sortedWith(
+                        compareByDescending<Author> { author -> author.id in favoriteAuthorsIds }
+                            .thenByDescending { author -> author.id in favoriteSongsAuthorsIds }
+                            .thenBy { author -> author.name }
+                    )
+                }
+                AuthorsSortType.BY_RATING_COUNT -> {
+                    authors.sortedWith(
+                        compareByDescending<Author> { author -> author.ratingCount }
+                            .thenBy { author -> author.name }
+                    )
+                }
+                AuthorsSortType.BY_SONGS_COUNT -> {
+                    authors.sortedWith(
+                        compareByDescending<Author> { author -> author.songsCount }
+                            .thenBy { author -> author.name }
+                    )
+                }
+            }
+        }
+
     override fun swapAuthorFavorite(authorId: Int) {
         ioCoroutineScope.launch {
             favoriteUseCase.changeAuthorFavorite(authorId = authorId)
+        }
+    }
+
+    override fun swapSortType() {
+        ioCoroutineScope.launch {
+            val nextSortType = when (_sortType.value) {
+                AuthorsSortType.DEFAULT -> AuthorsSortType.BY_FAVORITE
+                AuthorsSortType.BY_FAVORITE -> AuthorsSortType.BY_RATING_COUNT
+                AuthorsSortType.BY_RATING_COUNT -> AuthorsSortType.BY_SONGS_COUNT
+                AuthorsSortType.BY_SONGS_COUNT -> AuthorsSortType.DEFAULT
+            }
+
+            _sortType.emit(value = nextSortType)
         }
     }
 }
