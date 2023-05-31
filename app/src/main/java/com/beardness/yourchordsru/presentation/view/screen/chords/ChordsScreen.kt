@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBackIos
+import androidx.compose.material.icons.rounded.Tune
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -33,7 +34,13 @@ fun ChordsScreen(
                 tint = Color.White,
                 onClick = navigateBack,
             ),
-            actionButton = listOf(),
+            actionButton = listOf(
+                IconButton(
+                    imageVector = Icons.Rounded.Tune,
+                    tint = Color.White,
+                    onClick = {},
+                )
+            ),
         )
 
         ChordsWidget(chords = chords)

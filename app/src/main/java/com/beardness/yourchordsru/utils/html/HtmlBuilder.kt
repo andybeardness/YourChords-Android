@@ -58,4 +58,5 @@ $contentFixed
         this.trim()
             .replace(oldValue = "%", newValue = "%25")
             .replace(oldValue = "#", newValue = "%23")
+            .replace(oldValue = "\\n", newValue = "\n")
 }

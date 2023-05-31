@@ -69,7 +69,7 @@ class ChordsScreenViewModel @Inject constructor(
                 backgroundColor = Color.White,
                 textColor = Color.Black,
                 chordsColor = Color.Black,
-                textSizePx = 16,
+                textSizePx = 12,
             )
         }.filterNotNull()
 
