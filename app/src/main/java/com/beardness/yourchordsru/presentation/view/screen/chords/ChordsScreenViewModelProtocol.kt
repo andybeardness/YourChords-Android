@@ -7,4 +7,7 @@ interface ChordsScreenViewModelProtocol {
     val chords: Flow<String>
     val songTitle: Flow<String>
     val authorName: Flow<String>
+    fun swapViewMode()
+    fun increaseText()
+    fun decreaseText()
 }

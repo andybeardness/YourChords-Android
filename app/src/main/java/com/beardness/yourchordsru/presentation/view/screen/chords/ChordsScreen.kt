@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBackIos
 import androidx.compose.material.icons.rounded.LightMode
+import androidx.compose.material.icons.rounded.TextDecrease
 import androidx.compose.material.icons.rounded.TextIncrease
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -40,17 +41,17 @@ fun ChordsScreen(
                 IconButton(
                     imageVector = Icons.Rounded.TextIncrease,
                     tint = Color.White,
-                    onClick = {},
+                    onClick = { viewModel.increaseText() },
                 ),
                 IconButton(
-                    imageVector = Icons.Rounded.TextIncrease,
+                    imageVector = Icons.Rounded.TextDecrease,
                     tint = Color.White,
-                    onClick = {},
+                    onClick = { viewModel.decreaseText() },
                 ),
                 IconButton(
                     imageVector = Icons.Rounded.LightMode,
                     tint = Color.White,
-                    onClick = {},
+                    onClick = { viewModel.swapViewMode() },
                 ),
             ),
         )
