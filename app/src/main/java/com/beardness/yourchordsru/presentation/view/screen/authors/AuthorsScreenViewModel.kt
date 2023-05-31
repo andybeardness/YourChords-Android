@@ -39,30 +39,26 @@ class AuthorsScreenViewModel @Inject constructor(
             favoriteSongsAuthorsIds,
             sortType
         ) { authors, favoriteAuthorsIds, favoriteSongsAuthorsIds, sort ->
-            when (sort) {
+            val comparator = when (sort) {
                 AuthorsSortType.DEFAULT -> {
-                    authors.sortedBy { author -> author.name }
+                    compareBy { author -> author.name }
                 }
                 AuthorsSortType.BY_FAVORITE -> {
-                    authors.sortedWith(
-                        compareByDescending<Author> { author -> author.id in favoriteAuthorsIds }
-                            .thenByDescending { author -> author.id in favoriteSongsAuthorsIds }
-                            .thenBy { author -> author.name }
-                    )
+                    compareByDescending<Author> { author -> author.id in favoriteAuthorsIds }
+                        .thenByDescending { author -> author.id in favoriteSongsAuthorsIds }
+                        .thenBy { author -> author.name }
                 }
                 AuthorsSortType.BY_RATING_COUNT -> {
-                    authors.sortedWith(
-                        compareByDescending<Author> { author -> author.ratingCount }
-                            .thenBy { author -> author.name }
-                    )
+                    compareByDescending<Author> { author -> author.ratingCount }
+                        .thenBy { author -> author.name }
                 }
                 AuthorsSortType.BY_SONGS_COUNT -> {
-                    authors.sortedWith(
-                        compareByDescending<Author> { author -> author.songsCount }
-                            .thenBy { author -> author.name }
-                    )
+                    compareByDescending<Author> { author -> author.songsCount }
+                        .thenBy { author -> author.name }
                 }
             }
+
+            authors.sortedWith(comparator = comparator)
         }
 
     override fun swapAuthorFavorite(authorId: Int) {

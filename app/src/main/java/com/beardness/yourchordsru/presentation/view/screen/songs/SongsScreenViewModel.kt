@@ -8,6 +8,7 @@ import com.beardness.yourchordsru.presentation.domain.usecase.songs.SongsUseCase
 import com.beardness.yourchordsru.presentation.entity.Author
 import com.beardness.yourchordsru.presentation.entity.Song
 import com.beardness.yourchordsru.presentation.types.FavoriteType
+import com.beardness.yourchordsru.presentation.view.screen.songs.types.SongsSortType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
@@ -49,12 +50,38 @@ class SongsScreenViewModel @Inject constructor(
             }
         }
 
-    override val songs: Flow<List<Song>> =
-        _author
-            .filterNotNull()
-            .map { author -> songsUseCase.songs(authorId = author.id) }
-
     override val favoriteSongsIds: Flow<List<Int>> = favoriteUseCase.favoriteSongsIds
+
+    private val _sortType = MutableStateFlow(value = SongsSortType.DEFAULT)
+    override val sortType = _sortType.asStateFlow()
+
+    override val songs: Flow<List<Song>> =
+        combine(
+            _author,
+            _sortType,
+            favoriteSongsIds,
+        ) { author, sortType, favoriteSongsIds ->
+            author ?: return@combine emptyList()
+
+            val songs = songsUseCase.songs(authorId = author.id)
+
+            val comparator =
+                when (sortType) {
+                    SongsSortType.DEFAULT -> {
+                        compareBy { song -> song.title }
+                    }
+                    SongsSortType.BY_FAVORITE -> {
+                        compareByDescending<Song> { song -> song.id in favoriteSongsIds }
+                            .thenBy { song -> song.title }
+                    }
+                    SongsSortType.BY_RATING_COUNT -> {
+                        compareByDescending<Song> { song -> song.ratingCount }
+                            .thenBy { song -> song.title }
+                    }
+                }
+
+            songs.sortedWith(comparator = comparator)
+        }
 
     override fun setup(authorId: Int) {
         ioCoroutineScope.launch {
@@ -66,6 +93,18 @@ class SongsScreenViewModel @Inject constructor(
     override fun swapSongFavoriteType(authorId: Int, songId: Int) {
         ioCoroutineScope.launch {
             favoriteUseCase.changeSongFavorite(authorId = authorId, songId = songId)
+        }
+    }
+
+    override fun swapSortType() {
+        ioCoroutineScope.launch {
+            val nextType = when (_sortType.value) {
+                SongsSortType.DEFAULT -> SongsSortType.BY_FAVORITE
+                SongsSortType.BY_FAVORITE -> SongsSortType.BY_RATING_COUNT
+                SongsSortType.BY_RATING_COUNT -> SongsSortType.DEFAULT
+            }
+
+            _sortType.emit(value = nextType)
         }
     }
 }

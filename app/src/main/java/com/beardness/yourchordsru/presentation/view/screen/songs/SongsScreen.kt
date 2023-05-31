@@ -18,6 +18,7 @@ import com.beardness.yourchordsru.presentation.types.FavoriteType
 import com.beardness.yourchordsru.presentation.view.compose.widget.SongWidget
 import com.beardness.yourchordsru.presentation.view.compose.widget.ToolbarWidget
 import com.beardness.yourchordsru.presentation.view.entity.IconButton
+import com.beardness.yourchordsru.presentation.view.screen.songs.types.SongsSortType
 
 @Composable
 fun SongScreen(
@@ -26,6 +27,7 @@ fun SongScreen(
     navigateChords: (authorId: Int, songId: Int) -> Unit,
 ) {
 
+    val sortType by viewModel.sortType.collectAsState(initial = SongsSortType.DEFAULT)
     val authorId by viewModel.authorId.collectAsState(initial = -1)
     val authorName by viewModel.authorName.collectAsState(initial = "")
     val authorFavoriteType by viewModel.authorFavoriteType.collectAsState(initial = FavoriteType.DEFAULT)
@@ -42,6 +44,12 @@ fun SongScreen(
         FavoriteType.DEFAULT -> Color.White
         FavoriteType.FAVORITE -> Color.Yellow
         FavoriteType.PARTLY -> Color.Yellow
+    }
+
+    val sortIconColor = when (sortType) {
+        SongsSortType.DEFAULT -> Color.White
+        SongsSortType.BY_FAVORITE -> Color.Yellow
+        SongsSortType.BY_RATING_COUNT -> Color.Red
     }
 
     Column(
@@ -63,8 +71,8 @@ fun SongScreen(
                 ),
                 IconButton(
                     imageVector = Icons.Rounded.TrendingUp,
-                    tint = Color.White,
-                    onClick = {},
+                    tint = sortIconColor,
+                    onClick = { viewModel.swapSortType() },
                 ),
             )
         )

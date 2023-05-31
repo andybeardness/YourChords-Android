@@ -49,15 +49,14 @@ fun AuthorsScreen(
             ),
             actionButton = listOf(
                 IconButton(
-                    imageVector = Icons.Rounded.TrendingUp,
-                    tint = sortIconColor,
-                    onClick = { viewModel.swapSortType() },
-                ),
-
-                IconButton(
                     imageVector = Icons.Rounded.Search,
                     tint = Color.White,
                     onClick = { navigateToSearch() },
+                ),
+                IconButton(
+                    imageVector = Icons.Rounded.TrendingUp,
+                    tint = sortIconColor,
+                    onClick = { viewModel.swapSortType() },
                 ),
             ),
         )
