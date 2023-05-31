@@ -7,15 +7,13 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowForwardIos
 import androidx.compose.material.icons.rounded.Star
 import androidx.compose.material.icons.rounded.StarBorder
+import androidx.compose.material.icons.rounded.Tag
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.beardness.yourchordsru.presentation.types.FavoriteType
-import com.beardness.yourchordsru.presentation.view.compose.component.ButtonComponent
-import com.beardness.yourchordsru.presentation.view.compose.component.DescriptionComponent
-import com.beardness.yourchordsru.presentation.view.compose.component.IconComponent
-import com.beardness.yourchordsru.presentation.view.compose.component.SongAvatarComponent
+import com.beardness.yourchordsru.presentation.view.compose.component.*
 import com.beardness.yourchordsru.theme.YourChordsRuTheme
 
 @Composable
@@ -55,7 +53,10 @@ fun SongWidget(
                 onClick = onClickFavorite,
             )
 
-            SongAvatarComponent()
+            SongAvatarComponent(
+                imageVector = Icons.Rounded.Tag,
+                tint = Color.White,
+            )
 
             DescriptionComponent(
                 modifier = Modifier
@@ -66,9 +67,9 @@ fun SongWidget(
                 ),
             )
 
-            IconComponent(
+            MiniIconComponent(
                 imageVector = Icons.Rounded.ArrowForwardIos,
-                tint = Color.White.copy(alpha = .05f),
+                tint = Color.White,
             )
         }
 

@@ -5,9 +5,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.PersonOutline
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material.icons.rounded.StarBorder
+import androidx.compose.material.icons.rounded.Tag
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -35,7 +35,7 @@ fun AuthorsScreen(
         ToolbarWidget(
             title = "App Name",
             navigationButton = IconButton(
-                imageVector = Icons.Rounded.PersonOutline,
+                imageVector = Icons.Rounded.Tag,
                 tint = Color.White,
                 onClick = null,
             ),
@@ -62,9 +62,17 @@ fun AuthorsScreen(
                     else -> FavoriteType.DEFAULT
                 }
 
+                val songsCountDescription = "Songs: ${author.songsCount}"
+                val ratingCountDescription = "Rating: ${author.ratingCount}"
+
+                val descriptions = listOf(
+                    songsCountDescription,
+                    ratingCountDescription,
+                )
+
                 AuthorWidget(
                     name = author.name,
-                    songsCount = author.songsCount,
+                    descriptions = descriptions,
                     onClick = { navigateToSongs(author.id) },
                     favoriteType = favoriteType,
                     onClickFavorite = { viewModel.swapAuthorFavorite(authorId = author.id) },

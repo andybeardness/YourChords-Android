@@ -14,16 +14,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.beardness.yourchordsru.presentation.types.FavoriteType
-import com.beardness.yourchordsru.presentation.view.compose.component.AvatarComponent
-import com.beardness.yourchordsru.presentation.view.compose.component.ButtonComponent
-import com.beardness.yourchordsru.presentation.view.compose.component.DescriptionComponent
-import com.beardness.yourchordsru.presentation.view.compose.component.IconComponent
+import com.beardness.yourchordsru.presentation.view.compose.component.*
 import com.beardness.yourchordsru.theme.YourChordsRuTheme
 
 @Composable
 fun AuthorWidget(
     name: String,
-    songsCount: Int,
+    descriptions: List<String>,
     onClick: () -> Unit,
     favoriteType: FavoriteType,
     onClickFavorite: () -> Unit,
@@ -67,14 +64,12 @@ fun AuthorWidget(
                 modifier = Modifier
                     .weight(weight = 1f),
                 title = name,
-                descriptions = listOf(
-                    songsCount.toString(),
-                ),
+                descriptions = descriptions,
             )
 
-            IconComponent(
+            MiniIconComponent(
                 imageVector = Icons.Rounded.ArrowForwardIos,
-                tint = Color.White.copy(alpha = .05f),
+                tint = Color.White,
             )
         }
 
@@ -92,7 +87,7 @@ fun AuthorWidget(
 fun Preview_AuthorWidget_FavoriteDefault() {
     AuthorWidget(
         name = "King & Joker",
-        songsCount = 1488,
+        descriptions = listOf("Songs: 1488", "Rating: 20220"),
         onClick = {},
         favoriteType = FavoriteType.DEFAULT,
         onClickFavorite = {},
@@ -104,7 +99,7 @@ fun Preview_AuthorWidget_FavoriteDefault() {
 fun Preview_AuthorWidget_Favorite() {
     AuthorWidget(
         name = "King & Joker",
-        songsCount = 1488,
+        descriptions = listOf("Songs: 1488", "Rating: 20220"),
         onClick = {},
         favoriteType = FavoriteType.FAVORITE,
         onClickFavorite = {},
@@ -116,7 +111,7 @@ fun Preview_AuthorWidget_Favorite() {
 fun Preview_AuthorWidget_FavoritePartly() {
     AuthorWidget(
         name = "King & Joker",
-        songsCount = 1488,
+        descriptions = listOf("Songs: 1488", "Rating: 20220"),
         onClick = {},
         favoriteType = FavoriteType.PARTLY,
         onClickFavorite = {},
