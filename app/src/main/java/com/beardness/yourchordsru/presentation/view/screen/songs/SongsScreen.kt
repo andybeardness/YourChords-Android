@@ -6,6 +6,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBackIos
+import androidx.compose.material.icons.rounded.Star
+import androidx.compose.material.icons.rounded.StarBorder
 import androidx.compose.material.icons.rounded.TrendingUp
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -30,7 +32,11 @@ fun SongScreen(
     val songs by viewModel.songs.collectAsState(initial = emptyList())
     val favoriteSongsIds by viewModel.favoriteSongsIds.collectAsState(initial = emptyList())
 
-    val authorRatingSortIconColor = Color.Yellow
+    val authorFavoriteIcon = when (authorFavoriteType) {
+        FavoriteType.DEFAULT -> Icons.Rounded.StarBorder
+        FavoriteType.FAVORITE -> Icons.Rounded.Star
+        FavoriteType.PARTLY -> Icons.Rounded.StarBorder
+    }
 
     val authorFavoriteIconColor = when (authorFavoriteType) {
         FavoriteType.DEFAULT -> Color.White
@@ -46,19 +52,19 @@ fun SongScreen(
             title = authorName,
             navigationButton = IconButton(
                 imageVector = Icons.Rounded.ArrowBackIos,
-                tint = authorFavoriteIconColor,
+                tint = Color.White,
                 onClick = navigateBack
             ),
             actionButton = listOf(
                 IconButton(
-                    imageVector = Icons.Rounded.TrendingUp,
-                    tint = authorRatingSortIconColor,
-                    onClick = navigateBack
+                    imageVector = authorFavoriteIcon,
+                    tint = authorFavoriteIconColor,
+                    onClick = {},
                 ),
                 IconButton(
-                    imageVector = Icons.Rounded.ArrowBackIos,
+                    imageVector = Icons.Rounded.TrendingUp,
                     tint = Color.White,
-                    onClick = navigateBack
+                    onClick = {},
                 ),
             )
         )

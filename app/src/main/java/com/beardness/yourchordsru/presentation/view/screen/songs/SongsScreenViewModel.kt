@@ -10,10 +10,7 @@ import com.beardness.yourchordsru.presentation.entity.Song
 import com.beardness.yourchordsru.presentation.types.FavoriteType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -38,10 +35,19 @@ class SongsScreenViewModel @Inject constructor(
             .map { author -> author.name }
 
     override val authorFavoriteType: Flow<FavoriteType> =
-        _author
-            .filterNotNull()
-            .map { author -> favoriteUseCase.authorFavoriteType(authorId = author.id) }
+        combine(
+            _author,
+            favoriteUseCase.favoriteAuthorsIds,
+            favoriteUseCase.favoriteSongsAuthorsIds,
+        ) { author, favoriteAuthorsIds, favoriteSongsAuthorsIds ->
+            author ?: return@combine FavoriteType.DEFAULT
 
+            when (author.id) {
+                in favoriteAuthorsIds -> FavoriteType.FAVORITE
+                in favoriteSongsAuthorsIds -> FavoriteType.PARTLY
+                else -> FavoriteType.DEFAULT
+            }
+        }
 
     override val songs: Flow<List<Song>> =
         _author

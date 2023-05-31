@@ -3,6 +3,7 @@ package com.beardness.yourchordsru.presentation.domain.core.favorite.author
 import com.beardness.yourchordsru.presentation.data.database.dao.FavoriteAuthorsDao
 import com.beardness.yourchordsru.presentation.data.database.entity.FavoriteAuthorEntity
 import com.beardness.yourchordsru.utils.extensions.isNotNull
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
@@ -37,11 +38,8 @@ class FavoriteAuthorCore @Inject constructor(
 
     override suspend fun doesAuthorInFavorite(authorId: Int): Boolean {
         return _favoriteAuthorsFromDb
-            .map { authorsFromDb ->
-                authorsFromDb.firstOrNull { favoriteAuthorEntity ->
-                    favoriteAuthorEntity.authorId == authorId
-                }
-            }
+            .firstOrNull()
+            ?.firstOrNull { favoriteAuthorEntity -> favoriteAuthorEntity.authorId == authorId }
             .isNotNull()
     }
 }
