@@ -11,6 +11,10 @@ class AuthorsUseCase @Inject constructor(
 
     override val authors: Flow<List<Author>> = authorsCore.authors
 
+    override suspend fun authors(): List<Author> {
+        return authorsCore.authors()
+    }
+
     override suspend fun author(authorId: Int): Author? {
         return authorsCore.author(authorId = authorId)
     }

@@ -13,6 +13,8 @@ import com.beardness.yourchordsru.presentation.view.screen.authors.AuthorsScreen
 import com.beardness.yourchordsru.presentation.view.screen.authors.AuthorsScreenViewModel
 import com.beardness.yourchordsru.presentation.view.screen.chords.ChordsScreen
 import com.beardness.yourchordsru.presentation.view.screen.chords.ChordsScreenViewModel
+import com.beardness.yourchordsru.presentation.view.screen.search.SearchScreen
+import com.beardness.yourchordsru.presentation.view.screen.search.SearchScreenViewModel
 import com.beardness.yourchordsru.presentation.view.screen.songs.SongScreen
 import com.beardness.yourchordsru.presentation.view.screen.songs.SongsScreenViewModel
 
@@ -94,7 +96,14 @@ fun Navigation() {
         composable(
             route = "search",
         ) {
+            val viewModel = hiltViewModel<SearchScreenViewModel>()
 
+            SearchScreen(
+                viewModel = viewModel,
+                navigateBack = navigateBack,
+                navigateSongs = navigateSongs,
+                navigateChords = navigateChords,
+            )
         }
     }
 }

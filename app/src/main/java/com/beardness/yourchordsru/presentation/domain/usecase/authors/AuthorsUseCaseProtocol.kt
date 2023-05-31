@@ -7,4 +7,5 @@ interface AuthorsUseCaseProtocol {
     val authors: Flow<List<Author>>
 
     suspend fun author(authorId: Int): Author?
+    suspend fun authors(): List<Author>
 }

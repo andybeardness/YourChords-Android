@@ -7,4 +7,5 @@ interface AuthorsCoreProtocol {
     val authors: StateFlow<List<Author>>
     suspend fun init()
     suspend fun author(authorId: Int): Author?
+    suspend fun authors(): List<Author>
 }

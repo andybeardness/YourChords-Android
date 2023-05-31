@@ -22,6 +22,11 @@ class AuthorsCore @Inject constructor(
         _authors.emit(value = authors)
     }
 
+    override suspend fun authors(): List<Author> {
+        return _authors
+            .value
+    }
+
     override suspend fun author(authorId: Int): Author? {
         return _authors
             .value
