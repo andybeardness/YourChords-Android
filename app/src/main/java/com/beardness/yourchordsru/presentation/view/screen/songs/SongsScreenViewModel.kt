@@ -90,6 +90,16 @@ class SongsScreenViewModel @Inject constructor(
         }
     }
 
+    override fun swapAuthorFavorite() {
+        ioCoroutineScope.launch {
+            val authorId =
+                _author.value?.id
+                    ?: return@launch
+
+            favoriteUseCase.changeAuthorFavorite(authorId = authorId)
+        }
+    }
+
     override fun swapSongFavoriteType(authorId: Int, songId: Int) {
         ioCoroutineScope.launch {
             favoriteUseCase.changeSongFavorite(authorId = authorId, songId = songId)

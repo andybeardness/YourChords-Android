@@ -67,7 +67,7 @@ fun SongScreen(
                 IconButton(
                     imageVector = authorFavoriteIcon,
                     tint = authorFavoriteIconColor,
-                    onClick = {},
+                    onClick = { viewModel.swapAuthorFavorite() },
                 ),
                 IconButton(
                     imageVector = Icons.Rounded.TrendingUp,
