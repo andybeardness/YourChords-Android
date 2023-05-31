@@ -9,6 +9,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -26,14 +27,14 @@ fun ButtonComponent(
     Box(
         modifier = Modifier
             .size(size = YourChordsRuTheme.dimens.dp64)
-            .padding(all = YourChordsRuTheme.dimens.dp8)
             .clip(shape = RoundedCornerShape(percent = 50))
             .clickable(
                 enabled = onClick != null,
                 onClick = { onClick?.invoke() },
                 role = Role.Image
             )
-            .padding(all = YourChordsRuTheme.dimens.dp8)
+            .padding(all = YourChordsRuTheme.dimens.dp8),
+        contentAlignment = Alignment.Center,
     ) {
         Icon(
             modifier = Modifier
