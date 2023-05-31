@@ -13,7 +13,7 @@ class FavoriteUseCase @Inject constructor(
     override val favoriteAuthorsIds = favoriteAuthorCore.favoriteAuthorsIds
 
     override val favoriteSongsIds = favoriteSongCore.favoriteSongsIds
-    override val favoriteSongsAuthorsIds = favoriteSongCore.favoriteSongsIds
+    override val favoriteSongsAuthorsIds = favoriteSongCore.favoriteSongsAuthorsIds
 
     override suspend fun changeAuthorFavorite(authorId: Int) {
         favoriteAuthorCore.changeAuthorFavorite(authorId = authorId)

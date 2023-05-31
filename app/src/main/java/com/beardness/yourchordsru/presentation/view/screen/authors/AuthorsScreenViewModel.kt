@@ -28,7 +28,7 @@ class AuthorsScreenViewModel @Inject constructor(
 
     override val favoriteSongsAuthorsIds =
         favoriteUseCase
-            .favoriteSongsIds
+            .favoriteSongsAuthorsIds
 
     override fun swapAuthorFavorite(authorId: Int) {
         ioCoroutineScope.launch {

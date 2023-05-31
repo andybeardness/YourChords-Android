@@ -15,7 +15,7 @@ class FavoriteSongCore @Inject constructor(
     override val favoriteSongsAuthorsIds =
         _favoriteSongsFromDb
             .map { favoriteSongEntities ->
-                favoriteSongEntities.map { favoriteSongEntity -> favoriteSongEntity.songId }
+                favoriteSongEntities.map { favoriteSongEntity -> favoriteSongEntity.authorId }
             }
 
     override val favoriteSongsIds =
