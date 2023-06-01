@@ -26,6 +26,10 @@ class SearchScreenViewModel @Inject constructor(
     @IoCoroutineScope private val ioCoroutineScope: CoroutineScope,
 ) : ViewModel(), SearchScreenViewModelProtocol {
 
+    companion object {
+        private const val MIN_INPUT_SIZE = 4
+    }
+
     private val _searchedAuthors = MutableStateFlow<List<SearchedAuthor>>(value = emptyList())
     private val _searchedSongs = MutableStateFlow<List<SearchedSong>>(value = emptyList())
 
@@ -67,9 +71,16 @@ class SearchScreenViewModel @Inject constructor(
 
     override fun search(input: String) {
         ioCoroutineScope.launch {
+            val pattern = input
+                .trim()
+                .lowercase()
+
+            if (pattern.length < MIN_INPUT_SIZE) {
+                return@launch
+            }
+
             loading {
                 val authors = authorsUseCase.authors()
-                val pattern = input.lowercase()
 
                 searchInAuthors(authors = authors, pattern = pattern)
                 searchInSongs(authors = authors, pattern = pattern)

@@ -1,47 +1,52 @@
 package com.beardness.yourchordsru.theme
 
-import androidx.compose.material.MaterialTheme
+import android.os.Build
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.dynamicDarkColorScheme
+import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import com.beardness.yourchordsru.theme.colors.AppColors
-import com.beardness.yourchordsru.theme.colors.LocalExtendedColors
-import com.beardness.yourchordsru.theme.colors.darkColors
-import com.beardness.yourchordsru.theme.colors.lightColors
-import com.beardness.yourchordsru.theme.dimens.AppDimens
-import com.beardness.yourchordsru.theme.dimens.LocalExtendedDimens
-import com.beardness.yourchordsru.theme.dimens.dimens
-import com.beardness.yourchordsru.theme.typography.AppTypography
-import com.beardness.yourchordsru.theme.typography.LocalExtendedTypography
-import com.beardness.yourchordsru.theme.typography.typography
+import androidx.compose.ui.platform.LocalContext
+import com.beardness.yourchordsru.theme.app.colors.AppColors
+import com.beardness.yourchordsru.theme.app.colors.LocalExtendedColors
+import com.beardness.yourchordsru.theme.app.colors.appColors
+import com.beardness.yourchordsru.theme.app.dimens.AppDimens
+import com.beardness.yourchordsru.theme.app.dimens.LocalExtendedDimens
+import com.beardness.yourchordsru.theme.app.dimens.appDimens
+import com.beardness.yourchordsru.theme.m3.colors.DarkColorScheme
+import com.beardness.yourchordsru.theme.m3.colors.LightColorScheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
-fun YourChordsRuTheme(
+fun AppTheme(
+    darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit,
 ) {
-    val isDarkTheme = true
+    val dynamicColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
 
-    val colors =
-        if (isDarkTheme) {
-            darkColors
-        } else {
-            lightColors
-        }
+    val colorScheme = when {
+        dynamicColor && darkTheme -> dynamicDarkColorScheme(LocalContext.current)
+        dynamicColor && !darkTheme -> dynamicLightColorScheme(LocalContext.current)
+        darkTheme -> DarkColorScheme
+        else -> LightColorScheme
+    }
 
     val systemUiController = rememberSystemUiController()
-
-    systemUiController.setSystemBarsColor(color = colors.card)
+    systemUiController.setSystemBarsColor(color = colorScheme.background)
 
     CompositionLocalProvider(
-        LocalExtendedColors provides colors,
-        LocalExtendedDimens provides dimens,
-        LocalExtendedTypography provides typography,
+        LocalExtendedColors provides appColors,
+        LocalExtendedDimens provides appDimens,
     ) {
-        MaterialTheme(content = content)
+        MaterialTheme(
+            colorScheme = colorScheme,
+            content = content
+        )
     }
 }
 
-object YourChordsRuTheme {
+object AppTheme {
     val colors: AppColors
         @Composable
         get() = LocalExtendedColors.current
@@ -49,8 +54,4 @@ object YourChordsRuTheme {
     val dimens: AppDimens
         @Composable
         get() = LocalExtendedDimens.current
-
-    val typography: AppTypography
-        @Composable
-        get() = LocalExtendedTypography.current
 }

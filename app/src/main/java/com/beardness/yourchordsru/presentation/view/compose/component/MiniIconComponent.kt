@@ -3,7 +3,7 @@ package com.beardness.yourchordsru.presentation.view.compose.component
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.Icon
+import androidx.compose.material3.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowForwardIos
 import androidx.compose.runtime.Composable
@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
-import com.beardness.yourchordsru.theme.YourChordsRuTheme
+import com.beardness.yourchordsru.theme.AppTheme
 
 @Composable
 fun MiniIconComponent(
@@ -21,13 +21,13 @@ fun MiniIconComponent(
 ) {
     Box(
         modifier = Modifier
-            .size(size = YourChordsRuTheme.dimens.dp64)
-            .padding(all = YourChordsRuTheme.dimens.dp16),
+            .size(size = AppTheme.dimens.dp64)
+            .padding(all = AppTheme.dimens.dp16),
         contentAlignment = Alignment.Center,
     ) {
         Icon(
             modifier = Modifier
-                .size(size = YourChordsRuTheme.dimens.dp16),
+                .size(size = AppTheme.dimens.dp16),
             imageVector = imageVector,
             contentDescription = null,
             tint = tint,
@@ -40,6 +40,6 @@ fun MiniIconComponent(
 fun Preview_MiniIconComponent() {
     MiniIconComponent(
         imageVector = Icons.Rounded.ArrowForwardIos,
-        tint = Color.White,
+        tint = AppTheme.colors.white,
     )
 }

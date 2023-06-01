@@ -2,21 +2,19 @@ package com.beardness.yourchordsru.presentation.view.compose.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.PersonOutline
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
-import com.beardness.yourchordsru.theme.YourChordsRuTheme
+import com.beardness.yourchordsru.theme.AppTheme
 
 @Composable
 fun AvatarComponent(
@@ -26,24 +24,14 @@ fun AvatarComponent(
 ) {
     Box(
         modifier = Modifier
-            .size(size = YourChordsRuTheme.dimens.dp48)
-            .clip(shape = RoundedCornerShape(percent = 50))
-            .background(color = color)
-            .background(
-                brush = Brush
-                    .linearGradient(
-                        colors = listOf(
-                            Color.White.copy(alpha = .1f),
-                            Color.Black.copy(alpha = .1f),
-                        ),
-                    ),
-            )
-            .padding(all = YourChordsRuTheme.dimens.dp12),
+            .size(size = AppTheme.dimens.dp32)
+            .clip(shape = RoundedCornerShape(size = AppTheme.dimens.dp8))
+            .background(color = color),
         contentAlignment = Alignment.Center,
     ) {
         Icon(
             modifier = Modifier
-                .size(size = YourChordsRuTheme.dimens.dp32),
+                .size(size = AppTheme.dimens.dp32),
             imageVector = imageVector,
             contentDescription = null,
             tint = tint,
@@ -56,8 +44,8 @@ fun AvatarComponent(
 fun Preview_AvatarComponent_ColorBlue() {
     AvatarComponent(
         imageVector = Icons.Rounded.PersonOutline,
-        tint = YourChordsRuTheme.colors.background,
-        color = YourChordsRuTheme.colors.blue,
+        tint = AppTheme.colors.white,
+        color = AppTheme.colors.blue,
     )
 }
 
@@ -66,8 +54,8 @@ fun Preview_AvatarComponent_ColorBlue() {
 fun Preview_AvatarComponent_ColorRed() {
     AvatarComponent(
         imageVector = Icons.Rounded.PersonOutline,
-        tint = YourChordsRuTheme.colors.background,
-        color = YourChordsRuTheme.colors.red,
+        tint = AppTheme.colors.white,
+        color = AppTheme.colors.red,
     )
 }
 
@@ -76,7 +64,7 @@ fun Preview_AvatarComponent_ColorRed() {
 fun Preview_AvatarComponent_ColorGreen() {
     AvatarComponent(
         imageVector = Icons.Rounded.PersonOutline,
-        tint = YourChordsRuTheme.colors.background,
-        color = YourChordsRuTheme.colors.green,
+        tint = AppTheme.colors.white,
+        color = AppTheme.colors.green,
     )
 }

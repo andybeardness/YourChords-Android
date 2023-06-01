@@ -1,4 +1,4 @@
-package com.beardness.yourchordsru.theme.typography
+package com.beardness.yourchordsru.theme.m3.typography
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf

@@ -1,5 +1,7 @@
 package com.beardness.yourchordsru.presentation.view.compose.widget
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -8,14 +10,16 @@ import androidx.compose.material.icons.rounded.ArrowForwardIos
 import androidx.compose.material.icons.rounded.PersonOutline
 import androidx.compose.material.icons.rounded.Star
 import androidx.compose.material.icons.rounded.StarBorder
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.beardness.yourchordsru.presentation.types.FavoriteType
 import com.beardness.yourchordsru.presentation.view.compose.component.*
-import com.beardness.yourchordsru.theme.YourChordsRuTheme
+import com.beardness.yourchordsru.theme.AppTheme
+import com.beardness.yourchordsru.utils.extensions.randomColor
 
 @Composable
 fun AuthorWidget(
@@ -25,27 +29,40 @@ fun AuthorWidget(
     favoriteType: FavoriteType,
     onClickFavorite: () -> Unit,
 ) {
+    val avatarColor = randomColor(
+        input = name,
+        colors = listOf(
+            AppTheme.colors.blue,
+            AppTheme.colors.coral,
+        ),
+        default = AppTheme.colors.blue,
+    )
+
     val favoriteButtonIcon = when (favoriteType) {
         FavoriteType.DEFAULT -> Icons.Rounded.StarBorder
         FavoriteType.FAVORITE -> Icons.Rounded.Star
         FavoriteType.PARTLY -> Icons.Rounded.StarBorder
     }
 
-    val favoriteButtonTint = when (favoriteType) {
-        FavoriteType.DEFAULT -> YourChordsRuTheme.colors.text
-        FavoriteType.FAVORITE -> YourChordsRuTheme.colors.yellow
-        FavoriteType.PARTLY -> YourChordsRuTheme.colors.yellow
-    }
+    val favoriteButtonTint by animateColorAsState(
+        targetValue = when (favoriteType) {
+            FavoriteType.DEFAULT -> MaterialTheme.colorScheme.primary.copy(alpha = .3f)
+            FavoriteType.FAVORITE -> AppTheme.colors.yellow
+            FavoriteType.PARTLY -> AppTheme.colors.yellow
+        },
+        animationSpec = tween(durationMillis = 250),
+    )
 
     Column(
         modifier = Modifier
             .fillMaxWidth()
+            .background(color = MaterialTheme.colorScheme.background)
             .clickable(onClick = onClick),
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = YourChordsRuTheme.dimens.dp8),
+                .padding(vertical = AppTheme.dimens.dp8),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             ButtonComponent(
@@ -56,8 +73,8 @@ fun AuthorWidget(
 
             AvatarComponent(
                 imageVector = Icons.Rounded.PersonOutline,
-                tint = Color.White,
-                color = Color.Blue,
+                tint = AppTheme.colors.white,
+                color = avatarColor,
             )
 
             DescriptionComponent(
@@ -69,15 +86,16 @@ fun AuthorWidget(
 
             MiniIconComponent(
                 imageVector = Icons.Rounded.ArrowForwardIos,
-                tint = Color.White,
+                tint = MaterialTheme.colorScheme.onBackground,
             )
         }
 
         Spacer(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(height = YourChordsRuTheme.dimens.dp1)
-                .background(color = YourChordsRuTheme.colors.text.copy(alpha = .1f)),
+                .padding(start = AppTheme.dimens.dp16)
+                .height(height = AppTheme.dimens.dp1)
+                .background(color = MaterialTheme.colorScheme.onBackground.copy(alpha = .1f)),
         )
     }
 }

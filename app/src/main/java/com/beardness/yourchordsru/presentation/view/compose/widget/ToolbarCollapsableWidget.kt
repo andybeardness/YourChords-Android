@@ -1,17 +1,17 @@
 package com.beardness.yourchordsru.presentation.view.compose.widget
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ExpandLess
 import androidx.compose.material.icons.rounded.ExpandMore
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import com.beardness.yourchordsru.presentation.view.compose.component.ButtonComponent
 import com.beardness.yourchordsru.presentation.view.entity.IconButton
-import com.beardness.yourchordsru.theme.YourChordsRuTheme
+import com.beardness.yourchordsru.theme.AppTheme
 
 @Composable
 fun ToolbarCollapsableWidget(
@@ -35,7 +35,7 @@ fun ToolbarCollapsableWidget(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(height = YourChordsRuTheme.dimens.dp64),
+                .height(height = AppTheme.dimens.dp64),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             ButtonComponent(
@@ -48,12 +48,12 @@ fun ToolbarCollapsableWidget(
                 modifier = Modifier
                     .weight(weight = 1f),
                 text = title,
-                color = Color.White,
+                color = MaterialTheme.colorScheme.onBackground,
             )
 
             ButtonComponent(
                 imageVector = expandIcon,
-                tint = Color.White,
+                tint = MaterialTheme.colorScheme.onBackground,
                 onClick = { isExpanded = !isExpanded },
             )
         }
@@ -62,7 +62,7 @@ fun ToolbarCollapsableWidget(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(height = YourChordsRuTheme.dimens.dp64),
+                    .height(height = AppTheme.dimens.dp64),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceAround,
             ) {

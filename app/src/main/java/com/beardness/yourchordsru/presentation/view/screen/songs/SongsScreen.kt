@@ -1,5 +1,7 @@
 package com.beardness.yourchordsru.presentation.view.screen.songs
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
@@ -9,16 +11,17 @@ import androidx.compose.material.icons.rounded.ArrowBackIos
 import androidx.compose.material.icons.rounded.Star
 import androidx.compose.material.icons.rounded.StarBorder
 import androidx.compose.material.icons.rounded.TrendingUp
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import com.beardness.yourchordsru.presentation.types.FavoriteType
 import com.beardness.yourchordsru.presentation.view.compose.widget.SongWidget
 import com.beardness.yourchordsru.presentation.view.compose.widget.ToolbarWidget
 import com.beardness.yourchordsru.presentation.view.entity.IconButton
 import com.beardness.yourchordsru.presentation.view.screen.songs.types.SongsSortType
+import com.beardness.yourchordsru.theme.AppTheme
 
 @Composable
 fun SongScreen(
@@ -41,16 +44,19 @@ fun SongScreen(
     }
 
     val authorFavoriteIconColor = when (authorFavoriteType) {
-        FavoriteType.DEFAULT -> Color.White
-        FavoriteType.FAVORITE -> Color.Yellow
-        FavoriteType.PARTLY -> Color.Yellow
+        FavoriteType.DEFAULT -> MaterialTheme.colorScheme.onBackground
+        FavoriteType.FAVORITE -> AppTheme.colors.yellow
+        FavoriteType.PARTLY -> AppTheme.colors.yellow
     }
 
-    val sortIconColor = when (sortType) {
-        SongsSortType.DEFAULT -> Color.White
-        SongsSortType.BY_FAVORITE -> Color.Yellow
-        SongsSortType.BY_RATING_COUNT -> Color.Red
-    }
+    val sortIconColor by animateColorAsState(
+        targetValue = when (sortType) {
+            SongsSortType.DEFAULT -> MaterialTheme.colorScheme.onBackground
+            SongsSortType.BY_FAVORITE -> AppTheme.colors.yellow
+            SongsSortType.BY_RATING_COUNT -> AppTheme.colors.purple
+        },
+        animationSpec = tween(durationMillis = 250),
+    )
 
     Column(
         modifier = Modifier
@@ -60,7 +66,7 @@ fun SongScreen(
             title = authorName,
             navigationButton = IconButton(
                 imageVector = Icons.Rounded.ArrowBackIos,
-                tint = Color.White,
+                tint = MaterialTheme.colorScheme.onBackground,
                 onClick = navigateBack
             ),
             actionButton = listOf(

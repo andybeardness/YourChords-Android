@@ -1,17 +1,18 @@
 package com.beardness.yourchordsru.presentation.view.screen.search
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBackIos
 import androidx.compose.material.icons.rounded.Search
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import com.beardness.yourchordsru.presentation.types.FavoriteType
 import com.beardness.yourchordsru.presentation.view.compose.widget.AuthorWidget
 import com.beardness.yourchordsru.presentation.view.compose.widget.SearchToolbarWidget
@@ -41,30 +42,37 @@ fun SearchScreen(
 
     val loading by viewModel.loading.collectAsState(initial = false)
 
+    val onClickSearch: () -> Unit = {
+        viewModel.search(input = input)
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(color = MaterialTheme.colorScheme.background)
     ) {
         SearchToolbarWidget(
             navigation = IconButton(
                 imageVector = Icons.Rounded.ArrowBackIos,
-                tint = Color.White,
+                tint = MaterialTheme.colorScheme.onBackground,
                 onClick = navigateBack,
             ),
             action = IconButton(
                 imageVector = Icons.Rounded.Search,
-                tint = Color.White,
-                onClick = { viewModel.search(input = input) },
+                tint = MaterialTheme.colorScheme.onBackground,
+                onClick = onClickSearch,
             ),
             input = input,
             onValueChange = onValueChange,
-            onClickSearch = { },
+            onClickSearch = onClickSearch,
         )
 
         if (loading) {
             LinearProgressIndicator(
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .fillMaxWidth(),
+                color = MaterialTheme.colorScheme.onPrimary,
+                trackColor = MaterialTheme.colorScheme.primary
             )
         }
 
@@ -82,7 +90,7 @@ fun SearchScreen(
 
                         AuthorWidget(
                             name = author.name,
-                            descriptions = listOf("...", "..."),
+                            descriptions = listOf("...", "..."), // TODO
                             onClick = { navigateSongs(author.id) },
                             favoriteType = favoriteType,
                             onClickFavorite = { viewModel.swapAuthorFavorite(authorId = author.id) },

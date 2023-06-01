@@ -1,21 +1,22 @@
 package com.beardness.yourchordsru.presentation.view.screen.authors
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import com.beardness.yourchordsru.presentation.types.FavoriteType
 import com.beardness.yourchordsru.presentation.view.compose.widget.AuthorWidget
 import com.beardness.yourchordsru.presentation.view.compose.widget.ToolbarWidget
 import com.beardness.yourchordsru.presentation.view.entity.IconButton
 import com.beardness.yourchordsru.presentation.view.screen.authors.types.AuthorsSortType
+import com.beardness.yourchordsru.theme.AppTheme
 
 @Composable
 fun AuthorsScreen(
@@ -29,12 +30,15 @@ fun AuthorsScreen(
     val favoriteAuthorsIds by viewModel.favoriteAuthorsIds.collectAsState(initial = emptyList())
     val favoriteSongsAuthorsIds by viewModel.favoriteSongsAuthorsIds.collectAsState(initial = emptyList())
 
-    val sortIconColor = when (sortType) {
-        AuthorsSortType.DEFAULT -> Color.White
-        AuthorsSortType.BY_FAVORITE -> Color.Yellow
-        AuthorsSortType.BY_RATING_COUNT -> Color.Red
-        AuthorsSortType.BY_SONGS_COUNT -> Color.Blue
-    }
+    val sortIconColor by animateColorAsState(
+        targetValue = when (sortType) {
+            AuthorsSortType.DEFAULT -> MaterialTheme.colorScheme.onBackground
+            AuthorsSortType.BY_FAVORITE -> AppTheme.colors.yellow
+            AuthorsSortType.BY_RATING_COUNT -> AppTheme.colors.coral
+            AuthorsSortType.BY_SONGS_COUNT -> AppTheme.colors.blue
+        },
+        animationSpec = tween(durationMillis = 250),
+    )
 
     Column(
         modifier = Modifier
@@ -44,13 +48,13 @@ fun AuthorsScreen(
             title = "App Name",
             navigationButton = IconButton(
                 imageVector = Icons.Rounded.Tag,
-                tint = Color.White,
+                tint = MaterialTheme.colorScheme.onBackground,
                 onClick = null,
             ),
             actionButton = listOf(
                 IconButton(
                     imageVector = Icons.Rounded.Search,
-                    tint = Color.White,
+                    tint = MaterialTheme.colorScheme.onBackground,
                     onClick = { navigateToSearch() },
                 ),
                 IconButton(

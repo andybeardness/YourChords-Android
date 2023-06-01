@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
+import androidx.compose.material3.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.Composable
@@ -16,7 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
-import com.beardness.yourchordsru.theme.YourChordsRuTheme
+import com.beardness.yourchordsru.theme.AppTheme
 
 @Composable
 fun ButtonComponent(
@@ -26,19 +26,19 @@ fun ButtonComponent(
 ) {
     Box(
         modifier = Modifier
-            .size(size = YourChordsRuTheme.dimens.dp64)
+            .size(size = AppTheme.dimens.dp64)
             .clip(shape = RoundedCornerShape(percent = 50))
             .clickable(
                 enabled = onClick != null,
                 onClick = { onClick?.invoke() },
                 role = Role.Image
             )
-            .padding(all = YourChordsRuTheme.dimens.dp8),
+            .padding(all = AppTheme.dimens.dp8),
         contentAlignment = Alignment.Center,
     ) {
         Icon(
             modifier = Modifier
-                .size(size = YourChordsRuTheme.dimens.dp32),
+                .size(size = AppTheme.dimens.dp32),
             imageVector = imageVector,
             contentDescription = null,
             tint = tint,
@@ -51,7 +51,7 @@ fun ButtonComponent(
 fun Preview_ButtonComponent_Favorite() {
     ButtonComponent(
         imageVector = Icons.Rounded.Star,
-        tint = Color.Yellow,
+        tint = AppTheme.colors.yellow,
         onClick = null,
     )
 }
@@ -61,7 +61,7 @@ fun Preview_ButtonComponent_Favorite() {
 fun Preview_ButtonComponent_FavoriteDefault() {
     ButtonComponent(
         imageVector = Icons.Rounded.StarBorder,
-        tint = Color.White.copy(alpha = .2f),
+        tint = AppTheme.colors.white,
         onClick = null,
     )
 }
@@ -71,7 +71,7 @@ fun Preview_ButtonComponent_FavoriteDefault() {
 fun Preview_ButtonComponent_FavoritePartly() {
     ButtonComponent(
         imageVector = Icons.Rounded.StarBorder,
-        tint = Color.Yellow,
+        tint = AppTheme.colors.yellow,
         onClick = null,
     )
 }
@@ -81,7 +81,7 @@ fun Preview_ButtonComponent_FavoritePartly() {
 fun Preview_ButtonComponent_ArrowForward() {
     ButtonComponent(
         imageVector = Icons.Rounded.ArrowForwardIos,
-        tint = Color.White,
+        tint = AppTheme.colors.white,
         onClick = null,
     )
 }
@@ -91,7 +91,7 @@ fun Preview_ButtonComponent_ArrowForward() {
 fun Preview_ButtonComponent_ArrowBack() {
     ButtonComponent(
         imageVector = Icons.Rounded.ArrowBackIos,
-        tint = Color.White,
+        tint = AppTheme.colors.white,
         onClick = null,
     )
 }
@@ -101,7 +101,7 @@ fun Preview_ButtonComponent_ArrowBack() {
 fun Preview_ButtonComponent_Search() {
     ButtonComponent(
         imageVector = Icons.Rounded.Search,
-        tint = Color.White,
+        tint = AppTheme.colors.white,
         onClick = null,
     )
 }
@@ -111,7 +111,7 @@ fun Preview_ButtonComponent_Search() {
 fun Preview_ButtonComponent_Settings() {
     ButtonComponent(
         imageVector = Icons.Rounded.Tune,
-        tint = Color.White,
+        tint = AppTheme.colors.white,
         onClick = null,
     )
 }
@@ -121,7 +121,7 @@ fun Preview_ButtonComponent_Settings() {
 fun Preview_ButtonComponent_TextIncrease() {
     ButtonComponent(
         imageVector = Icons.Rounded.TextIncrease,
-        tint = Color.White,
+        tint = AppTheme.colors.white,
         onClick = null,
     )
 }
@@ -131,7 +131,7 @@ fun Preview_ButtonComponent_TextIncrease() {
 fun Preview_ButtonComponent_TextDecrease() {
     ButtonComponent(
         imageVector = Icons.Rounded.TextDecrease,
-        tint = Color.White,
+        tint = AppTheme.colors.white,
         onClick = null,
     )
 }
@@ -141,7 +141,7 @@ fun Preview_ButtonComponent_TextDecrease() {
 fun Preview_ButtonComponent_ThemeLight() {
     ButtonComponent(
         imageVector = Icons.Rounded.LightMode,
-        tint = Color.White,
+        tint = AppTheme.colors.white,
         onClick = null,
     )
 }
@@ -151,7 +151,7 @@ fun Preview_ButtonComponent_ThemeLight() {
 fun Preview_ButtonComponent_ThemeDark() {
     ButtonComponent(
         imageVector = Icons.Rounded.LightMode,
-        tint = Color.White.copy(alpha = .2f),
+        tint = AppTheme.colors.white,
         onClick = null,
     )
 }

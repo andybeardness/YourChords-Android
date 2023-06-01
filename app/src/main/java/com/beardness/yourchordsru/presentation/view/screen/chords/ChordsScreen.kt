@@ -7,11 +7,11 @@ import androidx.compose.material.icons.rounded.ArrowBackIos
 import androidx.compose.material.icons.rounded.LightMode
 import androidx.compose.material.icons.rounded.TextDecrease
 import androidx.compose.material.icons.rounded.TextIncrease
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import com.beardness.yourchordsru.presentation.view.compose.widget.ChordsWidget
 import com.beardness.yourchordsru.presentation.view.compose.widget.ToolbarCollapsableWidget
 import com.beardness.yourchordsru.presentation.view.entity.IconButton
@@ -34,23 +34,23 @@ fun ChordsScreen(
             title = title,
             navigation = IconButton(
                 imageVector = Icons.Rounded.ArrowBackIos,
-                tint = Color.White,
+                tint = MaterialTheme.colorScheme.onBackground,
                 onClick = navigateBack,
             ),
             actions = listOf(
                 IconButton(
                     imageVector = Icons.Rounded.TextIncrease,
-                    tint = Color.White,
+                    tint = MaterialTheme.colorScheme.onBackground,
                     onClick = { viewModel.increaseText() },
                 ),
                 IconButton(
                     imageVector = Icons.Rounded.TextDecrease,
-                    tint = Color.White,
+                    tint = MaterialTheme.colorScheme.onBackground,
                     onClick = { viewModel.decreaseText() },
                 ),
                 IconButton(
                     imageVector = Icons.Rounded.LightMode,
-                    tint = Color.White,
+                    tint = MaterialTheme.colorScheme.onBackground,
                     onClick = { viewModel.swapViewMode() },
                 ),
             ),
