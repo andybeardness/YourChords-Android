@@ -47,7 +47,7 @@ fun AuthorsScreen(
             .fillMaxSize()
     ) {
         ToolbarWidget(
-            title = "App Name",
+            title = stringResource(id = R.string.app_name),
             navigationButton = IconButton(
                 imageVector = Icons.Rounded.Tag,
                 tint = MaterialTheme.colorScheme.onBackground,
