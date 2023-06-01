@@ -43,11 +43,15 @@ fun SongScreen(
         FavoriteType.PARTLY -> Icons.Rounded.StarBorder
     }
 
-    val authorFavoriteIconColor = when (authorFavoriteType) {
-        FavoriteType.DEFAULT -> MaterialTheme.colorScheme.onBackground.copy(alpha = .3f)
-        FavoriteType.FAVORITE -> AppTheme.colors.yellow
-        FavoriteType.PARTLY -> AppTheme.colors.yellow
-    }
+    val authorFavoriteIconColor by animateColorAsState(
+        targetValue = when (authorFavoriteType) {
+            FavoriteType.DEFAULT -> MaterialTheme.colorScheme.onBackground.copy(alpha = .3f)
+            FavoriteType.FAVORITE -> AppTheme.colors.yellow
+            FavoriteType.PARTLY -> AppTheme.colors.yellow
+        },
+        animationSpec = tween(durationMillis = 250)
+    )
+
 
     val sortIconColor by animateColorAsState(
         targetValue = when (sortType) {
