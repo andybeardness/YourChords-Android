@@ -7,7 +7,7 @@ class ViewModeHelper @Inject constructor(
 
     override fun viewModeCodeOrDefault(current: Int?, size: Int, default: Int): Int {
         current ?: return default
-        if (current >= size) return  default
+        if (current >= size) return default
         return current
     }
 

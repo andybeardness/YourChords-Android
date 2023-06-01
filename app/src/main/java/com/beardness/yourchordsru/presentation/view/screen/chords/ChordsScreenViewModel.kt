@@ -2,12 +2,12 @@ package com.beardness.yourchordsru.presentation.view.screen.chords
 
 import androidx.lifecycle.ViewModel
 import com.beardness.yourchordsru.di.qualifiers.IoCoroutineScope
-import com.beardness.yourchordsru.helpers.colors.html.HtmlColorHelperProtocol
+import com.beardness.yourchordsru.utils.html.colors.HtmlColorUtilsProtocol
 import com.beardness.yourchordsru.presentation.domain.usecase.authors.AuthorsUseCaseProtocol
 import com.beardness.yourchordsru.presentation.domain.usecase.chords.ChordsUseCaseProtocol
 import com.beardness.yourchordsru.presentation.domain.usecase.songs.SongsUseCaseProtocol
 import com.beardness.yourchordsru.presentation.view.screen.chords.types.ChordsViewMode
-import com.beardness.yourchordsru.utils.html.IHtmlBuilder
+import com.beardness.yourchordsru.utils.html.builder.IHtmlBuilder
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
@@ -20,7 +20,7 @@ class ChordsScreenViewModel @Inject constructor(
     private val songsUseCase: SongsUseCaseProtocol,
     private val chordsUseCase: ChordsUseCaseProtocol,
     private val htmlBuilder: IHtmlBuilder,
-    private val htmlColorHelper: HtmlColorHelperProtocol,
+    private val htmlColorHelper: HtmlColorUtilsProtocol,
     @IoCoroutineScope private val ioCoroutineScope: CoroutineScope,
 ) : ViewModel(), ChordsScreenViewModelProtocol {
 

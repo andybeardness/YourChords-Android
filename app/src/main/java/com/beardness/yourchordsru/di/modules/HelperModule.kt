@@ -1,7 +1,7 @@
 package com.beardness.yourchordsru.di.modules
 
-import com.beardness.yourchordsru.helpers.colors.html.HtmlColorHelper
-import com.beardness.yourchordsru.helpers.colors.html.HtmlColorHelperProtocol
+import com.beardness.yourchordsru.utils.html.colors.HtmlColorUtils
+import com.beardness.yourchordsru.utils.html.colors.HtmlColorUtilsProtocol
 import com.beardness.yourchordsru.helpers.fontsize.FontSizeHelper
 import com.beardness.yourchordsru.helpers.fontsize.FontSizeHelperProtocol
 import com.beardness.yourchordsru.helpers.viewmode.ViewModeHelper
@@ -19,8 +19,8 @@ object HelperModule {
     @Provides
     @Singleton
     fun provideHtmlColorHelper(
-    ): HtmlColorHelperProtocol =
-        HtmlColorHelper()
+    ): HtmlColorUtilsProtocol =
+        HtmlColorUtils()
 
     @Provides
     @Singleton

@@ -8,8 +8,10 @@ object ColorHashHelper {
         val hash = text.hashCode()
 
         val colorsCount = colors.size
+
         if (colorsCount == 0)
             return default
+
         if (colorsCount == 1)
             return colors.first()
 

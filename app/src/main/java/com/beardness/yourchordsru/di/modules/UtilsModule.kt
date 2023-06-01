@@ -1,7 +1,7 @@
 package com.beardness.yourchordsru.di.modules
 
-import com.beardness.yourchordsru.utils.html.HtmlBuilder
-import com.beardness.yourchordsru.utils.html.IHtmlBuilder
+import com.beardness.yourchordsru.utils.html.builder.HtmlBuilder
+import com.beardness.yourchordsru.utils.html.builder.IHtmlBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

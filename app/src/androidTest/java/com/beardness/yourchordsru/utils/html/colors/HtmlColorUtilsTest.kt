@@ -1,107 +1,107 @@
-package com.beardness.yourchordsru.helpers.colors.html
+package com.beardness.yourchordsru.utils.html.colors
 
 import com.beardness.yourchordsru.presentation.view.screen.chords.types.ChordsViewMode
 import com.beardness.yourchordsru.theme.app.colors.appColors
+import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
-import org.junit.Assert.*
 
 @RunWith(JUnit4::class)
-class HtmlColorHelperTest {
+class HtmlColorUtilsTest {
 
-    private val htmlColorHelper: HtmlColorHelperProtocol = HtmlColorHelper()
+    private val htmlColorUtils: HtmlColorUtilsProtocol = HtmlColorUtils()
 
     @Test
-    fun `Mode == LIGHT_BLUE`() {
+    fun `choose_Mode_LIGHT_BLUE`() {
         val mode = ChordsViewMode.LIGHT_BLUE
-        val htmlColors = htmlColorHelper.choose(mode = mode)
+        val htmlColors = htmlColorUtils.choose(mode = mode)
 
-        assertEquals(
+        Assert.assertEquals(
             appColors.white,
             htmlColors.backgroundColor,
         )
-        assertEquals(
+        Assert.assertEquals(
             appColors.black,
             htmlColors.textColor,
         )
-        assertEquals(
+        Assert.assertEquals(
             appColors.blue,
             htmlColors.chordsColor,
         )
     }
 
     @Test
-    fun `Mode == LIGHT_CORAL`() {
+    fun `choose_Mode_LIGHT_CORAL`() {
         val mode = ChordsViewMode.LIGHT_CORAL
-        val htmlColors = htmlColorHelper.choose(mode = mode)
+        val htmlColors = htmlColorUtils.choose(mode = mode)
 
-        assertEquals(
+        Assert.assertEquals(
             appColors.white,
             htmlColors.backgroundColor,
         )
-        assertEquals(
+        Assert.assertEquals(
             appColors.black,
             htmlColors.textColor,
         )
-        assertEquals(
+        Assert.assertEquals(
             appColors.coral,
             htmlColors.chordsColor,
         )
     }
 
     @Test
-    fun `Mode == DARK_ORANGE`() {
+    fun `choose_Mode_DARK_ORANGE`() {
         val mode = ChordsViewMode.DARK_ORANGE
-        val htmlColors = htmlColorHelper.choose(mode = mode)
+        val htmlColors = htmlColorUtils.choose(mode = mode)
 
-        assertEquals(
+        Assert.assertEquals(
             appColors.black,
             htmlColors.backgroundColor,
         )
-        assertEquals(
+        Assert.assertEquals(
             appColors.white,
             htmlColors.textColor,
         )
-        assertEquals(
+        Assert.assertEquals(
             appColors.orange,
             htmlColors.chordsColor,
         )
     }
 
     @Test
-    fun `Mode == DARK_GREEN`() {
+    fun `choose_Mode_DARK_GREEN`() {
         val mode = ChordsViewMode.DARK_GREEN
-        val htmlColors = htmlColorHelper.choose(mode = mode)
+        val htmlColors = htmlColorUtils.choose(mode = mode)
 
-        assertEquals(
+        Assert.assertEquals(
             appColors.black,
             htmlColors.backgroundColor,
         )
-        assertEquals(
+        Assert.assertEquals(
             appColors.white,
             htmlColors.textColor,
         )
-        assertEquals(
+        Assert.assertEquals(
             appColors.green,
             htmlColors.chordsColor,
         )
     }
 
     @Test
-    fun `Mode == SEPIA`() {
+    fun `choose_Mode_SEPIA`() {
         val mode = ChordsViewMode.SEPIA
-        val htmlColors = htmlColorHelper.choose(mode = mode)
+        val htmlColors = htmlColorUtils.choose(mode = mode)
 
-        assertEquals(
+        Assert.assertEquals(
             appColors.sepia,
             htmlColors.backgroundColor,
         )
-        assertEquals(
+        Assert.assertEquals(
             appColors.black,
             htmlColors.textColor,
         )
-        assertEquals(
+        Assert.assertEquals(
             appColors.black,
             htmlColors.chordsColor,
         )

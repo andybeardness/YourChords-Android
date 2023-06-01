@@ -1,12 +1,12 @@
-package com.beardness.yourchordsru.helpers.colors.html
+package com.beardness.yourchordsru.utils.html.colors
 
 import androidx.compose.ui.graphics.Color
 import com.beardness.yourchordsru.presentation.view.screen.chords.types.ChordsViewMode
 import com.beardness.yourchordsru.theme.app.colors.appColors
 import javax.inject.Inject
 
-class HtmlColorHelper @Inject constructor(
-) : HtmlColorHelperProtocol {
+class HtmlColorUtils @Inject constructor(
+) : HtmlColorUtilsProtocol {
 
     override fun choose(mode: ChordsViewMode): HtmlColors =
         HtmlColors(
