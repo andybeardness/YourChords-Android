@@ -2,12 +2,13 @@ package com.beardness.yourchordsru.presentation.view.screen.chords
 
 import androidx.lifecycle.ViewModel
 import com.beardness.yourchordsru.di.qualifiers.IoCoroutineScope
-import com.beardness.yourchordsru.utils.html.colors.HtmlColorUtilsProtocol
 import com.beardness.yourchordsru.presentation.domain.usecase.authors.AuthorsUseCaseProtocol
+import com.beardness.yourchordsru.presentation.domain.usecase.awake.AwakeUseCaseProtocol
 import com.beardness.yourchordsru.presentation.domain.usecase.chords.ChordsUseCaseProtocol
 import com.beardness.yourchordsru.presentation.domain.usecase.songs.SongsUseCaseProtocol
 import com.beardness.yourchordsru.presentation.view.screen.chords.types.ChordsViewMode
 import com.beardness.yourchordsru.utils.html.builder.IHtmlBuilder
+import com.beardness.yourchordsru.utils.html.colors.HtmlColorUtilsProtocol
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
@@ -19,10 +20,15 @@ class ChordsScreenViewModel @Inject constructor(
     private val authorsUseCase: AuthorsUseCaseProtocol,
     private val songsUseCase: SongsUseCaseProtocol,
     private val chordsUseCase: ChordsUseCaseProtocol,
+    private val awakeUseCase: AwakeUseCaseProtocol,
     private val htmlBuilder: IHtmlBuilder,
     private val htmlColorHelper: HtmlColorUtilsProtocol,
     @IoCoroutineScope private val ioCoroutineScope: CoroutineScope,
 ) : ViewModel(), ChordsScreenViewModelProtocol {
+
+    init {
+        awake(signal = true)
+    }
 
     private val _authorId = MutableStateFlow<Int?>(value = null)
     private val _songId = MutableStateFlow<Int?>(value = null)
@@ -109,5 +115,16 @@ class ChordsScreenViewModel @Inject constructor(
         ioCoroutineScope.launch {
             chordsUseCase.swapViewMode()
         }
+    }
+
+    override fun awake(signal: Boolean) {
+        ioCoroutineScope.launch {
+            awakeUseCase.makeAwake(value = signal)
+        }
+    }
+
+    override fun onCleared() {
+        awake(signal = false)
+        super.onCleared()
     }
 }

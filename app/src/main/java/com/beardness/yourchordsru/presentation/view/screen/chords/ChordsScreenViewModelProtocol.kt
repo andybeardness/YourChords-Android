@@ -14,4 +14,5 @@ interface ChordsScreenViewModelProtocol {
     fun swapViewMode()
     fun increaseText()
     fun decreaseText()
+    fun awake(signal: Boolean)
 }

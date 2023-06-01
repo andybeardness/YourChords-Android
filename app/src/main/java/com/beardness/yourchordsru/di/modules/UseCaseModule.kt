@@ -7,6 +7,8 @@ import com.beardness.yourchordsru.presentation.domain.core.settings.SettingsCore
 import com.beardness.yourchordsru.presentation.domain.core.songs.SongsCoreProtocol
 import com.beardness.yourchordsru.presentation.domain.usecase.authors.AuthorsUseCase
 import com.beardness.yourchordsru.presentation.domain.usecase.authors.AuthorsUseCaseProtocol
+import com.beardness.yourchordsru.presentation.domain.usecase.awake.AwakeUseCase
+import com.beardness.yourchordsru.presentation.domain.usecase.awake.AwakeUseCaseProtocol
 import com.beardness.yourchordsru.presentation.domain.usecase.chords.ChordsUseCase
 import com.beardness.yourchordsru.presentation.domain.usecase.chords.ChordsUseCaseProtocol
 import com.beardness.yourchordsru.presentation.domain.usecase.favorite.FavoriteUseCase
@@ -73,4 +75,10 @@ object UseCaseModule {
             favoriteAuthorCore = favoriteAuthorCore,
             favoriteSongCore = favoriteSongCore,
         )
+
+    @Provides
+    @Singleton
+    fun provideAwakeUseCase(
+    ): AwakeUseCaseProtocol =
+        AwakeUseCase()
 }
