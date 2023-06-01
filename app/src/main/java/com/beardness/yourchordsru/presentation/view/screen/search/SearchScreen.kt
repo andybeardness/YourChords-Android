@@ -90,7 +90,10 @@ fun SearchScreen(
 
                         AuthorWidget(
                             name = author.name,
-                            descriptions = listOf("...", "..."), // TODO
+                            descriptions = listOf(
+                                "Songs: ${author.songsCount}",
+                                "Rating: ${author.ratingCount}",
+                            ),
                             onClick = { navigateSongs(author.id) },
                             favoriteType = favoriteType,
                             onClickFavorite = { viewModel.swapAuthorFavorite(authorId = author.id) },
@@ -98,6 +101,7 @@ fun SearchScreen(
                     }
                     is SearchedSong -> {
                         val authorId = searched.authorId
+                        val authorName = searched.authorName
                         val song = searched.song
 
                         val favoriteType = when (song.id) {
@@ -107,7 +111,10 @@ fun SearchScreen(
 
                         SongWidget(
                             title = song.title,
-                            descriptions = listOf("..."),
+                            descriptions = listOf(
+                                "Author: $authorName",
+                                "Rating: ${song.ratingCount}"
+                            ),
                             onClick = { navigateChords(authorId, song.id) },
                             favoriteType = favoriteType,
                             onClickFavorite = { viewModel.swapSongFavorite(authorId = authorId, songId = song.id) },

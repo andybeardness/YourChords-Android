@@ -11,5 +11,6 @@ class SearchedAuthor(
 
 class SearchedSong(
     val authorId: Int,
+    val authorName: String,
     val song: Song,
 ) : Searched()

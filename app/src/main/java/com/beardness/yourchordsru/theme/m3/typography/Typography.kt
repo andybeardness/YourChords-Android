@@ -1,110 +1,100 @@
 package com.beardness.yourchordsru.theme.m3.typography
 
-import androidx.compose.runtime.Immutable
-import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import com.beardness.your_chords_ru.R
 
-@Immutable
-data class AppTypography(
-    val authorNameAtAuthorCard: TextStyle,
-    val songTitleAtSongCard: TextStyle,
-    val authorNameAtSongCard: TextStyle,
-    val chordsAtSongCard: TextStyle,
-    val ratingAtSongCard: TextStyle,
-    val navigationAtDrawer: TextStyle,
-    val titleAtToolbar: TextStyle,
-    val patternAtSearch: TextStyle,
-    val placeholderAtSearch: TextStyle,
-    val tagTitleAtSearchToolbar: TextStyle,
-    val titleAtSettings: TextStyle,
-    val themeTitleAtSettings: TextStyle,
-    val fontSizeTitleAtFontSizeSetting: TextStyle,
-    val charAtSlider: TextStyle,
-    val titleAtSongScreenToolbar: TextStyle,
-)
+private val blackFontFamily = FontFamily(Font(resId = R.font.font_nunito_black))
+private val extraBoldFontFamily = FontFamily(Font(resId = R.font.font_nunito_extrabold))
+private val boldFontFamily = FontFamily(Font(resId = R.font.font_nunito_bold))
+private val semiBoldFontFamily = FontFamily(Font(resId = R.font.font_nunito_semibold))
+private val mediumFontFamily = FontFamily(Font(resId = R.font.font_nunito_medium))
+private val regularFontFamily = FontFamily(Font(resId = R.font.font_nunito_regular))
+private val lightFontFamily = FontFamily(Font(resId = R.font.font_nunito_light))
+private val extraLightFontFamily = FontFamily(Font(resId = R.font.font_nunito_extralight))
 
-val typography = AppTypography(
-    authorNameAtAuthorCard = TextStyle(
-        fontSize = 20.sp,
-        fontWeight = FontWeight.Light,
+val Typography = Typography(
+    displayLarge = TextStyle(
+        fontSize = 26.sp,
+        fontWeight = FontWeight.Normal,
+        fontFamily = boldFontFamily,
     ),
-    songTitleAtSongCard = TextStyle(
-        fontSize = 16.sp,
-        fontWeight = FontWeight.Light,
-    ),
-    authorNameAtSongCard = TextStyle(
-        fontSize = 16.sp,
-        fontWeight = FontWeight.ExtraLight,
-    ),
-    chordsAtSongCard = TextStyle(
-        fontSize = 14.sp,
-        fontWeight = FontWeight.ExtraLight,
-    ),
-    ratingAtSongCard = TextStyle(
-        fontSize = 14.sp,
-        fontWeight = FontWeight.ExtraLight,
-        textAlign = TextAlign.Center,
-    ),
-    navigationAtDrawer = TextStyle(
-        fontSize = 18.sp,
-        fontWeight = FontWeight.Light,
-    ),
-    titleAtToolbar = TextStyle(
+    displayMedium = TextStyle(
         fontSize = 24.sp,
-        fontWeight = FontWeight.Light,
+        fontWeight = FontWeight.Normal,
+        fontFamily = boldFontFamily,
     ),
-    patternAtSearch = TextStyle(
+    displaySmall = TextStyle(
+        fontSize = 22.sp,
+        fontWeight = FontWeight.Normal,
+        fontFamily = boldFontFamily,
+    ),
+
+    headlineLarge = TextStyle(
+        fontSize = 24.sp,
+        fontWeight = FontWeight.Normal,
+        fontFamily = semiBoldFontFamily,
+    ),
+    headlineMedium = TextStyle(
+        fontSize = 22.sp,
+        fontWeight = FontWeight.Normal,
+        fontFamily = semiBoldFontFamily,
+    ),
+    headlineSmall = TextStyle(
+        fontSize = 20.sp,
+        fontWeight = FontWeight.Normal,
+        fontFamily = semiBoldFontFamily,
+    ),
+
+    titleLarge = TextStyle(
+        fontSize = 20.sp,
+        fontWeight = FontWeight.Normal,
+        fontFamily = mediumFontFamily,
+    ),
+    titleMedium = TextStyle(
         fontSize = 18.sp,
-        fontWeight = FontWeight.Light,
+        fontWeight = FontWeight.Normal,
+        fontFamily = mediumFontFamily,
     ),
-    placeholderAtSearch = TextStyle(
-        fontSize = 18.sp,
-        fontWeight = FontWeight.ExtraLight,
+    titleSmall = TextStyle(
+        fontSize = 16.sp,
+        fontWeight = FontWeight.Normal,
+        fontFamily = mediumFontFamily,
     ),
-    tagTitleAtSearchToolbar = TextStyle(
+
+    bodyLarge = TextStyle(
+        fontSize = 16.sp,
+        fontWeight = FontWeight.Normal,
+        fontFamily = regularFontFamily,
+    ),
+    bodyMedium = TextStyle(
         fontSize = 14.sp,
-        fontWeight = FontWeight.Light,
+        fontWeight = FontWeight.Normal,
+        fontFamily = regularFontFamily,
     ),
-    titleAtSettings = TextStyle(
-        fontSize = 22.sp,
-        fontWeight = FontWeight.Light,
+    bodySmall = TextStyle(
+        fontSize = 12.sp,
+        fontWeight = FontWeight.Normal,
+        fontFamily = regularFontFamily,
     ),
-    themeTitleAtSettings = TextStyle(
-        fontSize = 18.sp,
-        fontWeight = FontWeight.ExtraLight,
+
+    labelLarge = TextStyle(
+        fontSize = 14.sp,
+        fontWeight = FontWeight.Normal,
+        fontFamily = lightFontFamily,
     ),
-    fontSizeTitleAtFontSizeSetting = TextStyle(
-        fontWeight = FontWeight.Light,
+    labelMedium = TextStyle(
+        fontSize = 12.sp,
+        fontWeight = FontWeight.Normal,
+        fontFamily = lightFontFamily,
     ),
-    charAtSlider = TextStyle(
-        fontSize = 22.sp,
-        fontWeight = FontWeight.Light,
-    ),
-    titleAtSongScreenToolbar = TextStyle(
-        fontSize = 22.sp,
-        fontWeight = FontWeight.ExtraLight,
+    labelSmall = TextStyle(
+        fontSize = 10.sp,
+        fontWeight = FontWeight.Normal,
+        fontFamily = lightFontFamily,
     ),
 )
-
-val LocalExtendedTypography = staticCompositionLocalOf {
-    AppTypography(
-        authorNameAtAuthorCard = typography.authorNameAtAuthorCard,
-        songTitleAtSongCard = typography.songTitleAtSongCard,
-        authorNameAtSongCard = typography.authorNameAtSongCard,
-        chordsAtSongCard = typography.chordsAtSongCard,
-        ratingAtSongCard = typography.ratingAtSongCard,
-        navigationAtDrawer = typography.navigationAtDrawer,
-        titleAtToolbar = typography.titleAtToolbar,
-        patternAtSearch = typography.patternAtSearch,
-        placeholderAtSearch = typography.placeholderAtSearch,
-        tagTitleAtSearchToolbar = typography.tagTitleAtSearchToolbar,
-        titleAtSettings = typography.titleAtSettings,
-        themeTitleAtSettings = typography.themeTitleAtSettings,
-        fontSizeTitleAtFontSizeSetting = typography.fontSizeTitleAtFontSizeSetting,
-        charAtSlider = typography.charAtSlider,
-        titleAtSongScreenToolbar = typography.titleAtSongScreenToolbar,
-    )
-}

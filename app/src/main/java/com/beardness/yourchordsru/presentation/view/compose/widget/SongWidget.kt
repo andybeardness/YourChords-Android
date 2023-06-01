@@ -45,7 +45,7 @@ fun SongWidget(
 
     val favoriteButtonTint by animateColorAsState(
         targetValue = when (favoriteType) {
-            FavoriteType.DEFAULT -> MaterialTheme.colorScheme.primary.copy(alpha = .3f)
+            FavoriteType.DEFAULT -> MaterialTheme.colorScheme.onBackground.copy(alpha = .3f)
             FavoriteType.FAVORITE -> AppTheme.colors.yellow
             FavoriteType.PARTLY -> AppTheme.colors.yellow
         },

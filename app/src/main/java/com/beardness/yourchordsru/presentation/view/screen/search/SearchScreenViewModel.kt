@@ -80,6 +80,8 @@ class SearchScreenViewModel @Inject constructor(
             }
 
             loading {
+                clearSearch()
+
                 val authors = authorsUseCase.authors()
 
                 searchInAuthors(authors = authors, pattern = pattern)
@@ -98,6 +100,11 @@ class SearchScreenViewModel @Inject constructor(
         ioCoroutineScope.launch {
             favoriteUseCase.changeSongFavorite(authorId = authorId, songId = songId)
         }
+    }
+
+    private suspend fun clearSearch() {
+        _searchedAuthors.emit(value = emptyList())
+        _searchedSongs.emit(value = emptyList())
     }
 
     private suspend fun searchInAuthors(
@@ -134,7 +141,13 @@ class SearchScreenViewModel @Inject constructor(
                             .lowercase()
                             .contains(other = pattern)
                     }
-                    .map { song -> SearchedSong(song = song, authorId = author.id) }
+                    .map { song ->
+                        SearchedSong(
+                            song = song,
+                            authorId = author.id,
+                            authorName = author.name,
+                        )
+                    }
 
             searched.addAll(elements = searchedSongs)
         }

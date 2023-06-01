@@ -49,6 +49,7 @@ fun ToolbarCollapsableWidget(
                     .weight(weight = 1f),
                 text = title,
                 color = MaterialTheme.colorScheme.onBackground,
+                style = MaterialTheme.typography.headlineMedium,
             )
 
             ButtonComponent(

@@ -8,7 +8,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.sp
 import com.beardness.yourchordsru.theme.AppTheme
 
 @Composable
@@ -26,8 +25,8 @@ fun DescriptionComponent(
                 .fillMaxWidth(),
             text = title,
             maxLines = 2,
-            color = MaterialTheme.colorScheme.primary,
-            fontSize = 16.sp,
+            color = MaterialTheme.colorScheme.onBackground,
+            style = MaterialTheme.typography.titleMedium,
         )
 
         descriptions.forEach { description ->
@@ -36,8 +35,8 @@ fun DescriptionComponent(
                     .fillMaxWidth(),
                 text = description,
                 maxLines = 1,
-                color = MaterialTheme.colorScheme.primary.copy(alpha = .75f),
-                fontSize = 14.sp,
+                color = MaterialTheme.colorScheme.onBackground.copy(alpha = .75f),
+                style = MaterialTheme.typography.bodyMedium,
             )
         }
     }

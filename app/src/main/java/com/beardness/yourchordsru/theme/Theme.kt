@@ -16,6 +16,7 @@ import com.beardness.yourchordsru.theme.app.dimens.LocalExtendedDimens
 import com.beardness.yourchordsru.theme.app.dimens.appDimens
 import com.beardness.yourchordsru.theme.m3.colors.DarkColorScheme
 import com.beardness.yourchordsru.theme.m3.colors.LightColorScheme
+import com.beardness.yourchordsru.theme.m3.typography.Typography
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
@@ -35,12 +36,15 @@ fun AppTheme(
     val systemUiController = rememberSystemUiController()
     systemUiController.setSystemBarsColor(color = colorScheme.background)
 
+    val typography = Typography
+
     CompositionLocalProvider(
         LocalExtendedColors provides appColors,
         LocalExtendedDimens provides appDimens,
     ) {
         MaterialTheme(
             colorScheme = colorScheme,
+            typography = typography,
             content = content
         )
     }

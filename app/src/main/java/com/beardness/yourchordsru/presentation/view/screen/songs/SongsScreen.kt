@@ -44,7 +44,7 @@ fun SongScreen(
     }
 
     val authorFavoriteIconColor = when (authorFavoriteType) {
-        FavoriteType.DEFAULT -> MaterialTheme.colorScheme.onBackground
+        FavoriteType.DEFAULT -> MaterialTheme.colorScheme.onBackground.copy(alpha = .3f)
         FavoriteType.FAVORITE -> AppTheme.colors.yellow
         FavoriteType.PARTLY -> AppTheme.colors.yellow
     }

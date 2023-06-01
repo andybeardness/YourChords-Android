@@ -83,8 +83,10 @@ fun SearchToolbarWidget(
                 Text(
                     text = "Input your search",
                     color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = .5f),
+                    style = MaterialTheme.typography.bodyMedium,
                 )
             },
+            textStyle = MaterialTheme.typography.bodyMedium,
         )
 
         ButtonComponent(
