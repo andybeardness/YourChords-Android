@@ -32,6 +32,9 @@ fun ChordsScreen(
     val title by viewModel.songTitle.collectAsState(initial = "")
     val chords by viewModel.chords.collectAsState(initial = "")
 
+    val isMaxFontSize by viewModel.isMaxFontSize.collectAsState(initial = false)
+    val isMinFontSize by viewModel.isMinFontSize.collectAsState(initial = false)
+
     val viewModeButtonColor by animateColorAsState(
         targetValue = when (viewMode) {
             ChordsViewMode.LIGHT_BLUE -> AppTheme.colors.blue
@@ -41,6 +44,24 @@ fun ChordsScreen(
             ChordsViewMode.SEPIA -> MaterialTheme.colorScheme.primary.copy(alpha = .3f)
         },
         animationSpec = tween(durationMillis = 250),
+    )
+
+    val textIncreaseButtonColor by animateColorAsState(
+        targetValue = if (isMaxFontSize) {
+            MaterialTheme.colorScheme.onBackground.copy(alpha = .3f)
+        } else {
+            MaterialTheme.colorScheme.onBackground
+        },
+        animationSpec = tween(durationMillis = 250)
+    )
+
+    val textDecreaseButtonColor by animateColorAsState(
+        targetValue = if (isMinFontSize) {
+            MaterialTheme.colorScheme.onBackground.copy(alpha = .3f)
+        } else {
+            MaterialTheme.colorScheme.onBackground
+        },
+        animationSpec = tween(durationMillis = 250)
     )
 
     Column(
@@ -59,12 +80,12 @@ fun ChordsScreen(
             actions = listOf(
                 IconButton(
                     imageVector = Icons.Rounded.TextIncrease,
-                    tint = MaterialTheme.colorScheme.onBackground,
+                    tint = textIncreaseButtonColor,
                     onClick = { viewModel.increaseText() },
                 ),
                 IconButton(
                     imageVector = Icons.Rounded.TextDecrease,
-                    tint = MaterialTheme.colorScheme.onBackground,
+                    tint = textDecreaseButtonColor,
                     onClick = { viewModel.decreaseText() },
                 ),
                 IconButton(

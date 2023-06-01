@@ -3,6 +3,7 @@ package com.beardness.yourchordsru.di.modules
 import com.beardness.yourchordsru.presentation.domain.core.authors.AuthorsCoreProtocol
 import com.beardness.yourchordsru.presentation.domain.core.favorite.author.FavoriteAuthorCoreProtocol
 import com.beardness.yourchordsru.presentation.domain.core.favorite.song.FavoriteSongCoreProtocol
+import com.beardness.yourchordsru.presentation.domain.core.settings.SettingsCoreProtocol
 import com.beardness.yourchordsru.presentation.domain.core.songs.SongsCoreProtocol
 import com.beardness.yourchordsru.presentation.domain.usecase.authors.AuthorsUseCase
 import com.beardness.yourchordsru.presentation.domain.usecase.authors.AuthorsUseCaseProtocol
@@ -55,9 +56,11 @@ object UseCaseModule {
     @Singleton
     fun provideChordsUseCase(
         songsCore: SongsCoreProtocol,
+        settingsCore: SettingsCoreProtocol,
     ): ChordsUseCaseProtocol =
         ChordsUseCase(
             songsCore = songsCore,
+            settingsCore = settingsCore,
         )
 
     @Provides

@@ -3,7 +3,6 @@ package com.beardness.yourchordsru.presentation.view.screen.chords
 import androidx.lifecycle.ViewModel
 import com.beardness.yourchordsru.di.qualifiers.IoCoroutineScope
 import com.beardness.yourchordsru.helpers.colors.html.HtmlColorHelperProtocol
-import com.beardness.yourchordsru.helpers.viewmode.ViewModeChooseHelperProtocol
 import com.beardness.yourchordsru.presentation.domain.usecase.authors.AuthorsUseCaseProtocol
 import com.beardness.yourchordsru.presentation.domain.usecase.chords.ChordsUseCaseProtocol
 import com.beardness.yourchordsru.presentation.domain.usecase.songs.SongsUseCaseProtocol
@@ -22,16 +21,18 @@ class ChordsScreenViewModel @Inject constructor(
     private val chordsUseCase: ChordsUseCaseProtocol,
     private val htmlBuilder: IHtmlBuilder,
     private val htmlColorHelper: HtmlColorHelperProtocol,
-    private val viewModeChooseHelper: ViewModeChooseHelperProtocol,
     @IoCoroutineScope private val ioCoroutineScope: CoroutineScope,
 ) : ViewModel(), ChordsScreenViewModelProtocol {
 
     private val _authorId = MutableStateFlow<Int?>(value = null)
     private val _songId = MutableStateFlow<Int?>(value = null)
-    private val _fontSizePx = MutableStateFlow(value = 14)
+    private val _fontSizePx = chordsUseCase.fontSize
 
-    private val _viewMode = MutableStateFlow(value = ChordsViewMode.LIGHT_BLUE)
-    override val viewMode = _viewMode.asStateFlow()
+    override val isMaxFontSize = chordsUseCase.isMaxFontSize
+    override val isMinFontSize = chordsUseCase.isMinFontSize
+
+    override val viewMode = chordsUseCase.viewMode
+        .map { viewModeCode -> ChordsViewMode.fromCode(code = viewModeCode) }
 
     override val authorName =
         _authorId
@@ -64,7 +65,7 @@ class ChordsScreenViewModel @Inject constructor(
             _authorId,
             _songId,
             _fontSizePx,
-            _viewMode,
+            viewMode,
         ) { authorId, songId, fontSizePx, viewMode ->
             authorId ?: return@combine null
             songId ?: return@combine null
@@ -94,26 +95,19 @@ class ChordsScreenViewModel @Inject constructor(
 
     override fun increaseText() {
         ioCoroutineScope.launch {
-            if (_fontSizePx.value < 24) {
-                val newFontSizePx = _fontSizePx.value + 2
-                _fontSizePx.emit(value = newFontSizePx)
-            }
+            chordsUseCase.increaseFontSize()
         }
     }
 
     override fun decreaseText() {
         ioCoroutineScope.launch {
-            if (_fontSizePx.value > 12) {
-                val newFontSizePx = _fontSizePx.value - 2
-                _fontSizePx.emit(value = newFontSizePx)
-            }
+            chordsUseCase.decreaseFontSize()
         }
     }
 
     override fun swapViewMode() {
         ioCoroutineScope.launch {
-            val newViewMode = viewModeChooseHelper.choose(current = _viewMode.value)
-            _viewMode.emit(value = newViewMode)
+            chordsUseCase.swapViewMode()
         }
     }
 }

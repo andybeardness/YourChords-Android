@@ -3,13 +3,8 @@ package com.beardness.yourchordsru.presentation.data.storage.keys
 import androidx.datastore.preferences.core.*
 
 enum class DataStoreKey(val type: DataStoreKeyType) {
-    THEME_CODE(type = DataStoreKeyType.INTEGER),
-    BACKGROUND_COLOR(type = DataStoreKeyType.LONG),
-    TEXT_COLOR(type = DataStoreKeyType.LONG),
-    CHORDS_COLOR(type = DataStoreKeyType.LONG),
     FONT_SIZE(type = DataStoreKeyType.INTEGER),
-    AUTHOR_SORT_TYPE(type = DataStoreKeyType.INTEGER),
-    SONG_SORT_TYPE(type = DataStoreKeyType.INTEGER),
+    VIEW_MODE(type = DataStoreKeyType.INTEGER),
 }
 
 fun DataStoreKey.booleanPreferenceKey() = booleanPreferencesKey(name = this.name)

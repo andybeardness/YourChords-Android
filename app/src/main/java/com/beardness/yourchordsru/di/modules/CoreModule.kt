@@ -1,9 +1,12 @@
 package com.beardness.yourchordsru.di.modules
 
+import com.beardness.yourchordsru.helpers.fontsize.FontSizeHelperProtocol
+import com.beardness.yourchordsru.helpers.viewmode.ViewModeHelperProtocol
 import com.beardness.yourchordsru.presentation.data.database.dao.FavoriteAuthorsDao
 import com.beardness.yourchordsru.presentation.data.database.dao.FavoriteSongsDao
 import com.beardness.yourchordsru.presentation.data.reader.csv.authors.AuthorsCsvReaderProtocol
 import com.beardness.yourchordsru.presentation.data.reader.csv.songs.SongsCsvReaderProtocol
+import com.beardness.yourchordsru.presentation.data.storage.AppDataStoreProtocol
 import com.beardness.yourchordsru.presentation.domain.core.authors.AuthorsCore
 import com.beardness.yourchordsru.presentation.domain.core.authors.AuthorsCoreProtocol
 import com.beardness.yourchordsru.presentation.domain.core.favorite.author.FavoriteAuthorCore
@@ -58,8 +61,15 @@ object CoreModule {
     @Provides
     @Singleton
     fun provideSettingsCore(
+        appDataStore: AppDataStoreProtocol,
+        fontSizeHelper: FontSizeHelperProtocol,
+        viewModeChooseHelper: ViewModeHelperProtocol,
     ): SettingsCoreProtocol =
-        SettingsCore()
+        SettingsCore(
+            appDataStore = appDataStore,
+            fontSizeHelper = fontSizeHelper,
+            viewModeChooseHelper = viewModeChooseHelper,
+        )
 
     @Provides
     @Singleton
