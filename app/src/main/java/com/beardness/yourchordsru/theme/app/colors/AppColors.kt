@@ -17,6 +17,7 @@ data class AppColors(
     val red: Color,
     val orange: Color,
     val yellow: Color,
+    val sepia: Color,
 )
 
 val LocalExtendedColors = staticCompositionLocalOf {
@@ -32,6 +33,7 @@ val LocalExtendedColors = staticCompositionLocalOf {
         red = Color.Unspecified,
         orange = Color.Unspecified,
         yellow = Color.Unspecified,
+        sepia = Color.Unspecified,
     )
 }
 
@@ -47,4 +49,5 @@ val appColors = AppColors(
     red = Color(color = 0xFFFF3030),
     orange = Color(color = 0xFFFF9500),
     yellow = Color(color = 0xFFFFCC00),
+    sepia = Color(color = 0xFFF5DEB3)
 )

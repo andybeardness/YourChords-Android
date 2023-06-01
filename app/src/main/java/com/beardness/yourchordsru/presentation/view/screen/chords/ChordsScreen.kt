@@ -2,6 +2,7 @@ package com.beardness.yourchordsru.presentation.view.screen.chords
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,20 +21,24 @@ import com.beardness.yourchordsru.presentation.view.compose.widget.ChordsWidget
 import com.beardness.yourchordsru.presentation.view.compose.widget.ToolbarCollapsableWidget
 import com.beardness.yourchordsru.presentation.view.entity.IconButton
 import com.beardness.yourchordsru.presentation.view.screen.chords.types.ChordsViewMode
+import com.beardness.yourchordsru.theme.AppTheme
 
 @Composable
 fun ChordsScreen(
     viewModel: ChordsScreenViewModelProtocol,
     navigateBack: () -> Unit,
 ) {
-    val viewMode by viewModel.viewMode.collectAsState(initial = ChordsViewMode.LIGHT)
+    val viewMode by viewModel.viewMode.collectAsState(initial = ChordsViewMode.LIGHT_BLUE)
     val title by viewModel.songTitle.collectAsState(initial = "")
     val chords by viewModel.chords.collectAsState(initial = "")
 
     val viewModeButtonColor by animateColorAsState(
         targetValue = when (viewMode) {
-            ChordsViewMode.LIGHT -> MaterialTheme.colorScheme.onBackground
-            ChordsViewMode.DARK -> MaterialTheme.colorScheme.onBackground.copy(alpha = .3f)
+            ChordsViewMode.LIGHT_BLUE -> AppTheme.colors.blue
+            ChordsViewMode.LIGHT_CORAL -> AppTheme.colors.coral
+            ChordsViewMode.DARK_ORANGE -> AppTheme.colors.orange
+            ChordsViewMode.DARK_GREEN -> AppTheme.colors.green
+            ChordsViewMode.SEPIA -> MaterialTheme.colorScheme.primary.copy(alpha = .3f)
         },
         animationSpec = tween(durationMillis = 250),
     )
@@ -41,6 +46,7 @@ fun ChordsScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(color = MaterialTheme.colorScheme.background)
     ) {
 
         ToolbarCollapsableWidget(

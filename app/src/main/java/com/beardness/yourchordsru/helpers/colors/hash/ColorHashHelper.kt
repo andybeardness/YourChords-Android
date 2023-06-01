@@ -1,4 +1,4 @@
-package com.beardness.yourchordsru.helpers.colors
+package com.beardness.yourchordsru.helpers.colors.hash
 
 import androidx.compose.ui.graphics.Color
 

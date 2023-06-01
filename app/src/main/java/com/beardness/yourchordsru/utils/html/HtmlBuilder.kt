@@ -18,10 +18,22 @@ class HtmlBuilder @Inject constructor() : IHtmlBuilder {
         return """<!DOCTYPE html>
     <html lang="en">
     <head>
-      <title></title>
+      
     </head>
     <body>
         <style type="text/css" scoped>
+            @font-face {
+                font-family: ScpNormal;
+                src: url('file:///android_asset/fonts/scp_regular.ttf');
+                font-weight: normal
+            }
+            
+            @font-face {
+                font-family: ScpBold;
+                src: url('file:///android_asset/fonts/scp_regular.ttf');
+                font-weight: bold
+            }
+            
             * {
                 margin: 0;
                 padding: 0;
@@ -34,17 +46,17 @@ class HtmlBuilder @Inject constructor() : IHtmlBuilder {
             }
             
             pre {
+                font-family: ScpNormal;
                 white-space: pre-wrap;
                 color: ${textColor.htmlStyle};
                 font-family: monospace;
                 line-height: 1.5;
                 font-size: ${textSizePx.fontSizePxHtmlStyle};
-                font-weight: 100;
             }
             
             b {
+                font-family: ScpBold;
                 color: ${chordsColor.htmlStyle};
-                font-weight: 100;
             }
         </style>
         <pre>

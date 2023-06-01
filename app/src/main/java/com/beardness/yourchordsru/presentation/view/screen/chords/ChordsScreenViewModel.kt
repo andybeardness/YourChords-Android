@@ -1,8 +1,9 @@
 package com.beardness.yourchordsru.presentation.view.screen.chords
 
-import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import com.beardness.yourchordsru.di.qualifiers.IoCoroutineScope
+import com.beardness.yourchordsru.helpers.colors.html.HtmlColorHelperProtocol
+import com.beardness.yourchordsru.helpers.viewmode.ViewModeChooseHelperProtocol
 import com.beardness.yourchordsru.presentation.domain.usecase.authors.AuthorsUseCaseProtocol
 import com.beardness.yourchordsru.presentation.domain.usecase.chords.ChordsUseCaseProtocol
 import com.beardness.yourchordsru.presentation.domain.usecase.songs.SongsUseCaseProtocol
@@ -20,6 +21,8 @@ class ChordsScreenViewModel @Inject constructor(
     private val songsUseCase: SongsUseCaseProtocol,
     private val chordsUseCase: ChordsUseCaseProtocol,
     private val htmlBuilder: IHtmlBuilder,
+    private val htmlColorHelper: HtmlColorHelperProtocol,
+    private val viewModeChooseHelper: ViewModeChooseHelperProtocol,
     @IoCoroutineScope private val ioCoroutineScope: CoroutineScope,
 ) : ViewModel(), ChordsScreenViewModelProtocol {
 
@@ -27,7 +30,7 @@ class ChordsScreenViewModel @Inject constructor(
     private val _songId = MutableStateFlow<Int?>(value = null)
     private val _fontSizePx = MutableStateFlow(value = 14)
 
-    private val _viewMode = MutableStateFlow(value = ChordsViewMode.LIGHT)
+    private val _viewMode = MutableStateFlow(value = ChordsViewMode.LIGHT_BLUE)
     override val viewMode = _viewMode.asStateFlow()
 
     override val authorName =
@@ -71,26 +74,13 @@ class ChordsScreenViewModel @Inject constructor(
                     .chords(authorId = authorId, songId = songId)
                     ?: return@combine null
 
-            val backgroundColor = when (viewMode) {
-                ChordsViewMode.LIGHT -> Color.White
-                ChordsViewMode.DARK -> Color.Black
-            }
-
-            val textColor = when (viewMode) {
-                ChordsViewMode.LIGHT -> Color.Black
-                ChordsViewMode.DARK -> Color.White
-            }
-
-            val chordsColor = when (viewMode) {
-                ChordsViewMode.LIGHT -> Color.Blue
-                ChordsViewMode.DARK -> Color.Yellow
-            }
+            val htmlColors = htmlColorHelper.choose(mode = viewMode)
 
             htmlBuilder.html(
                 content = rawChords,
-                backgroundColor = backgroundColor,
-                textColor = textColor,
-                chordsColor = chordsColor,
+                backgroundColor = htmlColors.backgroundColor,
+                textColor = htmlColors.textColor,
+                chordsColor = htmlColors.chordsColor,
                 textSizePx = fontSizePx,
             )
         }.filterNotNull()
@@ -122,11 +112,7 @@ class ChordsScreenViewModel @Inject constructor(
 
     override fun swapViewMode() {
         ioCoroutineScope.launch {
-            val newViewMode = when (_viewMode.value) {
-                ChordsViewMode.LIGHT -> ChordsViewMode.DARK
-                ChordsViewMode.DARK -> ChordsViewMode.LIGHT
-            }
-
+            val newViewMode = viewModeChooseHelper.choose(current = _viewMode.value)
             _viewMode.emit(value = newViewMode)
         }
     }

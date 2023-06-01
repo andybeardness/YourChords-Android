@@ -4,7 +4,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
-import com.beardness.yourchordsru.helpers.colors.ColorHashHelper
+import com.beardness.yourchordsru.helpers.colors.hash.ColorHashHelper
 import com.beardness.yourchordsru.theme.AppTheme
 
 val Color.htmlStyle: String
