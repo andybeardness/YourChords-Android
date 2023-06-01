@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.Role
@@ -23,6 +24,7 @@ fun ButtonComponent(
     imageVector: ImageVector,
     tint: Color,
     onClick: (() -> Unit)?,
+    rotation: Float = 0f,
 ) {
     Box(
         modifier = Modifier
@@ -38,7 +40,8 @@ fun ButtonComponent(
     ) {
         Icon(
             modifier = Modifier
-                .size(size = AppTheme.dimens.dp32),
+                .size(size = AppTheme.dimens.dp32)
+                .rotate(degrees = rotation),
             imageVector = imageVector,
             contentDescription = null,
             tint = tint,

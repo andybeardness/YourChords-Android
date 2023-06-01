@@ -10,12 +10,13 @@ import androidx.compose.ui.viewinterop.AndroidView
 
 @Composable
 fun ChordsWidget(
+    modifier: Modifier,
     chords: String,
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
+        modifier = modifier
     ) {
+
         AndroidView(
             factory = { context ->
                 WebView(context).apply {

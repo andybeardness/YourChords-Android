@@ -26,7 +26,9 @@ class ChordsScreenViewModel @Inject constructor(
     private val _authorId = MutableStateFlow<Int?>(value = null)
     private val _songId = MutableStateFlow<Int?>(value = null)
     private val _fontSizePx = MutableStateFlow(value = 14)
+
     private val _viewMode = MutableStateFlow(value = ChordsViewMode.LIGHT)
+    override val viewMode = _viewMode.asStateFlow()
 
     override val authorName =
         _authorId
