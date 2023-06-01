@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBackIos
 import androidx.compose.material.icons.rounded.Star
@@ -15,6 +16,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.beardness.your_chords_ru.R
@@ -24,6 +26,7 @@ import com.beardness.yourchordsru.presentation.view.compose.widget.ToolbarWidget
 import com.beardness.yourchordsru.presentation.view.entity.IconButton
 import com.beardness.yourchordsru.presentation.view.screen.songs.types.SongsSortType
 import com.beardness.yourchordsru.theme.AppTheme
+import kotlinx.coroutines.launch
 
 @Composable
 fun SongScreen(
@@ -31,6 +34,26 @@ fun SongScreen(
     navigateBack: () -> Unit,
     navigateChords: (authorId: Int, songId: Int) -> Unit,
 ) {
+
+    val coroutineScope = rememberCoroutineScope()
+    val listState = rememberLazyListState()
+
+    val adaptiveScrollOnTop: (index: Int) -> Unit = { index ->
+        coroutineScope.launch {
+            if (index >= 10) {
+                listState.scrollToItem(index = 10)
+            }
+
+            listState.animateScrollToItem(index = 0)
+        }
+    }
+
+    val smoothScrollOnTop: () -> Unit = {
+        coroutineScope.launch {
+            val firstVisibleIndex = listState.firstVisibleItemIndex
+            adaptiveScrollOnTop(firstVisibleIndex)
+        }
+    }
 
     val sortType by viewModel.sortType.collectAsState(initial = SongsSortType.DEFAULT)
     val authorId by viewModel.authorId.collectAsState(initial = -1)
@@ -82,10 +105,13 @@ fun SongScreen(
                     tint = sortIconColor,
                     onClick = { viewModel.swapSortType() },
                 ),
-            )
+            ),
+            onClickToolbarTitle = smoothScrollOnTop,
         )
 
-        LazyColumn {
+        LazyColumn(
+            state = listState
+        ) {
             items(items = songs) { song ->
                 val favoriteType = when (song.id) {
                     in favoriteSongsIds -> FavoriteType.FAVORITE

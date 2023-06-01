@@ -12,18 +12,21 @@ import androidx.compose.ui.Modifier
 import com.beardness.yourchordsru.presentation.view.compose.component.ButtonComponent
 import com.beardness.yourchordsru.presentation.view.entity.IconButton
 import com.beardness.yourchordsru.theme.AppTheme
+import com.beardness.yourchordsru.utils.extensions.clickableHapticNoRipple
 
 @Composable
 fun ToolbarWidget(
     title: String,
     navigationButton: IconButton,
     actionButton: List<IconButton>,
+    onClickToolbarTitle: () -> Unit = {},
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .height(height = AppTheme.dimens.dp64)
-            .background(color = MaterialTheme.colorScheme.background),
+            .background(color = MaterialTheme.colorScheme.background)
+            .clickableHapticNoRipple(action = onClickToolbarTitle),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         ButtonComponent(

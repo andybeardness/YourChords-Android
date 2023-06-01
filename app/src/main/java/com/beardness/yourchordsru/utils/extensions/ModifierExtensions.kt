@@ -27,13 +27,19 @@ fun Modifier.clickableHaptic(
     )
 }
 
-fun Modifier.clickableHapticNoRipple(action: () -> Unit) =
+fun Modifier.clickableHapticNoRipple(
+    action: () -> Unit,
+    enabled: Boolean = true,
+    role: Role? = null,
+) =
     composed {
         val haptic = LocalHapticFeedback.current
 
         this.clickable(
             interactionSource = remember { MutableInteractionSource() },
-            indication = null
+            indication = null,
+            enabled = enabled,
+            role = role,
         ) {
             action()
             haptic.performLongClick()

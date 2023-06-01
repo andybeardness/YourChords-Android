@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.*
 import androidx.compose.material3.MaterialTheme
@@ -19,6 +20,7 @@ import com.beardness.yourchordsru.presentation.view.entity.IconButton
 import com.beardness.yourchordsru.presentation.view.screen.authors.types.AuthorsSortType
 import com.beardness.yourchordsru.theme.AppTheme
 import com.beardness.your_chords_ru.R
+import kotlinx.coroutines.launch
 
 @Composable
 fun AuthorsScreen(
@@ -26,6 +28,26 @@ fun AuthorsScreen(
     navigateToSongs: (authorId: Int) -> Unit,
     navigateToSearch: () -> Unit,
 ) {
+
+    val coroutineScope = rememberCoroutineScope()
+    val listState = rememberLazyListState()
+
+    val adaptiveScrollOnTop: (index: Int) -> Unit = { index ->
+        coroutineScope.launch {
+            if (index >= 10) {
+                listState.scrollToItem(index = 10)
+            }
+
+            listState.animateScrollToItem(index = 0)
+        }
+    }
+
+    val smoothScrollOnTop: () -> Unit = {
+        coroutineScope.launch {
+            val firstVisibleIndex = listState.firstVisibleItemIndex
+            adaptiveScrollOnTop(firstVisibleIndex)
+        }
+    }
 
     val sortType by viewModel.sortType.collectAsState(initial = AuthorsSortType.DEFAULT)
     val authors by viewModel.authors.collectAsState(initial = emptyList())
@@ -65,9 +87,12 @@ fun AuthorsScreen(
                     onClick = { viewModel.swapSortType() },
                 ),
             ),
+            onClickToolbarTitle = smoothScrollOnTop
         )
 
-        LazyColumn {
+        LazyColumn(
+            state = listState,
+        ) {
             items(items = authors) { author ->
                 val favoriteType = when (author.id) {
                     in favoriteAuthorsIds -> FavoriteType.FAVORITE
