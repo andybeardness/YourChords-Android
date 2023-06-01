@@ -13,6 +13,7 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import com.beardness.yourchordsru.presentation.types.FavoriteType
 import com.beardness.yourchordsru.presentation.view.compose.widget.AuthorWidget
 import com.beardness.yourchordsru.presentation.view.compose.widget.SearchToolbarWidget
@@ -20,6 +21,7 @@ import com.beardness.yourchordsru.presentation.view.compose.widget.SongWidget
 import com.beardness.yourchordsru.presentation.view.entity.IconButton
 import com.beardness.yourchordsru.presentation.view.screen.search.types.SearchedAuthor
 import com.beardness.yourchordsru.presentation.view.screen.search.types.SearchedSong
+import com.beardness.your_chords_ru.R
 
 @Composable
 fun SearchScreen(
@@ -91,8 +93,8 @@ fun SearchScreen(
                         AuthorWidget(
                             name = author.name,
                             descriptions = listOf(
-                                "Songs: ${author.songsCount}",
-                                "Rating: ${author.ratingCount}",
+                                stringResource(id = R.string.songs_count, author.songsCount),
+                                stringResource(id = R.string.rating_count, author.ratingCount),
                             ),
                             onClick = { navigateSongs(author.id) },
                             favoriteType = favoriteType,
@@ -112,8 +114,8 @@ fun SearchScreen(
                         SongWidget(
                             title = song.title,
                             descriptions = listOf(
-                                "Author: $authorName",
-                                "Rating: ${song.ratingCount}"
+                                stringResource(id = R.string.author_name, authorName),
+                                stringResource(id = R.string.rating_count, song.ratingCount),
                             ),
                             onClick = { navigateChords(authorId, song.id) },
                             favoriteType = favoriteType,

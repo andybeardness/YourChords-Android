@@ -35,7 +35,7 @@ fun DescriptionComponent(
                     .fillMaxWidth(),
                 text = description,
                 maxLines = 1,
-                color = MaterialTheme.colorScheme.onBackground.copy(alpha = .75f),
+                color = MaterialTheme.colorScheme.onBackground.copy(alpha = .5f),
                 style = MaterialTheme.typography.bodyMedium,
             )
         }

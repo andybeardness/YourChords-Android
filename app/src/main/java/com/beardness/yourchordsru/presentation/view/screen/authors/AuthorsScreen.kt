@@ -11,12 +11,14 @@ import androidx.compose.material.icons.rounded.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import com.beardness.yourchordsru.presentation.types.FavoriteType
 import com.beardness.yourchordsru.presentation.view.compose.widget.AuthorWidget
 import com.beardness.yourchordsru.presentation.view.compose.widget.ToolbarWidget
 import com.beardness.yourchordsru.presentation.view.entity.IconButton
 import com.beardness.yourchordsru.presentation.view.screen.authors.types.AuthorsSortType
 import com.beardness.yourchordsru.theme.AppTheme
+import com.beardness.your_chords_ru.R
 
 @Composable
 fun AuthorsScreen(
@@ -73,8 +75,8 @@ fun AuthorsScreen(
                     else -> FavoriteType.DEFAULT
                 }
 
-                val songsCountDescription = "Songs: ${author.songsCount}"
-                val ratingCountDescription = "Rating: ${author.ratingCount}"
+                val songsCountDescription = stringResource(id = R.string.songs_count, author.songsCount)
+                val ratingCountDescription = stringResource(id = R.string.rating_count, author.ratingCount)
 
                 val descriptions = listOf(
                     songsCountDescription,

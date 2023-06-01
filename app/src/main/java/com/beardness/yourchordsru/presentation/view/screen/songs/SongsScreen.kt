@@ -16,6 +16,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.beardness.your_chords_ru.R
 import com.beardness.yourchordsru.presentation.types.FavoriteType
 import com.beardness.yourchordsru.presentation.view.compose.widget.SongWidget
 import com.beardness.yourchordsru.presentation.view.compose.widget.ToolbarWidget
@@ -48,8 +50,7 @@ fun SongScreen(
             FavoriteType.DEFAULT -> MaterialTheme.colorScheme.onBackground.copy(alpha = .3f)
             FavoriteType.FAVORITE -> AppTheme.colors.yellow
             FavoriteType.PARTLY -> AppTheme.colors.yellow
-        },
-        animationSpec = tween(durationMillis = 250)
+        }, animationSpec = tween(durationMillis = 250)
     )
 
 
@@ -63,17 +64,14 @@ fun SongScreen(
     )
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
+        modifier = Modifier.fillMaxSize()
     ) {
         ToolbarWidget(
-            title = authorName,
-            navigationButton = IconButton(
+            title = authorName, navigationButton = IconButton(
                 imageVector = Icons.Rounded.ArrowBackIos,
                 tint = MaterialTheme.colorScheme.onBackground,
                 onClick = navigateBack
-            ),
-            actionButton = listOf(
+            ), actionButton = listOf(
                 IconButton(
                     imageVector = authorFavoriteIcon,
                     tint = authorFavoriteIconColor,
@@ -94,7 +92,8 @@ fun SongScreen(
                     else -> FavoriteType.DEFAULT
                 }
 
-                val songRatingDescription = "Rating: ${song.ratingCount}"
+                val songRatingDescription =
+                    stringResource(id = R.string.rating_count, song.ratingCount)
 
                 val descriptions = listOf(
                     songRatingDescription
