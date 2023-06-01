@@ -41,7 +41,7 @@ fun ChordsScreen(
             ChordsViewMode.LIGHT_CORAL -> AppTheme.colors.coral
             ChordsViewMode.DARK_ORANGE -> AppTheme.colors.orange
             ChordsViewMode.DARK_GREEN -> AppTheme.colors.green
-            ChordsViewMode.SEPIA -> MaterialTheme.colorScheme.primary.copy(alpha = .3f)
+            ChordsViewMode.SEPIA -> MaterialTheme.colorScheme.onBackground
         },
         animationSpec = tween(durationMillis = 250),
     )
