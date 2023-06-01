@@ -79,4 +79,10 @@ class AuthorsScreenViewModel @Inject constructor(
             _sortType.emit(value = nextSortType)
         }
     }
+
+    override fun resetSortType() {
+        ioCoroutineScope.launch {
+            _sortType.emit(value = AuthorsSortType.DEFAULT)
+        }
+    }
 }

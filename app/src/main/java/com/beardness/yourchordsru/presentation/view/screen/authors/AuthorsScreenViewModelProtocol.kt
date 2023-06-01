@@ -13,4 +13,5 @@ interface AuthorsScreenViewModelProtocol {
     fun swapAuthorFavorite(authorId: Int)
     val sortType: StateFlow<AuthorsSortType>
     fun swapSortType()
+    fun resetSortType()
 }

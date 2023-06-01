@@ -1,5 +1,6 @@
 package com.beardness.yourchordsru.presentation.view.screen.authors
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Column
@@ -62,6 +63,11 @@ fun AuthorsScreen(
             AuthorsSortType.BY_SONGS_COUNT -> AppTheme.colors.blue
         },
         animationSpec = tween(durationMillis = 250),
+    )
+
+    BackHandler(
+        enabled = sortType != AuthorsSortType.DEFAULT,
+        onBack = { viewModel.resetSortType() }
     )
 
     Column(
