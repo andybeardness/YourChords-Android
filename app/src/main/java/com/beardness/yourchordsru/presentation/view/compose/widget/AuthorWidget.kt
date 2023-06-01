@@ -3,7 +3,6 @@ package com.beardness.yourchordsru.presentation.view.compose.widget
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowForwardIos
@@ -17,8 +16,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.beardness.yourchordsru.presentation.types.FavoriteType
-import com.beardness.yourchordsru.presentation.view.compose.component.*
+import com.beardness.yourchordsru.presentation.view.compose.component.AvatarComponent
+import com.beardness.yourchordsru.presentation.view.compose.component.ButtonComponent
+import com.beardness.yourchordsru.presentation.view.compose.component.DescriptionComponent
+import com.beardness.yourchordsru.presentation.view.compose.component.MiniIconComponent
 import com.beardness.yourchordsru.theme.AppTheme
+import com.beardness.yourchordsru.utils.extensions.clickableHaptic
 import com.beardness.yourchordsru.utils.extensions.randomColor
 
 @Composable
@@ -57,7 +60,7 @@ fun AuthorWidget(
         modifier = Modifier
             .fillMaxWidth()
             .background(color = MaterialTheme.colorScheme.background)
-            .clickable(onClick = onClick),
+            .clickableHaptic(action = onClick),
     ) {
         Row(
             modifier = Modifier

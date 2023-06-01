@@ -1,13 +1,12 @@
 package com.beardness.yourchordsru.presentation.view.compose.component
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.*
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,6 +17,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import com.beardness.yourchordsru.theme.AppTheme
+import com.beardness.yourchordsru.utils.extensions.clickableHaptic
 
 @Composable
 fun ButtonComponent(
@@ -30,9 +30,9 @@ fun ButtonComponent(
         modifier = Modifier
             .size(size = AppTheme.dimens.dp64)
             .clip(shape = RoundedCornerShape(percent = 50))
-            .clickable(
+            .clickableHaptic(
                 enabled = onClick != null,
-                onClick = { onClick?.invoke() },
+                action = { onClick?.invoke() },
                 role = Role.Image
             )
             .padding(all = AppTheme.dimens.dp8),
