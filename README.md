@@ -47,6 +47,13 @@ An application with a collection of songs with chords in Russian and English
 | ![](/preview/screenshots/chords.png) | ![](/preview/screenshots/chords_coral.png) | ![](/preview/screenshots/chords_orange.png) |
 | ![](/preview/screenshots/chords_green.png) | ![](/preview/screenshots/chords_sepia.png) | |
 
+## Font scales
+
+|   |   |   |
+| - | - | - |
+| ![](/preview/screenshots/chords_font_0.png) | ![](/preview/screenshots/chords_font_1.png) | ![](/preview/screenshots/chords_font_2.png) |
+| ![](/preview/screenshots/chords_font_3.png) | ![](/preview/screenshots/chords_font_4.png) | ![](/preview/screenshots/chords_font_5.png) |
+| ![](/preview/screenshots/chords_font_6.png) | ![](/preview/screenshots/chords_font_7.png) | ![](/preview/screenshots/chords_font_8.png) |
 
 
 
