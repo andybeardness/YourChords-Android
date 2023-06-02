@@ -6,7 +6,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.beardness.your_chords_ru.R
+import com.beardness.yourchordsru.R
 
 private val blackFontFamily = FontFamily(Font(resId = R.font.font_nunito_black))
 private val extraBoldFontFamily = FontFamily(Font(resId = R.font.font_nunito_extrabold))

@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace 'com.beardness.your_chords_ru'
+    namespace 'com.beardness.yourchordsru'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.beardness.your_chords_ru"
+        applicationId "com.beardness.yourchordsru"
         minSdk 24
         targetSdk 33
         versionCode 1

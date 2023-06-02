@@ -19,7 +19,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import com.beardness.your_chords_ru.R
+import com.beardness.yourchordsru.R
 import com.beardness.yourchordsru.presentation.types.FavoriteType
 import com.beardness.yourchordsru.presentation.view.compose.widget.SongWidget
 import com.beardness.yourchordsru.presentation.view.compose.widget.ToolbarWidget

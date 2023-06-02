@@ -21,7 +21,7 @@ import com.beardness.yourchordsru.presentation.view.compose.widget.SongWidget
 import com.beardness.yourchordsru.presentation.view.entity.IconButton
 import com.beardness.yourchordsru.presentation.view.screen.search.types.SearchedAuthor
 import com.beardness.yourchordsru.presentation.view.screen.search.types.SearchedSong
-import com.beardness.your_chords_ru.R
+import com.beardness.yourchordsru.R
 
 @Composable
 fun SearchScreen(

@@ -20,7 +20,7 @@ import com.beardness.yourchordsru.presentation.view.compose.widget.ToolbarWidget
 import com.beardness.yourchordsru.presentation.view.entity.IconButton
 import com.beardness.yourchordsru.presentation.view.screen.authors.types.AuthorsSortType
 import com.beardness.yourchordsru.theme.AppTheme
-import com.beardness.your_chords_ru.R
+import com.beardness.yourchordsru.R
 import kotlinx.coroutines.launch
 
 @Composable
