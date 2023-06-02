@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Аккорды</string>
+
+    <string name="songs_count">Песен: %1$d</string>
+    <string name="rating_count">Рейтинг: %1$d</string>
+    <string name="author_name">Автор: %1$s</string>
+</resources>

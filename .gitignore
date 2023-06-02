@@ -1,3 +1,4 @@
+# STUDIO
 *.iml
 .gradle
 /local.properties
@@ -13,3 +14,10 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# SELF
+data_authors.csv
+data_songs/
+.idea
+python/
+admob.properties

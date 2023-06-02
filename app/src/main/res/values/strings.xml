@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">your-chords-ru</string>
+    <string name="app_name">Chords</string>
+
+    <string name="songs_count">Songs: %1$d</string>
+    <string name="rating_count">Rating: %1$d</string>
+    <string name="author_name">Author: %1$s</string>
 </resources>

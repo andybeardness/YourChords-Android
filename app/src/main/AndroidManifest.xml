@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        android:name="com.beardness.yourchordsru.app.YourChordsRuApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -11,10 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Yourchordsru"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3615977563460088~9091730573"/>
+
         <activity
-            android:name=".MainActivity"
+            android:name="com.beardness.yourchordsru.activity.MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.Yourchordsru">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
