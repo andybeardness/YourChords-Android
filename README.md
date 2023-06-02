@@ -44,9 +44,9 @@ An application with a collection of songs with chords in Russian and English
 
 |   |   |   |
 | - | - | - |
-| ![](/preview/dynamic/dc_red_0.png) | ![](/preview/dynamic/dc_red_1.png) | ![](/preview/dynamic/dc_red_2.png) |
-| ![](/preview/dynamic/dc_green_0.png) | ![](/preview/dynamic/dc_green_1.png) | ![](/preview/dynamic/dc_green_2.png) |
-| ![](/preview/dynamic/dc_purple_0.png) | ![](/preview/dynamic/dc_purple_1.png) | ![](/preview/dynamic/dc_purple_2.png) |
+| ![](/preview/dynamic/dc_red_0.jpg) | ![](/preview/dynamic/dc_red_1.jpg) | ![](/preview/dynamic/dc_red_2.jpg) |
+| ![](/preview/dynamic/dc_green_0.jpg) | ![](/preview/dynamic/dc_green_1.jpg) | ![](/preview/dynamic/dc_green_2.jpg) |
+| ![](/preview/dynamic/dc_purple_0.jpg) | ![](/preview/dynamic/dc_purple_1.jpg) | ![](/preview/dynamic/dc_purple_2.jpg) |
 
 
 ## Chords styles
