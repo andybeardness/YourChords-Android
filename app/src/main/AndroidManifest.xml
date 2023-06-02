@@ -12,6 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Yourchordsru"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3615977563460088~9091730573"/>
+
         <activity
             android:name="com.beardness.yourchordsru.activity.MainActivity"
             android:exported="true"

@@ -1,5 +1,6 @@
 package com.beardness.yourchordsru.navigation
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -19,7 +20,7 @@ import com.beardness.yourchordsru.presentation.view.screen.songs.SongScreen
 import com.beardness.yourchordsru.presentation.view.screen.songs.SongsScreenViewModel
 
 @Composable
-fun Navigation() {
+fun Navigation(paddingValues: PaddingValues?) {
     val navController = rememberNavController()
 
     val navigateBack: () -> Unit = {
@@ -48,11 +49,13 @@ fun Navigation() {
         ) {
             val viewModel = hiltViewModel<AuthorsScreenViewModel>()
 
-            AuthorsScreen(
-                viewModel = viewModel,
-                navigateToSongs = navigateSongs,
-                navigateToSearch = navigateSearch,
-            )
+            ScreenBox(paddingValues = paddingValues) {
+                AuthorsScreen(
+                    viewModel = viewModel,
+                    navigateToSongs = navigateSongs,
+                    navigateToSearch = navigateSearch,
+                )
+            }
         }
 
         composable(
@@ -68,11 +71,13 @@ fun Navigation() {
                     setup(authorId = authorId)
                 }
 
-            SongScreen(
-                viewModel = viewModel,
-                navigateBack = navigateBack,
-                navigateChords = navigateChords,
-            )
+            ScreenBox(paddingValues = paddingValues) {
+                SongScreen(
+                    viewModel = viewModel,
+                    navigateBack = navigateBack,
+                    navigateChords = navigateChords,
+                )
+            }
         }
 
         composable(
@@ -87,10 +92,12 @@ fun Navigation() {
             val viewModel = hiltViewModel<ChordsScreenViewModel>()
             viewModel.setup(authorId = authorId, songId = songId)
 
-            ChordsScreen(
-                viewModel = viewModel,
-                navigateBack = navigateBack,
-            )
+            ScreenBox(paddingValues = paddingValues) {
+                ChordsScreen(
+                    viewModel = viewModel,
+                    navigateBack = navigateBack,
+                )
+            }
         }
 
         composable(
@@ -98,12 +105,14 @@ fun Navigation() {
         ) {
             val viewModel = hiltViewModel<SearchScreenViewModel>()
 
-            SearchScreen(
-                viewModel = viewModel,
-                navigateBack = navigateBack,
-                navigateSongs = navigateSongs,
-                navigateChords = navigateChords,
-            )
+            ScreenBox(paddingValues = paddingValues) {
+                SearchScreen(
+                    viewModel = viewModel,
+                    navigateBack = navigateBack,
+                    navigateSongs = navigateSongs,
+                    navigateChords = navigateChords,
+                )
+            }
         }
     }
 }

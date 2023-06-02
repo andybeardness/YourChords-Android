@@ -10,6 +10,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.lifecycleScope
+import com.beardness.yourchordsru.ad.compose.scaffold.AdScaffold
 import com.beardness.yourchordsru.navigation.Navigation
 import com.beardness.yourchordsru.presentation.domain.usecase.awake.AwakeState
 import com.beardness.yourchordsru.theme.AppTheme
@@ -34,7 +35,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    Navigation()
+                    AdScaffold { paddingValues ->
+                        Navigation(paddingValues = paddingValues)
+                    }
                 }
             }
         }

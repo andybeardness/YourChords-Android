@@ -5,6 +5,13 @@ plugins {
     id 'com.google.dagger.hilt.android'
 }
 
+def adMobPropertiesFile = rootProject.file("admob.properties")
+def adMobProperties = new Properties()
+adMobProperties.load(new FileInputStream(adMobPropertiesFile))
+
+def ADMOB_BOTTOM_BANNER_ID_RELEASE = adMobProperties['ADMOB_BOTTOM_BANNER_ID_RELEASE']
+def ADMOB_BOTTOM_BANNER_ID_DEBUG = adMobProperties['ADMOB_BOTTOM_BANNER_ID_DEBUG']
+
 android {
     namespace 'com.beardness.yourchordsru'
     compileSdk 33
@@ -26,6 +33,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "ADMOB_BOTTOM_BANNER_ID", ADMOB_BOTTOM_BANNER_ID_RELEASE)
+        }
+
+        debug {
+            buildConfigField("String", "ADMOB_BOTTOM_BANNER_ID", ADMOB_BOTTOM_BANNER_ID_DEBUG)
         }
     }
     compileOptions {
@@ -90,6 +102,9 @@ dependencies {
 
     // Splash screen
     implementation "androidx.core:core-splashscreen:1.0.1"
+
+    // Ad
+    implementation 'com.google.android.gms:play-services-ads:22.1.0'
 }
 
 kapt {
