@@ -42,9 +42,11 @@ An application with a collection of songs with chords in Russian and English
 
 ## Chords styles
 
-|   |   |   |   |   |
-| - | - | - | - | - |
-| ![](/preview/screenshots/chords.png) | ![](/preview/screenshots/chords_coral.png) | ![](/preview/screenshots/chords_orange.png) | ![](/preview/screenshots/chords_green.png) | ![](/preview/screenshots/chords_sepia.png) |
+|   |   |
+| - | - |
+| ![](/preview/screenshots/chords.png) | ![](/preview/screenshots/chords_coral.png) |
+| ![](/preview/screenshots/chords_orange.png) | ![](/preview/screenshots/chords_green.png) |
+| ![](/preview/screenshots/chords_sepia.png) | |
 
 
 
