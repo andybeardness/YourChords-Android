@@ -40,6 +40,15 @@ An application with a collection of songs with chords in Russian and English
 | ![](/preview/screenshots/authors.png) | ![](/preview/screenshots/songs.png) | ![](/preview/screenshots/chords.png) |
 | ![](/preview/screenshots/authors_dark.png) | ![](/preview/screenshots/songs_dark.png) | ![](/preview/screenshots/chords_dark.png) |
 
+## Dynamic colors
+
+|   |   |   |
+| - | - | - |
+| ![](/preview/dynamic/dc_red_0.png) | ![](/preview/dynamic/dc_red_1.png) | ![](/preview/dynamic/dc_red_2.png) |
+| ![](/preview/dynamic/dc_green_0.png) | ![](/preview/dynamic/dc_green_1.png) | ![](/preview/dynamic/dc_green_2.png) |
+| ![](/preview/dynamic/dc_purple_0.png) | ![](/preview/dynamic/dc_purple_1.png) | ![](/preview/dynamic/dc_purple_2.png) |
+
+
 ## Chords styles
 
 |   |   |   |
@@ -57,13 +66,12 @@ An application with a collection of songs with chords in Russian and English
 
 ## Locales
 
-- English
-- Russian
+- **English**
+- **Russian**
 
 |   |   |   |
 | - | - | - |
 | ![](/preview/screenshots/authors.png) | ![](/preview/screenshots/songs.png) | ![](/preview/screenshots/chords.png) |
 | ![](/preview/screenshots/authors_en.png) | ![](/preview/screenshots/songs_en.png) | ![](/preview/screenshots/chords_en.png) |
-
 
 
