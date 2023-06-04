@@ -4,7 +4,6 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -27,8 +26,9 @@ import kotlinx.coroutines.launch
 @Composable
 fun AuthorsScreen(
     viewModel: AuthorsScreenViewModelProtocol,
-    navigateToSongs: (authorId: Int) -> Unit,
-    navigateToSearch: () -> Unit,
+    navigateSongs: (authorId: Int) -> Unit,
+    navigateSearch: () -> Unit,
+    navigateAbout: () -> Unit,
 ) {
 
     val coroutineScope = rememberCoroutineScope()
@@ -80,13 +80,13 @@ fun AuthorsScreen(
             navigationButton = IconButton(
                 imageVector = Icons.Rounded.Tag,
                 tint = MaterialTheme.colorScheme.onBackground,
-                onClick = null,
+                onClick = { navigateAbout() },
             ),
             actionButton = listOf(
                 IconButton(
                     imageVector = Icons.Rounded.Search,
                     tint = MaterialTheme.colorScheme.onBackground,
-                    onClick = { navigateToSearch() },
+                    onClick = { navigateSearch() },
                 ),
                 IconButton(
                     imageVector = Icons.Rounded.TrendingUp,
@@ -118,7 +118,7 @@ fun AuthorsScreen(
                 AuthorWidget(
                     name = author.name,
                     descriptions = descriptions,
-                    onClick = { navigateToSongs(author.id) },
+                    onClick = { navigateSongs(author.id) },
                     favoriteType = favoriteType,
                     onClickFavorite = { viewModel.swapAuthorFavorite(authorId = author.id) },
                 )

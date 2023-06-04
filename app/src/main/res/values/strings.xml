@@ -4,4 +4,12 @@
     <string name="songs_count">Songs: %1$d</string>
     <string name="rating_count">Rating: %1$d</string>
     <string name="author_name">Author: %1$s</string>
+
+    <string name="about">About</string>
+
+    <string name="about_main">The application with chords to songs in Russian and English</string>
+    <string name="about_content">The app has 841 authors and 68,885 songs</string>
+    <string name="about_user_data">The application does not collect any personal data of users</string>
+
+    <string name="privacy_policy">Privacy policy</string>
 </resources>

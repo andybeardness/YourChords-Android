@@ -5,4 +5,11 @@
     <string name="songs_count">Песен: %1$d</string>
     <string name="rating_count">Рейтинг: %1$d</string>
     <string name="author_name">Автор: %1$s</string>
+    <string name="about">О приложении</string>
+
+    <string name="about_main">Приложение с аккордами к песням на русском и английском языках</string>
+    <string name="about_content">Приложение насчитывает 841 автора и 68 885 песен</string>
+    <string name="about_user_data">Приложение не собирает никаких персональных данных пользователей</string>
+    <string name="privacy_policy">Политика конфиденциальности</string>
+
 </resources>

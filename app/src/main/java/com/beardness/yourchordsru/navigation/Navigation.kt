@@ -10,6 +10,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.beardness.yourchordsru.presentation.view.screen.about.AboutScreen
+import com.beardness.yourchordsru.presentation.view.screen.about.AboutScreenViewModel
 import com.beardness.yourchordsru.presentation.view.screen.authors.AuthorsScreen
 import com.beardness.yourchordsru.presentation.view.screen.authors.AuthorsScreenViewModel
 import com.beardness.yourchordsru.presentation.view.screen.chords.ChordsScreen
@@ -39,6 +41,10 @@ fun Navigation(paddingValues: PaddingValues?) {
         navController.navigate(route = "search")
     }
 
+    val navigateAbout: () -> Unit = {
+        navController.navigate(route = "about")
+    }
+
     NavHost(
         modifier = Modifier.fillMaxSize(),
         navController = navController,
@@ -52,8 +58,9 @@ fun Navigation(paddingValues: PaddingValues?) {
             ScreenBox(paddingValues = paddingValues) {
                 AuthorsScreen(
                     viewModel = viewModel,
-                    navigateToSongs = navigateSongs,
-                    navigateToSearch = navigateSearch,
+                    navigateSongs = navigateSongs,
+                    navigateSearch = navigateSearch,
+                    navigateAbout = navigateAbout,
                 )
             }
         }
@@ -113,6 +120,17 @@ fun Navigation(paddingValues: PaddingValues?) {
                     navigateChords = navigateChords,
                 )
             }
+        }
+
+        composable(
+            route = "about",
+        ) {
+            val viewModel = hiltViewModel<AboutScreenViewModel>()
+
+            AboutScreen(
+                viewModel = viewModel,
+                navigateBack = navigateBack,
+            )
         }
     }
 }
