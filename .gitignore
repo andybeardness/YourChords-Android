@@ -21,3 +21,5 @@ data_songs/
 .idea
 python/
 admob.properties
+keystore.properties
+app/release

@@ -12,6 +12,15 @@ adMobProperties.load(new FileInputStream(adMobPropertiesFile))
 def ADMOB_BOTTOM_BANNER_ID_RELEASE = adMobProperties['ADMOB_BOTTOM_BANNER_ID_RELEASE']
 def ADMOB_BOTTOM_BANNER_ID_DEBUG = adMobProperties['ADMOB_BOTTOM_BANNER_ID_DEBUG']
 
+def keyStorePropertiesFile = rootProject.file("keystore.properties")
+def keyStoreProperties = new Properties()
+keyStoreProperties.load(new FileInputStream(keyStorePropertiesFile))
+
+def KEYSTORE_PATH = keyStoreProperties["KEYSTORE_PATH"]
+def KEYSTORE_PASSWORD = keyStoreProperties["KEYSTORE_PASSWORD"]
+def KEY_ALIAS = keyStoreProperties["KEY_ALIAS"]
+def KEY_PASSWORD = keyStoreProperties["KEY_PASSWORD"]
+
 android {
     namespace 'com.beardness.yourchordsru'
     compileSdk 33
@@ -29,30 +38,45 @@ android {
         }
     }
 
+    signingConfigs {
+        release {
+            storeFile file(KEYSTORE_PATH)
+            storePassword KEYSTORE_PASSWORD
+            keyAlias KEY_ALIAS
+            keyPassword KEY_PASSWORD
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField("String", "ADMOB_BOTTOM_BANNER_ID", ADMOB_BOTTOM_BANNER_ID_RELEASE)
+            signingConfig signingConfigs.release
         }
 
         debug {
             buildConfigField("String", "ADMOB_BOTTOM_BANNER_ID", ADMOB_BOTTOM_BANNER_ID_DEBUG)
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
     buildFeatures {
         compose true
     }
+
     composeOptions {
         kotlinCompilerExtensionVersion '1.4.3'
     }
+
     packagingOptions {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
